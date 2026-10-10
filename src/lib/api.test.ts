@@ -7,10 +7,12 @@ afterEach(() => {
 });
 
 function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
+  return {
+    ok: status >= 200 && status < 300,
     status,
-    headers: { 'content-type': 'application/json' },
-  });
+    headers: { get: (name: string) => name.toLowerCase() === 'content-type' ? 'application/json' : null } as Headers,
+    json: async () => body,
+  } as Response;
 }
 
 describe('entry creation API payloads', () => {
