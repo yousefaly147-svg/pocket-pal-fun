@@ -174,7 +174,11 @@ export function Dashboard() {
         const kind = String(fd.get('kind') ?? 'added') as InvKind;
         const note = String(fd.get('note') ?? '').trim();
         if (kind === 'added' && amount > balance) { setFormError(t('err.overBalance', { amount: i.money(Math.max(0, balance)) })); return; }
-        const inv = await api.addInvestment(token, { kind, amount, note, created_at: new Date().toISOString() });
+        const chosen = String(fd.get('date') ?? '') || todayKey;
+        if (todayKey && chosen > todayKey) { setFormError(t('form.dateFuture')); return; }
+        const [y = 1970, m = 1, dd = 1] = chosen.split('-').map(Number);
+        const created_at = chosen === todayKey ? new Date().toISOString() : new Date(y, m - 1, dd, 12).toISOString();
+        const inv = await api.addInvestment(token, { kind, amount, note, created_at });
         let expense: Transaction | null = null;
         if (kind === 'added') {
           try {
@@ -187,7 +191,10 @@ export function Dashboard() {
           }
         }
         setData(d => ({ investments: [inv, ...d.investments], transactions: expense ? [expense, ...d.transactions] : d.transactions }));
-        show(t('toast.invest'));
+        setMonth(monthKeyOf(inv.createdAt) || currentMonthKey());
+        setDay(dayKeyOf(inv.createdAt) || todayKey);
+        const dateWasIgnored = dayKeyOf(inv.createdAt) !== chosen;
+        show(dateWasIgnored ? t('toast.dateIgnored') : t('toast.invest'), dateWasIgnored);
       }
       setModal(null);
     } catch (err) {
@@ -484,7 +491,7 @@ export function Dashboard() {
               {modal === 'invest' && <label className="field full">{t('form.kind')}<select name="kind" defaultValue={investKind}><option value="added">{t('inv.kind.added')}</option><option value="gain">{t('inv.kind.gain')}</option><option value="loss">{t('inv.kind.loss')}</option></select></label>}
               <label className={`field ${modal === 'income' || modal === 'expense' ? '' : 'full'}`}>{modal === 'budget' ? t('form.budget') : modal === 'goalEdit' ? t('form.goalTarget') : t('form.amount')}<input name="amount" type="number" inputMode="decimal" min="0.01" max={MAX_AMOUNT} step="0.01" required dir="ltr" defaultValue={modal === 'budget' ? budget ?? undefined : modal === 'goalEdit' ? goal?.target : undefined} placeholder="0.00" autoFocus /></label>
               {(modal === 'income' || modal === 'expense') && <label className="field">{t('form.category')}<select name="category" defaultValue={modal === 'income' ? 'Salary' : 'Food'}>{(modal === 'income' ? incomeCategories : expenseCategories).map(c => <option key={c} value={c}>{i.category(c)}</option>)}</select></label>}
-              {(modal === 'income' || modal === 'expense') && <label className="field full">{t('form.date')}<input name="date" type="date" dir="ltr" max={todayKey} value={pickedDate} onChange={e => setPickedDate(e.target.value)} />{pickedDate && pickedDate !== todayKey && <small className="field-hint date-warning">{t('form.dateHint')}</small>}</label>}
+              {(modal === 'income' || modal === 'expense' || modal === 'invest') && <label className="field full">{t('form.date')}<input name="date" type="date" dir="ltr" max={todayKey} value={pickedDate} onChange={e => setPickedDate(e.target.value)} />{pickedDate && pickedDate !== todayKey && <small className="field-hint date-warning">{t('form.dateHint')}</small>}</label>}
               {modal === 'invest' && <><label className="field full">{t('form.note')}<input name="note" maxLength={120} dir="auto" /></label><p className="field-hint full">{t('inv.available', { amount: i.money(Math.max(0, balance)) })}</p></>}
               {(modal === 'budget' || modal === 'goal' || modal === 'goalEdit') && <p className="device-note full"><Smartphone /> {t('device.only')}</p>}
             </div>
