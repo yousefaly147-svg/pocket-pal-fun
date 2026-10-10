@@ -1,0 +1,23 @@
+name: Verify frontend
+on:
+  push:
+    branches: [fix/persist-selected-entry-dates]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'bun.lock'
+      - 'vite.config.*'
+      - '.github/workflows/verify.yml'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run test
+      - run: bun run build

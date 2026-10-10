@@ -122,15 +122,15 @@ export const api = {
   /** Requires a NEW server route (not live yet): verifies the Google ID token server-side and returns { token, user }. */
   googleLogin: async (credential: string) => toAuth(await request('/api/auth/google', { method: 'POST', body: { credential } })),
   getData: async (token: string) => toMoneyData(await request('/api/data', { token })),
-  // created_at is sent for when the server learns to accept a chosen date; today it is ignored (verified) and the server sets the time.
+  // The server accepts createdAt, so pass through the user's selected created_at date.
   addTransaction: async (token: string, input: { type: TxType; amount: number; category: string; description: string; created_at?: string }) => {
-    const tx = toTransaction((await request('/api/transactions', { method: 'POST', body: input, token })) as Raw);
+    const tx = toTransaction((await request('/api/transactions', { method: 'POST', body: { ...input, createdAt: input.created_at }, token })) as Raw);
     if (!tx) throw new ApiError('unknown', 200, 'Unexpected response');
     return tx;
   },
   deleteTransaction: async (token: string, id: string) => { await request(`/api/transactions/${encodeURIComponent(id)}`, { method: 'DELETE', token }); },
   addInvestment: async (token: string, input: { kind: InvKind; amount: number; note: string; created_at?: string }) => {
-    const inv = toInvestment((await request('/api/investments', { method: 'POST', body: input, token })) as Raw);
+    const inv = toInvestment((await request('/api/investments', { method: 'POST', body: { ...input, createdAt: input.created_at }, token })) as Raw);
     if (!inv) throw new ApiError('unknown', 200, 'Unexpected response');
     return inv;
   },
