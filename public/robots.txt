@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://pocket-pal-fun.lovable.app/sitemap.xml
+Sitemap: https://pocketjr.lovable.app/sitemap.xml
