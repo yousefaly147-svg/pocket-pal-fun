@@ -1,0 +1,15 @@
+# Roadmap
+- [x] Build the cohesive dashboard, navigation views, and cartoon artwork.
+- [x] Add local transaction, transfer, filter, budget, and goal interactions.
+- [x] Verify desktop/mobile layout and core transaction flow.
+- [x] Connect Pocket to the My Money API (login/register/logout, GET /api/data, add/delete transactions and investments).
+- [x] Remove mock financial data; keep budget and goal on this device per account, clearly labelled.
+- [x] Add Investments view with contribution-as-expense behaviour and no double counting.
+- [x] Full English/Arabic localization with RTL, Western digits, persistent choice.
+- [x] Verify with a throwaway account in the browser (EN + AR, desktop + mobile).
+- [x] Fix language persistence/RTL on refresh.
+- [x] Optional transaction descriptions.
+- [x] Day view + date field (saving chosen dates blocked: server ignores created_at) with income/expense/net.
+- [x] Currency symbol-only preference per account, prompted after first sign-in (no conversion, with warning).
+- [x] Investments live data: USD/EGP, SAR/EGP, 24K gold EGP/gram with source, timestamp, stale state.
+- [ ] Google sign-in: frontend ready but hidden. Blocked on server route POST /api/auth/google + Google Client ID.
