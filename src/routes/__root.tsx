@@ -102,13 +102,13 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4RRZ02R0T" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XF6WJJQYRD" />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){window.dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-L4RRZ02R0T');`,
+gtag('config', 'G-XF6WJJQYRD');`,
           }}
         />
         <script dangerouslySetInnerHTML={{ __html: langBootScript }} />
