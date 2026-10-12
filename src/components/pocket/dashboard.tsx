@@ -4,7 +4,7 @@ import {
   ArrowDownLeft, ArrowUpRight, ArrowRight, Bell, LayoutDashboard, ReceiptText, ChartPie, Flag, Settings, ChevronDown, CalendarDays,
   Utensils, CarFront, ShoppingBag, Music2, Ellipsis, Plus, Eye, EyeOff, TrendingDown, TrendingUp, Lightbulb, Heart, ShieldCheck, CircleHelp,
   Sparkles, Check, Search, Banknote, Target, Hand, UserRound, Sun, Receipt, GraduationCap, HeartPulse, Gift, Trophy, PiggyBank, Trash2,
-  LogOut, RefreshCw, Smartphone, CircleAlert, ChevronLeft, ChevronRight, type LucideIcon,
+  LogIn, LogOut, RefreshCw, Smartphone, CircleAlert, ChevronLeft, ChevronRight, type LucideIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -18,6 +18,7 @@ import { cashBalance, currentMonthKey, dayKeyOf, daySummary, shiftDay, monthKeyO
 import { useI18n, type TKey } from '@/lib/i18n';
 import { categorySlug, expenseCategories, incomeCategories, INVESTMENT_CATEGORY } from '@/lib/money-data';
 import { LangToggle } from './lang-toggle';
+import { CartesianGrid, Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 type View = 'Dashboard' | 'Transactions' | 'Budgets' | 'Goals' | 'Investments' | 'Settings';
 type Modal = 'income' | 'expense' | 'invest' | 'budget' | 'goal' | 'goalEdit' | 'notifications' | 'help' | null;
@@ -43,7 +44,7 @@ export function Dashboard() {
   const i = useI18n();
   const { t } = i;
   const cur = i.currency;
-  const { session, logout } = useAuth();
+  const { session, logout, openAuthScreen, changeUsername } = useAuth();
   // Android-only notice (iOS/desktop: hidden). Detected after mount to avoid hydration mismatch.
   const [isAndroid, setIsAndroid] = useState(false);
   useEffect(() => { setIsAndroid(/Android/i.test(navigator.userAgent)); }, []);
@@ -72,6 +73,8 @@ export function Dashboard() {
   const [hidden, setHidden] = useState(false);
   const [toast, setToast] = useState<{ text: string; error?: boolean } | null>(null);
   const [chartMode, setChartMode] = useState<'amount' | 'percent'>('amount');
+  const [usernameDraft, setUsernameDraft] = useState(session?.username ?? '');
+  const [usernameBusy, setUsernameBusy] = useState(false);
   const [formError, setFormError] = useState('');
   const [busy, setBusy] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
@@ -79,6 +82,7 @@ export function Dashboard() {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => { const n = new Date(); setNow(n); setDay(dayKeyOf(n.toISOString())); }, []);
+  useEffect(() => { setUsernameDraft(session?.username ?? ''); }, [session?.username]);
   const todayKey = now ? dayKeyOf(now.toISOString()) : '';
   const [pickedDate, setPickedDate] = useState('');
   useEffect(() => { setPickedDate(todayKey); }, [modal, todayKey]);
@@ -102,6 +106,20 @@ export function Dashboard() {
   const byCategory = useMemo(() => spendingByCategory(txs, month), [txs, month]);
   const balance = useMemo(() => cashBalance(txs), [txs]);
   const folio = useMemo(() => portfolio(invs), [invs]);
+  const investmentHistory = useMemo(() => {
+    const ordered = [...invs].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    const firstDeposit = ordered.findIndex(item => item.kind === 'added');
+    if (firstDeposit < 0) return [];
+    let value = 0;
+    return ordered.slice(firstDeposit).map(item => {
+      value += item.kind === 'loss' ? -item.amount : item.amount;
+      return {
+        date: i.date(item.createdAt, { day: 'numeric', month: 'short' }),
+        fullDate: i.date(item.createdAt, { day: 'numeric', month: 'long', year: 'numeric' }),
+        value: Math.round(value * 100) / 100,
+      };
+    });
+  }, [invs, i.date, i.lang]);
   const spent = totals.spending;
   const budget = prefs.budget;
   const goal = prefs.goal;
@@ -219,6 +237,24 @@ export function Dashboard() {
     finally { setDeleting(null); }
   }
   function openInvest(kind: InvKind) { setInvestKind(kind); setModal('invest'); }
+
+  async function saveUsername() {
+    const value = usernameDraft.trim();
+    if (!/^[A-Za-z0-9_.-]{3,20}$/.test(value)) {
+      show(t('err.usernameFormat'), true);
+      return;
+    }
+    setUsernameBusy(true);
+    try {
+      await changeUsername(value);
+      setUsernameDraft(value);
+      show(t('settings.usernameSaved'));
+    } catch (err) {
+      show(errorText(err), true);
+    } finally {
+      setUsernameBusy(false);
+    }
+  }
 
   // ---------- Loading / error ----------
   if (prefsLoaded && !prefs.currency) {
@@ -341,10 +377,13 @@ export function Dashboard() {
             {now && <span className="top-date">{i.date(now.toISOString(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span>}
             <LangToggle />
             <Button variant="ghost" size="icon" className="notification-button" aria-label={t('top.notifications')} title={t('top.notifications')} onClick={() => setModal('notifications')}><Bell /></Button>
-            <Button variant="ghost" className="profile-button" onClick={() => setView('Settings')} aria-label={t('top.profile')}><span className="avatar"><UserRound /></span><span className="profile-name" dir="ltr">{session!.email}</span><ChevronDown className="h-3 w-3" /></Button>
+            {session!.guest
+              ? <Button variant="ghost" className="profile-button guest-profile-button" onClick={openAuthScreen} aria-label={t('auth.accountCta')}><span className="avatar"><LogIn /></span><span className="profile-name">{t('auth.accountCta')}</span></Button>
+              : <Button variant="ghost" className="profile-button" onClick={() => setView('Settings')} aria-label={t('top.profile')}><span className="avatar"><UserRound /></span><span className="profile-name" dir="ltr">{session!.email}</span><ChevronDown className="h-3 w-3" /></Button>}
           </div>
         </header>
 
+        {session!.guest && <p className="guest-mode-notice">{t('guest.localNotice')}</p>}
         <div className="greeting-row">
           <div className="min-w-0"><h1>{view === 'Dashboard' ? t('greet.hello') : t(`nav.${view}` as TKey)} {view === 'Dashboard' && <Hand className="greeting-wave" />}</h1><p>{t(subKey)}</p></div>
           {view !== 'Settings' && view !== 'Investments' && <div className="select-wrap"><CalendarDays /><select className="period-select" aria-label={t('period.aria')} value={month} onChange={e => setMonth(e.target.value)}>{months.map(m => <option key={m} value={m}>{i.month(m)}</option>)}</select><ChevronDown /></div>}
@@ -433,6 +472,26 @@ export function Dashboard() {
             <section className="panel inv-stat"><span>{t('inv.gains')}</span><strong className="positive"><Num>+{i.money(folio.gains)}</Num></strong></section>
             <section className="panel inv-stat"><span>{t('inv.losses')}</span><strong className="negative"><Num>−{i.money(folio.losses)}</Num></strong></section>
           </div>
+          <section className="panel investment-chart-panel">
+            <div className="panel-header"><div><h2>{t('inv.chartTitle')}</h2><p className="investment-chart-description">{t('inv.chartDesc')}</p></div></div>
+            {investmentHistory.length === 0
+              ? <div className="investment-chart-empty">{t('inv.chartEmpty')}</div>
+              : <div className="investment-chart-wrap">
+                  <ResponsiveContainer width="100%" height={260}>
+                    <RechartsLineChart data={investmentHistory} margin={{ top: 10, right: 14, bottom: 4, left: 4 }}>
+                      <CartesianGrid stroke="var(--border)" strokeDasharray="4 4" vertical={false} />
+                      <XAxis dataKey="date" tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }} tickLine={false} axisLine={{ stroke: 'var(--border)' }} minTickGap={24} />
+                      <YAxis width={82} tick={{ fill: 'var(--muted-foreground)', fontSize: 11 }} tickLine={false} axisLine={false} tickFormatter={value => i.money(Number(value))} />
+                      <Tooltip
+                        labelFormatter={label => String(label)}
+                        formatter={value => [`${cur} ${i.money(Number(value ?? 0))}`, t('inv.value')]}
+                        contentStyle={{ background: 'var(--card)', borderColor: 'var(--border)', borderRadius: 12, color: 'var(--foreground)' }}
+                      />
+                      <Line type="monotone" dataKey="value" stroke="var(--primary)" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                    </RechartsLineChart>
+                  </ResponsiveContainer>
+                </div>}
+          </section>
           <LiveRates />
           <p className="device-note inv-explain"><Lightbulb /> {t('inv.explain')}</p>
           <div className="toolbar-actions inv-actions"><Button onClick={() => openInvest('added')}><Plus /> {t('inv.addMoney')}</Button><Button variant="outline" onClick={() => openInvest('gain')}><TrendingUp /> {t('inv.addGain')}</Button><Button variant="outline" onClick={() => openInvest('loss')}><TrendingDown /> {t('inv.addLoss')}</Button></div>
@@ -455,10 +514,16 @@ export function Dashboard() {
             <h2 className="settings-title">{t('settings.title')}</h2>
             <div className="form-grid">
               <label className="field full">{t('settings.language')}<select value={i.lang} onChange={e => i.setLang(e.target.value === 'ar' ? 'ar' : 'en')}><option value="en">{t('lang.en')}</option><option value="ar">{t('lang.ar')}</option></select><small className="field-hint">{t('settings.langHint')}</small></label>
-              <label className="field">{t('settings.email')}<input value={session!.email} readOnly dir="ltr" /></label>
+              {session!.guest
+                ? <div className="guest-account-note full"><p>{t('guest.localNotice')}</p><Button type="button" variant="outline" onClick={openAuthScreen}><LogIn /> {t('auth.accountCta')}</Button></div>
+                : <>
+                    <label className="field">{t('settings.username')}<input name="username" value={usernameDraft} onChange={e => setUsernameDraft(e.target.value)} autoComplete="username" minLength={3} maxLength={20} dir="ltr" /><small className="field-hint">{t('auth.usernameHint')}</small></label>
+                    <label className="field">{t('settings.email')}<input value={session!.email} readOnly dir="ltr" /></label>
+                  </>}
               <label className="field">{t('settings.currency')}<select value={cur} onChange={e => { updatePrefs({ currency: e.target.value }); show(t('cur.saved')); }}>{CURRENCIES.map(c => <option key={c} value={c}>{c} · {i.currencyName(c)}</option>)}</select><small className="field-hint">{t('cur.hint')} {t('device.only')}</small></label>
             </div>
-            <Button variant="outline" className="mt-6" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button>
+            {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => void saveUsername()} disabled={usernameBusy}><Check /> {usernameBusy ? t('auth.working') : t('settings.usernameSave')}</Button>}
+            {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button>}
           </section>
           {isAndroid && <section className="panel settings-panel" aria-label={t('telda.title')}>
             <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {t('telda.title')}</h2>
