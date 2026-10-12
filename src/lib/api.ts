@@ -14,7 +14,7 @@ export function getApiBase(): string {
   return (fromWindow || fromEnv || DEFAULT_API_URL).replace(/\/+$/, '');
 }
 
-export type ApiErrorCode = 'network' | 'timeout' | 'unauthorized' | 'invalidCredentials' | 'emailTaken' | 'invalidInput' | 'server' | 'unknown';
+export type ApiErrorCode = 'network' | 'timeout' | 'unauthorized' | 'invalidCredentials' | 'emailTaken' | 'usernameTaken' | 'invalidInput' | 'server' | 'unknown';
 
 export class ApiError extends Error {
   code: ApiErrorCode;
@@ -31,7 +31,7 @@ export type InvKind = 'added' | 'gain' | 'loss';
 export type Transaction = { id: string; type: TxType; amount: number; category: string; description: string; createdAt: string };
 export type Investment = { id: string; kind: InvKind; amount: number; note: string; createdAt: string };
 export type MoneyData = { transactions: Transaction[]; investments: Investment[] };
-export type AuthResult = { token: string; user: { id: string; email: string } };
+export type AuthResult = { token: string; user: { id: string; email: string; username: string } };
 
 type Raw = Record<string, unknown>;
 
@@ -69,6 +69,62 @@ export function toMoneyData(r: unknown): MoneyData {
   };
 }
 
+
+const GUEST_DATA_PREFIX = 'pocket:guest:data:v1:';
+const EMPTY_MONEY_DATA: MoneyData = { transactions: [], investments: [] };
+
+function guestIdFromToken(token: string): string | null {
+  return token.startsWith('guest-local:') ? token.slice('guest-local:'.length) : null;
+}
+function guestDataKey(token: string): string | null {
+  const id = guestIdFromToken(token);
+  return id ? `${GUEST_DATA_PREFIX}${id}` : null;
+}
+function isGuestToken(token: string): boolean { return guestIdFromToken(token) !== null; }
+function readGuestData(token: string): MoneyData {
+  const key = guestDataKey(token);
+  if (!key || typeof window === 'undefined') return EMPTY_MONEY_DATA;
+  try { return toMoneyData(JSON.parse(window.localStorage.getItem(key) ?? '{}')); }
+  catch { return EMPTY_MONEY_DATA; }
+}
+function writeGuestData(token: string, data: MoneyData): void {
+  const key = guestDataKey(token);
+  if (!key || typeof window === 'undefined') return;
+  window.localStorage.setItem(key, JSON.stringify({
+    transactions: data.transactions.map(item => ({ ...item, created_at: item.createdAt })),
+    investments: data.investments.map(item => ({ ...item, created_at: item.createdAt })),
+  }));
+}
+function localId(): string {
+  return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+    ? crypto.randomUUID()
+    : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+}
+function localTimestamp(value?: string): string {
+  if (!value) return new Date().toISOString();
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
+}
+function addGuestTransaction(token: string, input: { type: TxType; amount: number; category: string; description: string; created_at?: string }): Transaction {
+  const data = readGuestData(token);
+  const saved: Transaction = {
+    id: `guest-tx-${localId()}`, type: input.type, amount: Math.abs(input.amount),
+    category: input.category || 'Other', description: input.description || '',
+    createdAt: localTimestamp(input.created_at),
+  };
+  writeGuestData(token, { ...data, transactions: [saved, ...data.transactions] });
+  return saved;
+}
+function addGuestInvestment(token: string, input: { kind: InvKind; amount: number; note: string; created_at?: string }): Investment {
+  const data = readGuestData(token);
+  const saved: Investment = {
+    id: `guest-inv-${localId()}`, kind: input.kind, amount: Math.abs(input.amount),
+    note: input.note || '', createdAt: localTimestamp(input.created_at),
+  };
+  writeGuestData(token, { ...data, investments: [saved, ...data.investments] });
+  return saved;
+}
+
 const TIMEOUT_MS = 70_000; // Render free instances can take ~a minute to wake up.
 
 async function request(path: string, opts: { method?: string; body?: unknown; token?: string } = {}): Promise<unknown> {
@@ -100,7 +156,7 @@ async function request(path: string, opts: { method?: string; body?: unknown; to
     const code: ApiErrorCode =
       res.status === 401 ? (isAuthRoute ? 'invalidCredentials' : 'unauthorized')
       : res.status === 403 ? 'unauthorized'
-      : res.status === 409 ? 'emailTaken'
+      : res.status === 409 ? (message.toLowerCase().includes('username') || path === '/api/profile' ? 'usernameTaken' : 'emailTaken')
       : res.status === 400 || res.status === 422 ? 'invalidInput'
       : res.status >= 500 ? 'server' : 'unknown';
     throw new ApiError(code, res.status, message);
@@ -113,32 +169,49 @@ function toAuth(r: unknown): AuthResult {
   const token = obj['token'];
   if (typeof token !== 'string' || !token) throw new ApiError('unknown', 200, 'Missing token');
   const user = (obj['user'] ?? {}) as Raw;
-  return { token, user: { id: String(user['id'] ?? ''), email: String(user['email'] ?? '') } };
+  const email = String(user['email'] ?? '');
+  return { token, user: { id: String(user['id'] ?? ''), email, username: String(user['username'] ?? email.split('@')[0]) } };
 }
 
 export const api = {
   login: async (email: string, password: string) => toAuth(await request('/api/auth/login', { method: 'POST', body: { email, password } })),
-  register: async (email: string, password: string) => toAuth(await request('/api/auth/register', { method: 'POST', body: { email, password } })),
-  /** Requires a NEW server route (not live yet): verifies the Google ID token server-side and returns { token, user }. */
+  register: async (email: string, password: string, username: string) => toAuth(await request('/api/auth/register', { method: 'POST', body: { email, password, username } })),
+  updateUsername: async (token: string, username: string) => toAuth(await request('/api/profile', { method: 'PATCH', body: { username }, token })),
+  /** Requires a configured Google client ID on the frontend and a verified server endpoint. */
   googleLogin: async (credential: string) => toAuth(await request('/api/auth/google', { method: 'POST', body: { credential } })),
-  getData: async (token: string) => toMoneyData(await request('/api/data', { token })),
-  // The server accepts createdAt, so pass through the user's selected created_at date.
+  getData: async (token: string) => isGuestToken(token) ? readGuestData(token) : toMoneyData(await request('/api/data', { token })),
   addTransaction: async (token: string, input: { type: TxType; amount: number; category: string; description: string; created_at?: string }) => {
+    if (isGuestToken(token)) return addGuestTransaction(token, input);
     const tx = toTransaction((await request('/api/transactions', { method: 'POST', body: { ...input, createdAt: input.created_at }, token })) as Raw);
     if (!tx) throw new ApiError('unknown', 200, 'Unexpected response');
     return tx;
   },
-  deleteTransaction: async (token: string, id: string) => { await request(`/api/transactions/${encodeURIComponent(id)}`, { method: 'DELETE', token }); },
+  deleteTransaction: async (token: string, id: string) => {
+    if (isGuestToken(token)) {
+      const data = readGuestData(token);
+      writeGuestData(token, { ...data, transactions: data.transactions.filter(item => item.id !== id) });
+      return;
+    }
+    await request(`/api/transactions/${encodeURIComponent(id)}`, { method: 'DELETE', token });
+  },
   addInvestment: async (token: string, input: { kind: InvKind; amount: number; note: string; created_at?: string }) => {
+    if (isGuestToken(token)) return addGuestInvestment(token, input);
     const inv = toInvestment((await request('/api/investments', { method: 'POST', body: { ...input, createdAt: input.created_at }, token })) as Raw);
     if (!inv) throw new ApiError('unknown', 200, 'Unexpected response');
     return inv;
   },
-  deleteInvestment: async (token: string, id: string) => { await request(`/api/investments/${encodeURIComponent(id)}`, { method: 'DELETE', token }); },
+  deleteInvestment: async (token: string, id: string) => {
+    if (isGuestToken(token)) {
+      const data = readGuestData(token);
+      writeGuestData(token, { ...data, investments: data.investments.filter(item => item.id !== id) });
+      return;
+    }
+    await request(`/api/investments/${encodeURIComponent(id)}`, { method: 'DELETE', token });
+  },
 };
 
 /** Reads the (unverified) JWT payload for display/session expiry only; the API verifies the token. */
-export function decodeToken(token: string): { id: string; email: string; exp: number | undefined } | null {
+export function decodeToken(token: string): { id: string; email: string; username?: string; exp: number | undefined } | null {
   try {
     const part = token.split('.')[1];
     if (!part) return null;
@@ -146,7 +219,7 @@ export function decodeToken(token: string): { id: string; email: string; exp: nu
     const payload = JSON.parse(decodeURIComponent(Array.from(atob(b64), c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0')).join(''))) as Raw;
     const id = payload['id'] ?? payload['sub'];
     if (id == null) return null;
-    return { id: String(id), email: String(payload['email'] ?? ''), exp: typeof payload['exp'] === 'number' ? payload['exp'] : undefined };
+    return { id: String(id), email: String(payload['email'] ?? ''), username: typeof payload['username'] === 'string' ? payload['username'] : undefined, exp: typeof payload['exp'] === 'number' ? payload['exp'] : undefined };
   } catch {
     return null;
   }
