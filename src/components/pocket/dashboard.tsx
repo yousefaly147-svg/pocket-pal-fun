@@ -12,7 +12,6 @@ import { WalletFriend, GoalFriend, LogoMark } from '@/components/cartoon';
 import { api, ApiError, type InvKind, type MoneyData, type Transaction, type TxType } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { CURRENCIES, useDevicePrefs } from '@/lib/device-prefs';
-import { CurrencyPrompt } from './currency-prompt';
 import { LiveRates } from './live-rates';
 import { cashBalance, currentMonthKey, dayKeyOf, daySummary, shiftDay, monthKeyOf, monthOptions, monthTotals, portfolio, previousMonthKey, spendingByCategory } from '@/lib/finance';
 import { useI18n, type TKey } from '@/lib/i18n';
@@ -257,9 +256,6 @@ export function Dashboard() {
   }
 
   // ---------- Loading / error ----------
-  if (prefsLoaded && !prefs.currency) {
-    return <CurrencyPrompt onChoose={c => updatePrefs({ currency: c })} />;
-  }
   if (query.isPending || !prefsLoaded) {
     return <div className="state-screen" role="status" aria-live="polite"><LogoMark /><div className="state-spinner" aria-hidden="true" /><h1>{t('load.title')}</h1>{slow && <p>{t('load.waking')}</p>}</div>;
   }
