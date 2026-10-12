@@ -8,7 +8,7 @@ import { useI18n, type TKey } from '@/lib/i18n';
 import { LangToggle } from './lang-toggle';
 import { GoogleSignIn, googleReady } from './google-signin';
 
-export function AuthScreen() {
+export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
   const { t } = useI18n();
   const { login, register, loginWithGoogle, notice } = useAuth();
   const [mode, setMode] = useState<'login' | 'register'>('login');
@@ -20,12 +20,14 @@ export function AuthScreen() {
     const fd = new FormData(e.currentTarget);
     const email = String(fd.get('email') ?? '').trim();
     const password = String(fd.get('password') ?? '');
+    const username = String(fd.get('username') ?? '').trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return setError(t('err.email'));
+    if (mode === 'register' && !/^[A-Za-z0-9_.-]{3,20}$/.test(username)) return setError(t('err.usernameFormat'));
     if (mode === 'register' && password.length < 8) return setError(t('err.password'));
     if (!password) return setError(t('err.password'));
     setBusy(true); setError('');
     try {
-      await (mode === 'login' ? login(email, password) : register(email, password));
+      await (mode === 'login' ? login(email, password) : register(email, password, username));
     } catch (err) {
       const code = err instanceof ApiError ? err.code : 'unknown';
       setError(t(code === 'invalidInput' && mode === 'register' ? 'err.registerInvalid' : (`err.${code}` as TKey)));
@@ -36,7 +38,7 @@ export function AuthScreen() {
 
   return (
     <div className="auth-shell">
-      <div className="auth-top"><div className="brand"><LogoMark /><span className="brand-word">pocket<span className="brand-dot">.</span></span></div><LangToggle /></div>
+      <div className="auth-top"><div className="brand"><LogoMark /><span className="brand-word">pocket<span className="brand-dot">.</span></span></div><div className="auth-top-actions">{onDismiss && <Button type="button" variant="outline" size="sm" onClick={onDismiss}>{t('auth.continueGuest')}</Button>}<LangToggle /></div></div>
       <main className="auth-card panel">
         <div className="auth-art balance-card"><WalletFriend /><h1>{t('auth.welcome')}</h1><p>{t('auth.sub')}</p></div>
         <div className="auth-form">
@@ -46,6 +48,7 @@ export function AuthScreen() {
           </div>
           <form onSubmit={onSubmit} noValidate>
             <div className="form-grid">
+              {mode === 'register' && <label className="field full">{t('auth.username')}<input name="username" type="text" autoComplete="username" required minLength={3} maxLength={20} pattern="[A-Za-z0-9_.-]{3,20}" dir="ltr" /><small className="field-hint">{t('auth.usernameHint')}</small></label>}
               <label className="field full">{t('auth.email')}<input name="email" type="email" autoComplete="email" required dir="ltr" maxLength={120} /></label>
               <label className="field full">{t('auth.password')}<input name="password" type="password" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} required minLength={mode === 'register' ? 8 : undefined} maxLength={200} dir="ltr" />{mode === 'register' && <small className="field-hint">{t('auth.passwordHint')}</small>}</label>
             </div>
