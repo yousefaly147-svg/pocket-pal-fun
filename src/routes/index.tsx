@@ -2,16 +2,16 @@ import { createFileRoute } from '@tanstack/react-router';
 import { LogoMark } from '@/components/cartoon';
 import { AuthScreen } from '@/components/pocket/auth-screen';
 import { Dashboard } from '@/components/pocket/dashboard';
-import { GuestEntry } from '@/components/pocket/guest-entry';
+import { LandingPage } from '@/components/pocket/landing-page';
 import { useAuth } from '@/lib/auth';
 
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
-      { title: 'Pocket Pal — Your Friendly Money Tracker' },
-      { name: 'description', content: 'Pocket Pal is a friendly money tracker for recording income, expenses and investments, with a playful dashboard in English and Arabic.' },
-      { property: 'og:title', content: 'Pocket Pal — Your Money, Feeling Good' },
-      { property: 'og:description', content: 'Track income, expenses and investments with Pocket Pal, a friendly personal finance dashboard.' },
+      { title: 'Pocket Pal – Free Expense Tracker & Money Manager' },
+      { name: 'description', content: 'Track expenses, income, and investments with Pocket Pal, a friendly personal finance tracker with English and Arabic support. Start in EGP, no account required.' },
+      { property: 'og:title', content: 'Pocket Pal – Your Money, Feeling Good' },
+      { property: 'og:description', content: 'Track expenses, income, and investments with Pocket Pal. Explore the money tracker as a guest or create an account to save your data.' },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
@@ -23,6 +23,6 @@ function Index() {
   const { status, session, authScreenOpen, closeAuthScreen } = useAuth();
   if (status === 'checking') return <div className="state-screen" aria-busy="true"><LogoMark /><div className="state-spinner" aria-hidden="true" /></div>;
   if (authScreenOpen) return <AuthScreen onDismiss={closeAuthScreen} />;
-  if (status === 'signedOut' || !session) return <GuestEntry />;
+  if (status === 'signedOut' || !session) return <LandingPage />;
   return <Dashboard key={session.userId} />;
 }
