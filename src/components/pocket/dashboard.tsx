@@ -379,7 +379,7 @@ export function Dashboard() {
             <Button variant="ghost" size="icon" className="notification-button" aria-label={t('top.notifications')} title={t('top.notifications')} onClick={() => setModal('notifications')}><Bell /></Button>
             {session!.guest
               ? <Button variant="ghost" className="profile-button guest-profile-button" onClick={openAuthScreen} aria-label={t('auth.accountCta')}><span className="avatar"><LogIn /></span><span className="profile-name">{t('auth.accountCta')}</span></Button>
-              : <Button variant="ghost" className="profile-button" onClick={() => setView('Settings')} aria-label={t('top.profile')}><span className="avatar"><UserRound /></span><span className="profile-name" dir="ltr">{session!.email}</span><ChevronDown className="h-3 w-3" /></Button>}
+              : <Button variant="ghost" className="profile-button" onClick={() => setView('Settings')} aria-label={t('top.profile')}><span className="avatar"><UserRound /></span><span className="profile-name" dir="ltr">{session!.username || session!.email.split('@')[0]}</span><ChevronDown className="h-3 w-3" /></Button>}
           </div>
         </header>
 
