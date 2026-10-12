@@ -1,7 +1,7 @@
 name: Verify frontend
 on:
   push:
-    branches: [fix/persist-selected-entry-dates]
+    branches: [main, fix/persist-selected-entry-dates]
   pull_request:
     branches: [main]
     paths:
