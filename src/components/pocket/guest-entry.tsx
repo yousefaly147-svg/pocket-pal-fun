@@ -43,6 +43,10 @@ export function GuestEntry() {
   return <CurrencyPrompt
     onAccountClick={openAuthScreen}
     onChoose={currency => {
+      // Persist the first choice synchronously before switching routes.
+      try {
+        localStorage.setItem(`pocket:device:guest-${guestId}`, JSON.stringify({ budget: null, goal: null, currency }));
+      } catch { /* useDevicePrefs will handle unavailable storage */ }
       update({ currency });
       startGuest(guestId);
     }}
