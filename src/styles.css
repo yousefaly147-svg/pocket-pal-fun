@@ -335,3 +335,20 @@
 .auth-or { display:flex; align-items:center; gap:10px; margin:16px 0 10px; color:var(--muted-foreground); font-size:12px; }
 .auth-or::before, .auth-or::after { content:''; flex:1; height:1px; background:var(--border); }
 .google-signin { display:flex; justify-content:center; min-height:44px; }
+
+
+/* ---------- Guest mode and investment history chart ---------- */
+.auth-top-actions { display:flex; align-items:center; gap:10px; }
+.guest-mode-notice { margin:0 0 14px; color:var(--muted-foreground); background:var(--muted); border-radius:12px; padding:10px 14px; font-size:12px; line-height:1.6; }
+.guest-account-note { display:flex; flex-direction:column; align-items:flex-start; gap:12px; background:var(--muted); border-radius:14px; padding:14px; }
+.guest-account-note p { margin:0; color:var(--muted-foreground); font-size:13px; line-height:1.6; }
+.investment-chart-panel { margin:0 0 16px; }
+.investment-chart-description { margin:4px 0 0; color:var(--muted-foreground); font-size:12px; line-height:1.5; }
+.investment-chart-wrap { width:100%; height:260px; min-width:0; margin-top:8px; }
+.investment-chart-empty { display:flex; align-items:center; justify-content:center; min-height:190px; padding:24px; text-align:center; color:var(--muted-foreground); border:1px dashed var(--border); border-radius:14px; font-size:13px; line-height:1.6; }
+.guest-profile-button .profile-name { max-width:150px; white-space:nowrap; }
+@media(max-width:760px) {
+  .auth-top-actions { gap:6px; }
+  .auth-top-actions button { font-size:12px; padding-inline:10px; }
+  .guest-profile-button .profile-name { max-width:100px; }
+}
