@@ -2,6 +2,7 @@ import { ArrowRight, ChartNoAxesCombined, Languages, LogIn, ShieldCheck, Sparkle
 import { Button } from '@/components/ui/button';
 import { LogoMark, WalletFriend } from '@/components/cartoon';
 import { useAuth } from '@/lib/auth';
+import { useI18n } from '@/lib/i18n';
 import { LangToggle } from './lang-toggle';
 
 function makeGuestId() {
@@ -31,7 +32,7 @@ function startWithEgp(startGuest: (guestId: string) => void) {
 
 export function LandingPage() {
   const { openAuthScreen, startGuest } = useAuth();
-  const { t, lang } = requireI18n();
+  const { t, lang } = useI18n();
   const ar = lang === 'ar';
 
   return (
@@ -139,9 +140,3 @@ export function LandingPage() {
   );
 }
 
-function requireI18n() {
-  // A normal hook wrapper keeps this component's translations in the shared app context.
-  return useLandingI18n();
-}
-
-import { useI18n as useLandingI18n } from '@/lib/i18n';
