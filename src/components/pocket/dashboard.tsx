@@ -46,7 +46,25 @@ export function Dashboard() {
   const { session, logout, openAuthScreen, changeUsername } = useAuth();
   // Android-only notice (iOS/desktop: hidden). Detected after mount to avoid hydration mismatch.
   const [isAndroid, setIsAndroid] = useState(false);
-  useEffect(() => { setIsAndroid(/Android/i.test(navigator.userAgent)); }, []);
+  const [isPocketAndroid, setIsPocketAndroid] = useState(false);
+  const [teldaEnabled, setTeldaEnabled] = useState(false);
+  const [teldaAccess, setTeldaAccess] = useState(false);
+  const refreshTeldaStatus = () => {
+    const bridge = window.PocketPalAndroid;
+    setIsPocketAndroid(Boolean(bridge));
+    setTeldaEnabled(bridge?.isAutoImportEnabled() ?? false);
+    setTeldaAccess(bridge?.isNotificationAccessEnabled() ?? false);
+  };
+  useEffect(() => {
+    setIsAndroid(/Android/i.test(navigator.userAgent));
+    refreshTeldaStatus();
+    window.addEventListener('focus', refreshTeldaStatus);
+    document.addEventListener('visibilitychange', refreshTeldaStatus);
+    return () => {
+      window.removeEventListener('focus', refreshTeldaStatus);
+      document.removeEventListener('visibilitychange', refreshTeldaStatus);
+    };
+  }, []);
   const token = session!.token;
   const userId = session!.userId;
   const queryClient = useQueryClient();
@@ -523,7 +541,23 @@ export function Dashboard() {
           </section>
           {isAndroid && <section className="panel settings-panel" aria-label={t('telda.title')}>
             <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {t('telda.title')}</h2>
-            <p className="text-sm leading-7 text-muted-foreground">{t('telda.body')}</p>
+            <p className="text-sm leading-7 text-muted-foreground">
+              {isPocketAndroid
+                ? (!teldaAccess ? t('telda.accessOnly') : teldaEnabled ? t('telda.enabled') : t('telda.body'))
+                : t('telda.body')}
+            </p>
+            {isPocketAndroid && <>
+              <div className="flex flex-wrap gap-3 mt-4">
+                <Button variant="outline" onClick={() => {
+                  const next = !teldaEnabled;
+                  window.PocketPalAndroid?.setAutoImportEnabled(next);
+                  setTeldaEnabled(next);
+                  if (next && !teldaAccess) show(t('telda.permissionPrompt'));
+                  else show(next ? t('telda.enabledToast') : t('telda.disabledToast'));
+                }}>{teldaEnabled ? t('telda.disable') : t('telda.enable')}</Button>
+                <Button variant="outline" onClick={() => window.PocketPalAndroid?.requestNotificationAccess()}>{t('telda.managePermission')}</Button>
+              </div>
+            </>}
           </section>}
           <section className="panel settings-panel">
             <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {t('settings.device')}</h2>
