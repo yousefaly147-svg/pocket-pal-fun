@@ -114,6 +114,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!s) return;
     queryClient.clear();
     try { localStorage.setItem(TOKEN_KEY, token); } catch { /* ignore */ }
+    syncNativeSession(null);
     setSession(s);
     setStatus('signedIn');
     setAuthScreenOpen(false);
