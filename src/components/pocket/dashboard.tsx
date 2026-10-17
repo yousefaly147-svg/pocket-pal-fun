@@ -597,6 +597,7 @@ export function Dashboard() {
           <section className="panel settings-panel">
             <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {session!.guest ? t('settings.deviceGuest') : t('settings.device')}</h2>
             <p className="text-sm leading-7 text-muted-foreground">{syncError ? t('prefs.syncError') : session!.guest ? t('settings.deviceBodyGuest') : t('settings.deviceBody')}</p>
+            {syncError && !session!.guest && <Button variant="outline" className="mt-3" onClick={() => { void updatePrefs(prefs).then(synced => show(synced ? t('prefs.syncSuccess') : t('prefs.syncError'), !synced)); }}>{t('prefs.retry')}</Button>}
             <Button variant="outline" className="mt-5" onClick={() => { if (window.confirm(session!.guest ? t('settings.confirmClear') : t('settings.confirmClearCloud'))) { void clearPrefs().then(synced => show(synced ? t('settings.cleared') : t('prefs.syncError'), !synced)); } }}><Trash2 /> {t('settings.clearDevice')}</Button>
           </section>
         </div>}
