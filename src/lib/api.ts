@@ -31,6 +31,9 @@ export type InvKind = 'added' | 'gain' | 'loss';
 export type Transaction = { id: string; type: TxType; amount: number; category: string; description: string; createdAt: string };
 export type Investment = { id: string; kind: InvKind; amount: number; note: string; createdAt: string };
 export type MoneyData = { transactions: Transaction[]; investments: Investment[] };
+export type SavingsGoal = { name: string; target: number; saved: number };
+export type UserPreferences = { budget: number | null; goal: SavingsGoal | null; currency: string | null };
+export type PreferencesResult = { preferences: UserPreferences; hasSavedPreferences: boolean };
 export type AuthResult = { token: string; user: { id: string; email: string; username: string } };
 
 type Raw = Record<string, unknown>;
@@ -180,6 +183,60 @@ export const api = {
   /** Requires a configured Google client ID on the frontend and a verified server endpoint. */
   googleLogin: async (credential: string) => toAuth(await request('/api/auth/google', { method: 'POST', body: { credential } })),
   getData: async (token: string) => isGuestToken(token) ? readGuestData(token) : toMoneyData(await request('/api/data', { token })),
+  getPreferences: async (token: string): Promise<PreferencesResult> => {
+    if (isGuestToken(token)) {
+      return { preferences: { budget: null, goal: null, currency: null }, hasSavedPreferences: false };
+    }
+    const raw = (await request('/api/preferences', { token })) as Raw;
+    const p = (raw['preferences'] && typeof raw['preferences'] === 'object' ? raw['preferences'] : {}) as Raw;
+    const budgetValue = p['budget'];
+    const budget = budgetValue == null ? null : Number(budgetValue);
+    const suppliedGoal = p['goal'];
+    const goal = suppliedGoal && typeof suppliedGoal === 'object' && !Array.isArray(suppliedGoal)
+      ? {
+          name: typeof (suppliedGoal as Raw)['name'] === 'string' ? String((suppliedGoal as Raw)['name']) : '',
+          target: Number((suppliedGoal as Raw)['target']),
+          saved: Number((suppliedGoal as Raw)['saved'] ?? 0),
+        }
+      : null;
+    const currencies = ['EGP', 'USD', 'SAR', 'EUR', 'AED', 'GBP'];
+    const rawCurrency = p['currency'];
+    const currency = typeof rawCurrency === 'string' && currencies.includes(rawCurrency) ? rawCurrency : null;
+    return {
+      preferences: {
+        budget: budget !== null && Number.isFinite(budget) && budget > 0 ? budget : null,
+        goal: goal && goal.name.trim() && Number.isFinite(goal.target) && goal.target > 0 && Number.isFinite(goal.saved) && goal.saved >= 0 ? goal : null,
+        currency,
+      },
+      hasSavedPreferences: raw['hasSavedPreferences'] === true,
+    };
+  },
+  updatePreferences: async (token: string, patch: Partial<UserPreferences>): Promise<PreferencesResult> => {
+    if (isGuestToken(token)) throw new ApiError('invalidInput', 400, 'Guest preferences are saved locally.');
+    const raw = (await request('/api/preferences', { method: 'PATCH', body: patch, token })) as Raw;
+    const p = (raw['preferences'] && typeof raw['preferences'] === 'object' ? raw['preferences'] : {}) as Raw;
+    const budgetValue = p['budget'];
+    const budget = budgetValue == null ? null : Number(budgetValue);
+    const suppliedGoal = p['goal'];
+    const goal = suppliedGoal && typeof suppliedGoal === 'object' && !Array.isArray(suppliedGoal)
+      ? {
+          name: typeof (suppliedGoal as Raw)['name'] === 'string' ? String((suppliedGoal as Raw)['name']) : '',
+          target: Number((suppliedGoal as Raw)['target']),
+          saved: Number((suppliedGoal as Raw)['saved'] ?? 0),
+        }
+      : null;
+    const currencies = ['EGP', 'USD', 'SAR', 'EUR', 'AED', 'GBP'];
+    const rawCurrency = p['currency'];
+    const currency = typeof rawCurrency === 'string' && currencies.includes(rawCurrency) ? rawCurrency : null;
+    return {
+      preferences: {
+        budget: budget !== null && Number.isFinite(budget) && budget > 0 ? budget : null,
+        goal: goal && goal.name.trim() && Number.isFinite(goal.target) && goal.target > 0 && Number.isFinite(goal.saved) && goal.saved >= 0 ? goal : null,
+        currency,
+      },
+      hasSavedPreferences: raw['hasSavedPreferences'] === true,
+    };
+  },
   addTransaction: async (token: string, input: { type: TxType; amount: number; category: string; description: string; created_at?: string }) => {
     if (isGuestToken(token)) return addGuestTransaction(token, input);
     const tx = toTransaction((await request('/api/transactions', { method: 'POST', body: { ...input, createdAt: input.created_at }, token })) as Raw);
