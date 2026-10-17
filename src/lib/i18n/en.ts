@@ -94,7 +94,7 @@ export const en = {
   'budget.categoryEmpty': 'No spending this month yet. Add an expense to see your categories.',
   'device.only': 'Saved on this device only',
   'device.synced': 'Synced across your devices',
-  'prefs.syncError': 'Saved on this device, but could not sync to your account. Check your connection and try again.',
+  'prefs.syncError': 'Couldn’t sync to your account. Your device copy is kept, and we’ll retry when you’re back online.',
   'prefs.retry': 'Retry sync',
   'prefs.syncSuccess': 'Preferences synced to your account.',
 
