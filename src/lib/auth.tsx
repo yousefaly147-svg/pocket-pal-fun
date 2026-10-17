@@ -2,8 +2,26 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { useQueryClient } from '@tanstack/react-query';
 import { api, decodeToken } from './api';
 
+declare global {
+  interface Window {
+    PocketPalAndroid?: {
+      setAuthToken(token: string): void;
+      isNotificationAccessEnabled(): boolean;
+      isAutoImportEnabled(): boolean;
+      setAutoImportEnabled(enabled: boolean): void;
+      requestNotificationAccess(): void;
+    };
+  }
+}
+
 const TOKEN_KEY = 'pocket_token';
 const GUEST_TOKEN_PREFIX = 'guest-local:';
+
+function syncNativeSession(token: string | null) {
+  try {
+    window.PocketPalAndroid?.setAuthToken(token && !token.startsWith(GUEST_TOKEN_PREFIX) ? token : '');
+  } catch { /* native bridge is available only inside the Android app */ }
+}
 export type Session = { token: string; userId: string; email: string; username: string; guest: boolean };
 type Status = 'checking' | 'signedOut' | 'signedIn';
 type AuthCtx = {
@@ -54,6 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (token && !s) { try { localStorage.removeItem(TOKEN_KEY); } catch { /* ignore */ } setNotice('sessionExpired'); }
     setSession(s);
     setStatus(s ? 'signedIn' : 'signedOut');
+    syncNativeSession(s?.token ?? null);
   }, []);
 
   const start = useCallback((token: string, user: { id: string; email: string; username?: string }) => {
@@ -61,6 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!s) throw new Error('Invalid session');
     queryClient.clear();
     try { localStorage.setItem(TOKEN_KEY, token); } catch { /* ignore */ }
+    syncNativeSession(token);
     setNotice(null);
     setSession(s);
     setStatus('signedIn');
@@ -107,6 +127,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     void queryClient.cancelQueries();
     queryClient.clear();
     try { localStorage.removeItem(TOKEN_KEY); } catch { /* ignore */ }
+    syncNativeSession(null);
     setSession(null);
     setNotice(reason ?? null);
     setStatus('signedOut');
