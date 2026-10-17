@@ -107,7 +107,7 @@ export function Dashboard() {
     retry: (count, err) => !(err instanceof ApiError && (err.code === 'unauthorized' || err.code === 'invalidInput')) && count < 1,
     staleTime: 30_000,
   });
-  const { prefs, loaded: prefsLoaded, update: updatePrefs, clear: clearPrefs } = useDevicePrefs(userId);
+  const { prefs, loaded: prefsLoaded, syncError, update: updatePrefs, clear: clearPrefs } = useDevicePrefs(userId, token, session!.guest);
   const { setCurrency } = i;
   useEffect(() => { setCurrency(prefs.currency ?? 'EGP'); }, [prefs.currency, setCurrency]);
   useEffect(() => () => setCurrency('EGP'), [setCurrency]);
@@ -211,16 +211,16 @@ export function Dashboard() {
     if (rawAmount > MAX_AMOUNT) return setFormError(t('err.amountMax'));
     const amount = Math.round(rawAmount * 100) / 100;
 
-    if (modal === 'budget') { updatePrefs({ budget: amount }); show(t('toast.budget')); setModal(null); return; }
+    if (modal === 'budget') { const synced = await updatePrefs({ budget: amount }); show(synced ? t('toast.budget') : t('prefs.syncError'), !synced); setModal(null); return; }
     if (modal === 'goalEdit') {
       const name = String(fd.get('goalName') ?? '').trim();
       if (!name) return setFormError(t('err.goalName'));
-      updatePrefs({ goal: { name, target: amount, saved: goal?.saved ?? 0 } }); show(t('toast.goalSaved')); setModal(null); return;
+      const synced = await updatePrefs({ goal: { name, target: amount, saved: goal?.saved ?? 0 } }); show(synced ? t('toast.goalSaved') : t('prefs.syncError'), !synced); setModal(null); return;
     }
     if (modal === 'goal') {
       if (!goal) return;
-      updatePrefs({ goal: { ...goal, saved: Math.round((goal.saved + amount) * 100) / 100 } });
-      show(t('toast.goal', { amount: i.money(amount) })); setModal(null); return;
+      const synced = await updatePrefs({ goal: { ...goal, saved: Math.round((goal.saved + amount) * 100) / 100 } });
+      show(synced ? t('toast.goal', { amount: i.money(amount) }) : t('prefs.syncError'), !synced); setModal(null); return;
     }
 
     setBusy(true); setFormError('');
@@ -314,7 +314,7 @@ export function Dashboard() {
   }
 
   // ---------- Pieces ----------
-  const deviceBadge = <span className="device-badge"><Smartphone /> {t('device.only')}</span>;
+  const deviceBadge = <span className="device-badge"><Smartphone /> {session!.guest ? t('device.only') : t('device.synced')}</span>;
   const spendCompare = prevTotals.spending > 0 && spent > 0 ? Math.round(((spent - prevTotals.spending) / prevTotals.spending) * 100) : null;
 
   const transactionsPanel = (full: boolean) => (
@@ -566,7 +566,7 @@ export function Dashboard() {
                     <label className="field">{t('settings.username')}<input name="username" value={usernameDraft} onChange={e => setUsernameDraft(e.target.value)} autoComplete="username" minLength={3} maxLength={20} dir="ltr" /><small className="field-hint">{t('auth.usernameHint')}</small></label>
                     <label className="field">{t('settings.email')}<input value={session!.email} readOnly dir="ltr" /></label>
                   </>}
-              <label className="field">{t('settings.currency')}<select value={cur} onChange={e => { updatePrefs({ currency: e.target.value }); show(t('cur.saved')); }}>{CURRENCIES.map(c => <option key={c} value={c}>{c} · {i.currencyName(c)}</option>)}</select><small className="field-hint">{t('cur.hint')} {t('device.only')}</small></label>
+              <label className="field">{t('settings.currency')}<select value={cur} onChange={e => { const currency = e.target.value; void updatePrefs({ currency }).then(synced => show(synced ? t('cur.saved') : t('prefs.syncError'), !synced)); }}>{CURRENCIES.map(c => <option key={c} value={c}>{c} · {i.currencyName(c)}</option>)}</select><small className="field-hint">{t('cur.hint')} {session!.guest ? t('device.only') : t('device.synced')}</small></label>
             </div>
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => void saveUsername()} disabled={usernameBusy}><Check /> {usernameBusy ? t('auth.working') : t('settings.usernameSave')}</Button>}
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button>}
@@ -595,9 +595,9 @@ export function Dashboard() {
             </p>
           </section>}
           <section className="panel settings-panel">
-            <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {t('settings.device')}</h2>
-            <p className="text-sm leading-7 text-muted-foreground">{t('settings.deviceBody')}</p>
-            <Button variant="outline" className="mt-5" onClick={() => { if (window.confirm(t('settings.confirmClear'))) { clearPrefs(); show(t('settings.cleared')); } }}><Trash2 /> {t('settings.clearDevice')}</Button>
+            <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {session!.guest ? t('settings.deviceGuest') : t('settings.device')}</h2>
+            <p className="text-sm leading-7 text-muted-foreground">{syncError ? t('prefs.syncError') : session!.guest ? t('settings.deviceBodyGuest') : t('settings.deviceBody')}</p>
+            <Button variant="outline" className="mt-5" onClick={() => { if (window.confirm(session!.guest ? t('settings.confirmClear') : t('settings.confirmClearCloud'))) { void clearPrefs().then(synced => show(synced ? t('settings.cleared') : t('prefs.syncError'), !synced)); } }}><Trash2 /> {t('settings.clearDevice')}</Button>
           </section>
         </div>}
 
@@ -623,7 +623,7 @@ export function Dashboard() {
               {(modal === 'income' || modal === 'expense') && <label className="field">{t('form.category')}<select name="category" defaultValue={modal === 'income' ? 'Salary' : 'Food'}>{(modal === 'income' ? incomeCategories : expenseCategories).map(c => <option key={c} value={c}>{i.category(c)}</option>)}</select></label>}
               {(modal === 'income' || modal === 'expense' || modal === 'invest') && <label className="field full">{t('form.date')}<input name="date" type="date" dir="ltr" max={todayKey} value={pickedDate} onChange={e => setPickedDate(e.target.value)} />{pickedDate && pickedDate !== todayKey && <small className="field-hint date-warning">{t('form.dateHint')}</small>}</label>}
               {modal === 'invest' && <><label className="field full">{t('form.note')}<input name="note" maxLength={120} dir="auto" /></label><p className="field-hint full">{t('inv.available', { amount: i.money(Math.max(0, balance)) })}</p></>}
-              {(modal === 'budget' || modal === 'goal' || modal === 'goalEdit') && <p className="device-note full"><Smartphone /> {t('device.only')}</p>}
+              {(modal === 'budget' || modal === 'goal' || modal === 'goalEdit') && <p className="device-note full"><Smartphone /> {session!.guest ? t('device.only') : t('device.synced')}</p>}
             </div>
             {formError && <p className="form-error" role="alert">{formError}</p>}
             <Button type="submit" className="form-submit" disabled={busy}><Check />{busy ? t('form.saving') : modal === 'budget' ? t('form.saveBudget') : modal === 'goalEdit' ? t('form.saveGoal') : modal === 'goal' ? t('form.addGoal') : modal === 'invest' ? t('form.saveInv') : t('form.save')}</Button>
