@@ -125,6 +125,14 @@ export function useDevicePrefs(userId: string, token: string, guest: boolean) {
     }
   }, [userId, token, guest]);
 
+  // Retry an interrupted cloud save automatically when connectivity returns.
+  useEffect(() => {
+    if (!loaded || guest || !syncError) return;
+    const retryWhenOnline = () => { void update(prefsRef.current); };
+    window.addEventListener('online', retryWhenOnline);
+    return () => window.removeEventListener('online', retryWhenOnline);
+  }, [loaded, guest, syncError, update]);
+
   // Keep the selected currency while clearing the budget and savings goal.
   const clear = useCallback(() => update({ budget: null, goal: null }), [update]);
 
