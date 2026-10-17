@@ -49,12 +49,44 @@ export function Dashboard() {
   const [isPocketAndroid, setIsPocketAndroid] = useState(false);
   const [teldaEnabled, setTeldaEnabled] = useState(false);
   const [teldaAccess, setTeldaAccess] = useState(false);
+  const [teldaImportStatus, setTeldaImportStatus] = useState('waiting_for_notification');
   const refreshTeldaStatus = () => {
     const bridge = window.PocketPalAndroid;
     setIsPocketAndroid(Boolean(bridge));
     setTeldaEnabled(bridge?.isAutoImportEnabled() ?? false);
     setTeldaAccess(bridge?.isNotificationAccessEnabled() ?? false);
+    setTeldaImportStatus(bridge?.getTeldaImportStatus() ?? 'android_app_required');
   };
+  const teldaStatusLabels: Record<string, string> = i.lang === 'ar' ? {
+    waiting_for_notification: 'في انتظار إشعار من تيلدا',
+    listening: 'يستمع لإشعارات تيلدا',
+    listener_disconnected: 'انقطع مستمع الإشعارات؛ تحقق من إذن أندرويد',
+    auto_import_disabled: 'الاستيراد التلقائي متوقف',
+    notification_access_disabled: 'إذن الوصول للإشعارات متوقف',
+    unsupported_notification_format: 'تم استلام إشعار لكن تعذر قراءة المبلغ أو نوع العملية',
+    sending_transaction: 'تم استلام الإشعار؛ جارٍ استيراد العملية',
+    sign_in_to_pocket_pal: 'سجّل الدخول إلى Pocket Jr لاستيراد العمليات',
+    device_registration_failed: 'تعذر تسجيل هذا الجهاز مع الخادم',
+    transaction_imported: 'تم استيراد آخر عملية من تيلدا بنجاح',
+    server_rejected_transaction: 'الخادم لم يقبل العملية؛ تحقق من الاتصال وتسجيل الدخول',
+    permission_or_import_disabled: 'إذن الإشعارات أو الاستيراد التلقائي متوقف',
+    android_app_required: 'افتح Pocket Jr من تطبيق أندرويد لاستيراد إشعارات تيلدا',
+  } : {
+    waiting_for_notification: 'Waiting for a Telda notification',
+    listening: 'Listening for Telda notifications',
+    listener_disconnected: 'Notification listener disconnected — check Android notification access',
+    auto_import_disabled: 'Auto-import is disabled',
+    notification_access_disabled: 'Android notification access is disabled',
+    unsupported_notification_format: 'A Telda alert arrived, but its amount or direction was not recognized',
+    sending_transaction: 'Telda alert received — importing transaction',
+    sign_in_to_pocket_pal: 'Sign in to Pocket Jr to import transactions',
+    device_registration_failed: 'Could not register this device with the server',
+    transaction_imported: 'Last Telda transaction imported successfully',
+    server_rejected_transaction: 'The server rejected the transaction — check connection and sign-in',
+    permission_or_import_disabled: 'Auto-import or notification access is turned off',
+    android_app_required: 'Open Pocket Jr in the Android app to import Telda alerts',
+  };
+  const teldaImportStatusLabel = teldaStatusLabels[teldaImportStatus] ?? teldaImportStatus.replace(/_/g, ' ');
   useEffect(() => {
     setIsAndroid(/Android/i.test(navigator.userAgent));
     refreshTeldaStatus();
@@ -558,6 +590,9 @@ export function Dashboard() {
                 <Button variant="outline" onClick={() => window.PocketPalAndroid?.requestNotificationAccess()}>{t('telda.managePermission')}</Button>
               </div>
             </>}
+            <p className="text-xs leading-6 text-muted-foreground mt-4" role="status" aria-live="polite">
+              {i.lang === 'ar' ? 'حالة الاستيراد: ' : 'Import status: '}{teldaImportStatusLabel}
+            </p>
           </section>}
           <section className="panel settings-panel">
             <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {t('settings.device')}</h2>

@@ -9,6 +9,7 @@ declare global {
       isNotificationAccessEnabled(): boolean;
       isAutoImportEnabled(): boolean;
       setAutoImportEnabled(enabled: boolean): void;
+      getTeldaImportStatus(): string;
       requestNotificationAccess(): void;
     };
   }
