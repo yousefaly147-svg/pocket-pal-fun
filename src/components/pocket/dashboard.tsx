@@ -55,7 +55,7 @@ export function Dashboard() {
     setIsPocketAndroid(Boolean(bridge));
     setTeldaEnabled(bridge?.isAutoImportEnabled() ?? false);
     setTeldaAccess(bridge?.isNotificationAccessEnabled() ?? false);
-    setTeldaImportStatus(bridge?.getTeldaImportStatus() ?? 'android_app_required');
+    setTeldaImportStatus(bridge?.getTeldaImportStatus?.() ?? 'android_app_required');
   };
   const teldaStatusLabels: Record<string, string> = i.lang === 'ar' ? {
     waiting_for_notification: 'في انتظار إشعار من تيلدا',
