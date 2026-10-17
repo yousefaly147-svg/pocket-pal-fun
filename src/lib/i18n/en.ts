@@ -95,6 +95,8 @@ export const en = {
   'device.only': 'Saved on this device only',
   'device.synced': 'Synced across your devices',
   'prefs.syncError': 'Saved on this device, but could not sync to your account. Check your connection and try again.',
+  'prefs.retry': 'Retry sync',
+  'prefs.syncSuccess': 'Preferences synced to your account.',
 
   'goal.title': 'A little dream fund',
   'goal.none': 'Dream big!',
