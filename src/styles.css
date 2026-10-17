@@ -486,3 +486,15 @@
   .landing-footer { padding:22px 20px 28px; flex-wrap:wrap; }
   .landing-footer p { order:3; flex-basis:100%; }
 }
+
+
+/* Free-plan workaround: hide the Lovable attribution badge when it is injected into the page DOM. */
+#lovable-badge,
+#lovable-badge-container,
+.lovable-badge,
+lovable-badge,
+[data-lovable-badge] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
