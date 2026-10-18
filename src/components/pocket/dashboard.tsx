@@ -36,9 +36,9 @@ const MAX_AMOUNT = 100_000_000;
 function Num({ children }: { children: React.ReactNode }) { return <span className="num">{children}</span>; }
 
 function TeldaWaveIcon() {
-  // Telda's mark is angular; use straight segments and flat ends instead of a rounded wave.
+  // Match the Telda app's single smooth tilde with thick, rounded ends.
   return <svg viewBox="0 0 48 28" aria-hidden="true" focusable="false">
-    <path d="M3 21 L11 7 L19 7 L27 16 L33 21 L39 21 L46 5" fill="none" stroke="currentColor" strokeWidth="7" strokeLinecap="butt" strokeLinejoin="miter" />
+    <path d="M3 21 C6 6 18 5 25 12 C32 19 40 22 45 5" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>;
 }
 
