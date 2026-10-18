@@ -269,7 +269,7 @@ export const api = {
 };
 
 /** Reads the (unverified) JWT payload for display/session expiry only; the API verifies the token. */
-export function decodeToken(token: string): { id: string; email: string; username?: string; exp: number | undefined } | null {
+export function decodeToken(token: string): { id: string; email: string; username?: string | undefined; exp: number | undefined } | null {
   try {
     const part = token.split('.')[1];
     if (!part) return null;

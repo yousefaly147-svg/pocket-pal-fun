@@ -30,8 +30,9 @@ describe('account preference sync API', () => {
 
     const result = await api.getPreferences('account-token');
 
-    expect(fetchMock.mock.calls[0][0]).toContain('/api/preferences');
-    expect((fetchMock.mock.calls[0][1] as RequestInit).headers).toMatchObject({
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/api/preferences');
+    expect(init.headers).toMatchObject({
       Authorization: 'Bearer account-token',
     });
     expect(result).toEqual({ preferences, hasSavedPreferences: true });
