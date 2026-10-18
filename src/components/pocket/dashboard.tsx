@@ -36,7 +36,10 @@ function Num({ children }: { children: React.ReactNode }) { return <span classNa
 
 function TeldaWaveIcon() {
   return <svg viewBox="0 0 48 28" aria-hidden="true" focusable="false">
-    <path d="M4 24 C4 7 13 2 22 8 L31 15 C37 20 44 16 44 4" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M5 5 C11 10 11 18 5 23" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
+    <path d="M14 3 C22 9 22 19 14 25" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
+    <path d="M23 2 C33 8 33 20 23 26" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
+    <path d="M32 1 C44 8 44 20 32 27" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
   </svg>;
 }
 
