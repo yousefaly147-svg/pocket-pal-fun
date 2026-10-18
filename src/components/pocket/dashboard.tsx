@@ -4,7 +4,7 @@ import {
   ArrowDownLeft, ArrowUpRight, ArrowRight, Bell, LayoutDashboard, ReceiptText, ChartPie, Flag, Settings, ChevronDown, CalendarDays,
   Utensils, CarFront, ShoppingBag, Music2, Ellipsis, Plus, Eye, EyeOff, TrendingDown, TrendingUp, Lightbulb, Heart, ShieldCheck, CircleHelp,
   Sparkles, Check, Search, Banknote, Target, Hand, UserRound, Sun, Receipt, GraduationCap, HeartPulse, Gift, Trophy, PiggyBank, Trash2,
-  LogIn, LogOut, RefreshCw, Smartphone, CircleAlert, ChevronLeft, ChevronRight, type LucideIcon,
+  LogIn, LogOut, RefreshCw, Smartphone, CircleAlert, ChevronLeft, ChevronRight, Instagram, type LucideIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -18,6 +18,7 @@ import { cashBalance, currentMonthKey, dayKeyOf, daySummary, shiftDay, monthKeyO
 import { useI18n, type TKey } from '@/lib/i18n';
 import { categorySlug, expenseCategories, incomeCategories, INVESTMENT_CATEGORY } from '@/lib/money-data';
 import { LangToggle } from './lang-toggle';
+import { DailyReminder } from './daily-reminder';
 import { CartesianGrid, Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 type View = 'Dashboard' | 'Transactions' | 'Budgets' | 'Goals' | 'Investments' | 'Settings';
@@ -676,7 +677,18 @@ export function Dashboard() {
             </div>
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => void saveUsername()} disabled={usernameBusy}><Check /> {usernameBusy ? t('auth.working') : t('settings.usernameSave')}</Button>}
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button>}
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                href="https://www.instagram.com/youssef3lyy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('settings.instagram')}
+                title={t('settings.instagram')}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              ><Instagram className="h-4 w-4" aria-hidden="true" /></a>
+            </div>
           </section>
+          <DailyReminder />
           {isAndroid && <section className="panel settings-panel" aria-label={t('telda.title')}>
             <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {t('telda.title')}</h2>
             <p className="text-sm leading-7 text-muted-foreground">
