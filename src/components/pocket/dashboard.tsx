@@ -9,7 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { WalletFriend, GoalFriend, LogoMark } from '@/components/cartoon';
-import { api, ApiError, type InvKind, type MoneyData, type Transaction, type TxType } from '@/lib/api';
+import { api, ApiError, readCachedMoneyData, writeCachedMoneyData, type InvKind, type MoneyData, type Transaction, type TxType } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { CURRENCIES, useDevicePrefs } from '@/lib/device-prefs';
 import { LiveRates } from './live-rates';
@@ -36,10 +36,7 @@ function Num({ children }: { children: React.ReactNode }) { return <span classNa
 
 function TeldaWaveIcon() {
   return <svg viewBox="0 0 48 28" aria-hidden="true" focusable="false">
-    <path d="M5 5 C11 10 11 18 5 23" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
-    <path d="M14 3 C22 9 22 19 14 25" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
-    <path d="M23 2 C33 8 33 20 23 26" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
-    <path d="M32 1 C44 8 44 20 32 27" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" />
+    <path d="M3 21 C10 5 17 5 24 13 S38 21 45 5" fill="none" stroke="currentColor" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
   </svg>;
 }
 
@@ -124,9 +121,15 @@ export function Dashboard() {
   const query = useQuery({
     queryKey,
     queryFn: () => api.getData(token),
+    initialData: () => readCachedMoneyData(userId),
+    // Treat a saved snapshot as stale immediately so it appears at once and refreshes silently.
+    initialDataUpdatedAt: 0,
     retry: (count, err) => !(err instanceof ApiError && (err.code === 'unauthorized' || err.code === 'invalidInput')) && count < 1,
     staleTime: 30_000,
   });
+  useEffect(() => {
+    if (query.data) writeCachedMoneyData(userId, query.data);
+  }, [query.data, userId]);
   const { prefs, loaded: prefsLoaded, syncError, update: updatePrefs, clear: clearPrefs } = useDevicePrefs(userId, token, session!.guest);
   const { setCurrency } = i;
   useEffect(() => { setCurrency(prefs.currency ?? 'EGP'); }, [prefs.currency, setCurrency]);
@@ -154,11 +157,16 @@ export function Dashboard() {
   useEffect(() => { setUsernameDraft(session?.username ?? ''); }, [session?.username]);
   const todayKey = now ? dayKeyOf(now.toISOString()) : '';
   const [pickedDate, setPickedDate] = useState('');
-  const [pickedTime, setPickedTime] = useState('');
+  const [pickedHour, setPickedHour] = useState('12');
+  const [pickedMinute, setPickedMinute] = useState('00');
+  const [pickedPeriod, setPickedPeriod] = useState<'AM' | 'PM'>('AM');
   useEffect(() => {
     setPickedDate(todayKey);
     const current = new Date();
-    setPickedTime(`${String(current.getHours()).padStart(2, '0')}:${String(current.getMinutes()).padStart(2, '0')}`);
+    const hour24 = current.getHours();
+    setPickedHour(String(hour24 % 12 || 12));
+    setPickedMinute(String(current.getMinutes()).padStart(2, '0'));
+    setPickedPeriod(hour24 >= 12 ? 'PM' : 'AM');
   }, [modal, todayKey]);
   useEffect(() => { setFormError(''); }, [modal]);
   useEffect(() => { if (!toast) return; const id = setTimeout(() => setToast(null), 4000); return () => clearTimeout(id); }, [toast]);
@@ -254,13 +262,19 @@ export function Dashboard() {
         const description = String(fd.get('description') ?? '').trim(); // optional, saved exactly as typed
         const chosen = String(fd.get('date') ?? '') || todayKey;
         if (todayKey && chosen > todayKey) { setFormError(t('form.dateFuture')); return; }
-        const chosenTime = String(fd.get('time') ?? '') || pickedTime || '12:00';
+        const hour12 = Number(String(fd.get('hour') ?? pickedHour));
+        const minute = Number(String(fd.get('minute') ?? pickedMinute));
+        const period = String(fd.get('period') ?? pickedPeriod);
+        if (!Number.isInteger(hour12) || hour12 < 1 || hour12 > 12 ||
+            !Number.isInteger(minute) || minute < 0 || minute > 59 ||
+            (period !== 'AM' && period !== 'PM')) {
+          setFormError(t('form.timeFuture')); return;
+        }
+        const hour = (hour12 % 12) + (period === 'PM' ? 12 : 0);
         const [y = 1970, m = 1, dd = 1] = chosen.split('-').map(Number);
-        const [hour = 0, minute = 0] = chosenTime.split(':').map(Number);
         const localDate = new Date(y, m - 1, dd, hour, minute, 0, 0);
         if (!Number.isFinite(localDate.getTime()) || localDate.getFullYear() !== y ||
-            localDate.getMonth() !== m - 1 || localDate.getDate() !== dd ||
-            hour > 23 || minute > 59) {
+            localDate.getMonth() !== m - 1 || localDate.getDate() !== dd) {
           setFormError(t('form.timeFuture')); return;
         }
         if (localDate.getTime() > Date.now()) { setFormError(t('form.timeFuture')); return; }
@@ -340,10 +354,10 @@ export function Dashboard() {
   }
 
   // ---------- Loading / error ----------
-  if (query.isPending || !prefsLoaded) {
+  if ((query.isPending || !prefsLoaded) && !query.data) {
     return <div className="state-screen" role="status" aria-live="polite"><LogoMark /><div className="state-spinner" aria-hidden="true" /><h1>{t('load.title')}</h1>{slow && <p>{t('load.waking')}</p>}</div>;
   }
-  if (query.isError) {
+  if (query.isError && !query.data) {
     return <div className="state-screen" role="alert"><CircleAlert className="state-icon" /><h1>{t('load.errorTitle')}</h1><p>{errorText(query.error)}</p><div className="state-actions"><Button onClick={() => void query.refetch()}><RefreshCw /> {t('load.retry')}</Button><Button variant="outline" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button></div><LangToggle /></div>;
   }
 
@@ -657,7 +671,12 @@ export function Dashboard() {
               <label className={`field ${modal === 'income' || modal === 'expense' ? '' : 'full'}`}>{modal === 'budget' ? t('form.budget') : modal === 'goalEdit' ? t('form.goalTarget') : t('form.amount')}<input name="amount" type="number" inputMode="decimal" min="0.01" max={MAX_AMOUNT} step="0.01" required dir="ltr" defaultValue={modal === 'budget' ? budget ?? undefined : modal === 'goalEdit' ? goal?.target : undefined} placeholder="0.00" autoFocus /></label>
               {(modal === 'income' || modal === 'expense') && <label className="field">{t('form.category')}<select name="category" defaultValue={modal === 'income' ? 'Salary' : 'Food'}>{(modal === 'income' ? incomeCategories : expenseCategories).map(c => <option key={c} value={c}>{i.category(c)}</option>)}</select></label>}
               {(modal === 'income' || modal === 'expense' || modal === 'invest') && <label className={`field ${modal === 'invest' ? 'full' : ''}`}>{t('form.date')}<input name="date" type="date" dir="ltr" max={todayKey} value={pickedDate} onChange={e => setPickedDate(e.target.value)} />{pickedDate && pickedDate !== todayKey && <small className="field-hint date-warning">{t('form.dateHint')}</small>}</label>}
-              {(modal === 'income' || modal === 'expense') && <label className="field">{t('form.time')}<input name="time" type="time" dir="ltr" value={pickedTime} onChange={e => setPickedTime(e.target.value)} required /></label>}
+              {(modal === 'income' || modal === 'expense') && <label className="field full"><span>{t('form.time')}</span><div className="time-picker" dir="ltr">
+                <select name="hour" aria-label={t('form.hour')} value={pickedHour} onChange={e => setPickedHour(e.target.value)} required>{Array.from({ length: 12 }, (_, index) => index + 1).map(hour => <option key={hour} value={hour}>{hour}</option>)}</select>
+                <span aria-hidden="true">:</span>
+                <select name="minute" aria-label={t('form.minute')} value={pickedMinute} onChange={e => setPickedMinute(e.target.value)} required>{Array.from({ length: 60 }, (_, minute) => String(minute).padStart(2, '0')).map(minute => <option key={minute} value={minute}>{minute}</option>)}</select>
+                <select name="period" aria-label={t('form.period')} value={pickedPeriod} onChange={e => setPickedPeriod(e.target.value as 'AM' | 'PM')}><option value="AM">AM</option><option value="PM">PM</option></select>
+              </div></label>}
               {modal === 'invest' && <><label className="field full">{t('form.note')}<input name="note" maxLength={120} dir="auto" /></label><p className="field-hint full">{t('inv.available', { amount: i.money(Math.max(0, balance)) })}</p></>}
               {(modal === 'budget' || modal === 'goal' || modal === 'goalEdit') && <p className="device-note full"><Smartphone /> {session!.guest ? t('device.only') : t('device.synced')}</p>}
             </div>
