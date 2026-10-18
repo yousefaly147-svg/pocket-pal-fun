@@ -608,6 +608,7 @@ export function Dashboard() {
           {goalCard}
           <section className="panel goal-overview">
             <div className="panel-header"><h2>{t('goal.overview')}</h2><Target className="h-5 w-5 text-primary" /></div>
+            <p className="goal-overview-label">{t('goal.totalSaved')}</p>
             <strong className="goal-overview-total">{cur} <Num>{i.wholeMoney(goals.reduce((sum, item) => sum + item.saved, 0))}</Num></strong>
             <p>{t('goal.overviewCount', { count: goals.length, complete: goals.filter(item => item.saved >= item.target).length })}</p>
             <p className="device-note"><Smartphone /> {t('goal.deviceNote')}</p>
