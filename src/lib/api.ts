@@ -74,6 +74,46 @@ export function toMoneyData(r: unknown): MoneyData {
 }
 
 
+const ACCOUNT_DATA_CACHE_PREFIX = 'pocket:data-cache:v1:';
+
+/**
+ * A per-account last-known snapshot lets the dashboard paint immediately while
+ * the remote API wakes up. It is stale-on-load and refreshed in the background.
+ */
+export function readCachedMoneyData(userId: string): MoneyData | undefined {
+  if (typeof window === 'undefined' || !userId) return undefined;
+  try {
+    const raw = window.localStorage.getItem(`${ACCOUNT_DATA_CACHE_PREFIX}${userId}`);
+    if (!raw) return undefined;
+    const parsed = JSON.parse(raw) as Raw;
+    if (!Array.isArray(parsed['transactions']) || !Array.isArray(parsed['investments'])) return undefined;
+    const withCreatedAt = (rows: unknown[]) => rows.map(value => {
+      const row = value && typeof value === 'object' ? value as Raw : {};
+      return { ...row, created_at: row['createdAt'] ?? row['created_at'] };
+    });
+    return toMoneyData({
+      transactions: withCreatedAt(parsed['transactions']),
+      investments: withCreatedAt(parsed['investments']),
+    });
+  } catch {
+    return undefined;
+  }
+}
+
+export function writeCachedMoneyData(userId: string, data: MoneyData): void {
+  if (typeof window === 'undefined' || !userId) return;
+  try {
+    window.localStorage.setItem(`${ACCOUNT_DATA_CACHE_PREFIX}${userId}`, JSON.stringify(data));
+  } catch {
+    // Caching is an optional speed-up; storage quota/private mode must not break the app.
+  }
+}
+
+export function clearCachedMoneyData(userId: string): void {
+  if (typeof window === 'undefined' || !userId) return;
+  try { window.localStorage.removeItem(`${ACCOUNT_DATA_CACHE_PREFIX}${userId}`); } catch { /* optional cache */ }
+}
+
 const GUEST_DATA_PREFIX = 'pocket:guest:data:v1:';
 const EMPTY_MONEY_DATA: MoneyData = { transactions: [], investments: [] };
 
