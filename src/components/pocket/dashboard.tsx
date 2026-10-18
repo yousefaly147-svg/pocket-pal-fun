@@ -34,7 +34,16 @@ const MAX_AMOUNT = 100_000_000;
 /** Keeps numbers left-to-right inside Arabic text. */
 function Num({ children }: { children: React.ReactNode }) { return <span className="num">{children}</span>; }
 
-function CategoryIcon({ category }: { category: string }) {
+function TeldaWaveIcon() {
+  return <svg viewBox="0 0 48 28" aria-hidden="true" focusable="false">
+    <path d="M4 24 C4 7 13 2 22 8 L31 15 C37 20 44 16 44 4" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>;
+}
+
+function CategoryIcon({ category, source }: { category: string; source?: string }) {
+  if (source === 'telda-notification') {
+    return <span className="category-icon category-telda" aria-label="Telda" title="Telda"><TeldaWaveIcon /></span>;
+  }
   const Icon = categoryIcons[category] ?? Ellipsis;
   return <span className={`category-icon category-${categorySlug(category)}`}><Icon /></span>;
 }
@@ -142,7 +151,12 @@ export function Dashboard() {
   useEffect(() => { setUsernameDraft(session?.username ?? ''); }, [session?.username]);
   const todayKey = now ? dayKeyOf(now.toISOString()) : '';
   const [pickedDate, setPickedDate] = useState('');
-  useEffect(() => { setPickedDate(todayKey); }, [modal, todayKey]);
+  const [pickedTime, setPickedTime] = useState('');
+  useEffect(() => {
+    setPickedDate(todayKey);
+    const current = new Date();
+    setPickedTime(`${String(current.getHours()).padStart(2, '0')}:${String(current.getMinutes()).padStart(2, '0')}`);
+  }, [modal, todayKey]);
   useEffect(() => { setFormError(''); }, [modal]);
   useEffect(() => { if (!toast) return; const id = setTimeout(() => setToast(null), 4000); return () => clearTimeout(id); }, [toast]);
   useEffect(() => {
@@ -237,8 +251,17 @@ export function Dashboard() {
         const description = String(fd.get('description') ?? '').trim(); // optional, saved exactly as typed
         const chosen = String(fd.get('date') ?? '') || todayKey;
         if (todayKey && chosen > todayKey) { setFormError(t('form.dateFuture')); return; }
+        const chosenTime = String(fd.get('time') ?? '') || pickedTime || '12:00';
         const [y = 1970, m = 1, dd = 1] = chosen.split('-').map(Number);
-        const created_at = chosen === todayKey ? new Date().toISOString() : new Date(y, m - 1, dd, 12).toISOString();
+        const [hour = 0, minute = 0] = chosenTime.split(':').map(Number);
+        const localDate = new Date(y, m - 1, dd, hour, minute, 0, 0);
+        if (!Number.isFinite(localDate.getTime()) || localDate.getFullYear() !== y ||
+            localDate.getMonth() !== m - 1 || localDate.getDate() !== dd ||
+            hour > 23 || minute > 59) {
+          setFormError(t('form.timeFuture')); return;
+        }
+        if (localDate.getTime() > Date.now()) { setFormError(t('form.timeFuture')); return; }
+        const created_at = localDate.toISOString();
         const type: TxType = modal;
         const saved = await api.addTransaction(token, { type, amount, category: String(fd.get('category') ?? 'Other'), description, created_at });
         setData(d => ({ ...d, transactions: [saved, ...d.transactions] }));
@@ -336,8 +359,8 @@ export function Dashboard() {
       <div className={`transaction-head ${full ? 'with-action' : ''}`}><span>{t('tx.colTx')}</span><span>{t('tx.colDate')}</span><span>{t('tx.colAmount')}</span>{full && <span />}</div>
       {(full ? visibleTxs : monthTxs.slice(0, 5)).map(x => (
         <div className={`transaction-row ${full ? 'with-action' : ''}`} key={x.id}>
-          <div className="transaction-merchant"><CategoryIcon category={x.category} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{x.type === 'income' ? `${t('tx.income')} · ${i.category(x.category)}` : i.category(x.category)}</small></div></div>
-          <span className="transaction-date">{relDate(x.createdAt)}</span>
+          <div className="transaction-merchant"><CategoryIcon category={x.category} source={x.source} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{x.type === 'income' ? `${t('tx.income')} · ${i.category(x.category)}` : i.category(x.category)}</small></div></div>
+          <span className="transaction-date"><span>{relDate(x.createdAt)}</span><small className="transaction-time">{i.date(x.createdAt, { hour: '2-digit', minute: '2-digit' })}</small></span>
           <span className={`transaction-amount ${x.type === 'income' ? 'positive' : ''}`}><Num>{x.type === 'income' ? '+' : '−'}{i.money(x.amount)}</Num><small>{cur}</small></span>
           {full && <Button variant="ghost" size="icon" className="row-delete" disabled={deleting === x.id} aria-label={t('tx.deleteAria', { name: x.description || i.category(x.category) })} title={t('tx.deleteAria', { name: x.description || i.category(x.category) })} onClick={() => void deleteTx(x)}><Trash2 /></Button>}
         </div>
@@ -396,7 +419,7 @@ export function Dashboard() {
       </div>
       {dayInfo.items.length === 0 ? <div className="empty-state">{t('day.empty')}</div> : dayInfo.items.map(x => (
         <div className="transaction-row" key={x.id}>
-          <div className="transaction-merchant"><CategoryIcon category={x.category} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{i.category(x.category)}</small></div></div>
+          <div className="transaction-merchant"><CategoryIcon category={x.category} source={x.source} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{i.category(x.category)}</small></div></div>
           <span className="transaction-date">{i.date(x.createdAt, { hour: '2-digit', minute: '2-digit' })}</span>
           <span className={`transaction-amount ${x.type === 'income' ? 'positive' : ''}`}><Num>{x.type === 'income' ? '+' : '−'}{i.money(x.amount)}</Num><small>{cur}</small></span>
         </div>
@@ -630,7 +653,8 @@ export function Dashboard() {
               {modal === 'invest' && <label className="field full">{t('form.kind')}<select name="kind" defaultValue={investKind}><option value="added">{t('inv.kind.added')}</option><option value="gain">{t('inv.kind.gain')}</option><option value="loss">{t('inv.kind.loss')}</option></select></label>}
               <label className={`field ${modal === 'income' || modal === 'expense' ? '' : 'full'}`}>{modal === 'budget' ? t('form.budget') : modal === 'goalEdit' ? t('form.goalTarget') : t('form.amount')}<input name="amount" type="number" inputMode="decimal" min="0.01" max={MAX_AMOUNT} step="0.01" required dir="ltr" defaultValue={modal === 'budget' ? budget ?? undefined : modal === 'goalEdit' ? goal?.target : undefined} placeholder="0.00" autoFocus /></label>
               {(modal === 'income' || modal === 'expense') && <label className="field">{t('form.category')}<select name="category" defaultValue={modal === 'income' ? 'Salary' : 'Food'}>{(modal === 'income' ? incomeCategories : expenseCategories).map(c => <option key={c} value={c}>{i.category(c)}</option>)}</select></label>}
-              {(modal === 'income' || modal === 'expense' || modal === 'invest') && <label className="field full">{t('form.date')}<input name="date" type="date" dir="ltr" max={todayKey} value={pickedDate} onChange={e => setPickedDate(e.target.value)} />{pickedDate && pickedDate !== todayKey && <small className="field-hint date-warning">{t('form.dateHint')}</small>}</label>}
+              {(modal === 'income' || modal === 'expense' || modal === 'invest') && <label className={`field ${modal === 'invest' ? 'full' : ''}`}>{t('form.date')}<input name="date" type="date" dir="ltr" max={todayKey} value={pickedDate} onChange={e => setPickedDate(e.target.value)} />{pickedDate && pickedDate !== todayKey && <small className="field-hint date-warning">{t('form.dateHint')}</small>}</label>}
+              {(modal === 'income' || modal === 'expense') && <label className="field">{t('form.time')}<input name="time" type="time" dir="ltr" value={pickedTime} onChange={e => setPickedTime(e.target.value)} required /></label>}
               {modal === 'invest' && <><label className="field full">{t('form.note')}<input name="note" maxLength={120} dir="auto" /></label><p className="field-hint full">{t('inv.available', { amount: i.money(Math.max(0, balance)) })}</p></>}
               {(modal === 'budget' || modal === 'goal' || modal === 'goalEdit') && <p className="device-note full"><Smartphone /> {session!.guest ? t('device.only') : t('device.synced')}</p>}
             </div>
