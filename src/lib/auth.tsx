@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { api, decodeToken } from './api';
+import { api, clearCachedMoneyData, decodeToken } from './api';
 
 declare global {
   interface Window {
@@ -129,12 +129,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     void queryClient.cancelQueries();
     queryClient.clear();
     try { localStorage.removeItem(TOKEN_KEY); } catch { /* ignore */ }
+    if (session) clearCachedMoneyData(session.userId);
     syncNativeSession(null);
     setSession(null);
     setNotice(reason ?? null);
     setStatus('signedOut');
     setAuthScreenOpen(false);
-  }, [queryClient]);
+  }, [queryClient, session]);
 
   return <Ctx.Provider value={{
     status, session, notice, authScreenOpen, login, register, loginWithGoogle,
