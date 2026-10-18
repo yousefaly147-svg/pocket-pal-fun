@@ -83,7 +83,7 @@ export function GoogleSignIn({ clientId, onCredential, onError }: { clientId: st
         g.accounts.id.renderButton(ref.current, { theme: 'outline', size: 'large', shape: 'pill', text: 'continue_with', locale: lang, width: 280 });
       } catch { setFailed(true); }
     };
-    const onError = () => { if (!cancelled) setFailed(true); };
+    const onScriptError = () => { if (!cancelled) setFailed(true); };
     let script = document.querySelector<HTMLScriptElement>('script[data-gsi]');
     if (getGoogle()) { render(); return () => { cancelled = true; }; }
     if (!script) {
@@ -93,11 +93,11 @@ export function GoogleSignIn({ clientId, onCredential, onError }: { clientId: st
     }
     const s = script;
     s.addEventListener('load', render);
-    s.addEventListener('error', onError);
+    s.addEventListener('error', onScriptError);
     return () => {
       cancelled = true;
       s.removeEventListener('load', render);
-      s.removeEventListener('error', onError);
+      s.removeEventListener('error', onScriptError);
     };
   }, [clientId, lang, nativeMode]);
 
