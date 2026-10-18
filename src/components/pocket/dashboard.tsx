@@ -12,6 +12,7 @@ import { WalletFriend, GoalFriend, LogoMark } from '@/components/cartoon';
 import { api, ApiError, readCachedMoneyData, writeCachedMoneyData, type InvKind, type MoneyData, type Transaction, type TxType } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { CURRENCIES, useDevicePrefs } from '@/lib/device-prefs';
+import { GOAL_CATEGORIES, updateGoalSaved, type GoalCategory, type SavingsGoal } from '@/lib/goals';
 import { LiveRates } from './live-rates';
 import { cashBalance, currentMonthKey, dayKeyOf, daySummary, shiftDay, monthKeyOf, monthOptions, monthTotals, portfolio, previousMonthKey, spendingByCategory } from '@/lib/finance';
 import { useI18n, type TKey } from '@/lib/i18n';
@@ -46,6 +47,12 @@ function CategoryIcon({ category, source }: { category: string; source?: string 
   }
   const Icon = categoryIcons[category] ?? Ellipsis;
   return <span className={`category-icon category-${categorySlug(category)}`}><Icon /></span>;
+}
+
+function createGoalId() {
+  return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+    ? crypto.randomUUID()
+    : `goal-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 export function Dashboard() {
@@ -141,6 +148,8 @@ export function Dashboard() {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
   const [modal, setModal] = useState<Modal>(null);
+  const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
+  const [activeGoalId, setActiveGoalId] = useState<string | null>(null);
   const [investKind, setInvestKind] = useState<InvKind>('added');
   const [hidden, setHidden] = useState(false);
   const [toast, setToast] = useState<{ text: string; error?: boolean } | null>(null);
@@ -204,8 +213,21 @@ export function Dashboard() {
   }, [invs, i.date, i.lang]);
   const spent = totals.spending;
   const budget = prefs.budget;
-  const goal = prefs.goal;
+  const goals = prefs.goal;
+  const goal = goals[0] ?? null;
   const goalPct = goal ? Math.min(100, Math.round((goal.saved / goal.target) * 100)) : 0;
+  const editingGoal = editingGoalId ? goals.find(item => item.id === editingGoalId) ?? null : null;
+
+  function openGoalEditor(target?: SavingsGoal) {
+    setEditingGoalId(target?.id ?? null);
+    setModal('goalEdit');
+  }
+
+  async function deleteGoal(target: SavingsGoal) {
+    if (!window.confirm(t('goal.confirmDelete', { name: target.name }))) return;
+    const synced = await updatePrefs({ goal: goals.filter(item => item.id !== target.id) });
+    show(synced ? t('goal.deleted') : t('prefs.syncError'), !synced);
+  }
 
   const monthTxs = txs.filter(x => monthKeyOf(x.createdAt) === month);
   const q = search.trim().toLowerCase();
@@ -248,12 +270,26 @@ export function Dashboard() {
     if (modal === 'goalEdit') {
       const name = String(fd.get('goalName') ?? '').trim();
       if (!name) return setFormError(t('err.goalName'));
-      const synced = await updatePrefs({ goal: { name, target: amount, saved: goal?.saved ?? 0 } }); show(synced ? t('toast.goalSaved') : t('prefs.syncError'), !synced); setModal(null); return;
+      const selectedCategory = String(fd.get('goalCategory') ?? editingGoal?.category ?? 'other') as GoalCategory;
+      const nextGoal: SavingsGoal = editingGoal
+        ? { ...editingGoal, name, target: amount, category: selectedCategory }
+        : { id: createGoalId(), name, target: amount, saved: 0, category: selectedCategory };
+      const nextGoals = editingGoalId
+        ? goals.map(item => item.id === editingGoalId ? nextGoal : item)
+        : [...goals, nextGoal];
+      const synced = await updatePrefs({ goal: nextGoals });
+      show(synced ? t(editingGoalId ? 'toast.goalSaved' : 'goal.created') : t('prefs.syncError'), !synced);
+      setEditingGoalId(null);
+      setModal(null);
+      return;
     }
     if (modal === 'goal') {
-      if (!goal) return;
-      const synced = await updatePrefs({ goal: { ...goal, saved: Math.round((goal.saved + amount) * 100) / 100 } });
-      show(synced ? t('toast.goal', { amount: i.money(amount) }) : t('prefs.syncError'), !synced); setModal(null); return;
+      const selected = goals.find(item => item.id === activeGoalId) ?? goal;
+      if (!selected) return;
+      const synced = await updatePrefs({ goal: updateGoalSaved(goals, selected.id, amount) });
+      show(synced ? t('toast.goal', { amount: i.money(amount) }) : t('prefs.syncError'), !synced);
+      setModal(null);
+      return;
     }
 
     setBusy(true); setFormError('');
@@ -403,18 +439,36 @@ export function Dashboard() {
 
   const goalCard = (
     <section className="panel goal-panel">
-      <div className="panel-header"><div><h2>{t('goal.title')}</h2>{deviceBadge}</div>{goal ? <Button variant="ghost" size="icon" className="h-6 w-6" aria-label={t('goal.edit')} title={t('goal.edit')} onClick={() => setModal('goalEdit')}><Ellipsis /></Button> : <Flag className="h-4 w-4 text-muted-foreground" />}</div>
-      <GoalFriend />
-      {goal ? <>
-        <h3 className="goal-title"><span dir="auto">{goal.name}</span> <Sun className="goal-title-sun" /></h3>
-        <div className="goal-saved">{cur} <Num>{i.wholeMoney(goal.saved)}</Num> <span>{t('goal.ofTarget', { target: i.wholeMoney(goal.target) })}</span></div>
-        <div className="progress-track"><progress value={Math.min(goal.saved, goal.target)} max={goal.target} aria-label={t('goal.progressAria')} /></div>
-        <div className="progress-labels"><strong>{t('goal.there', { pct: goalPct })}</strong><span>{goal.saved < goal.target ? t('goal.closer') : t('goal.done')}</span></div>
-        <Button className="goal-add" onClick={() => setModal('goal')}><Plus /> {t('goal.add')}</Button>
-      </> : <>
-        <h3 className="goal-title">{t('goal.none')}</h3><p className="goal-sub">{t('goal.noneSub')}</p>
-        <Button className="goal-add" onClick={() => setModal('goalEdit')}><Plus /> {t('goal.create')}</Button>
-      </>}
+      <div className="panel-header">
+        <div><h2>{t('goal.title')}</h2>{deviceBadge}</div>
+        <Button variant="outline" onClick={() => openGoalEditor()}><Plus /> {t('goal.addAnother')}</Button>
+      </div>
+      {goals.length === 0 ? <>
+        <GoalFriend />
+        <h3 className="goal-title">{t('goal.none')}</h3>
+        <p className="goal-sub">{t('goal.noneSub')}</p>
+        <Button className="goal-add" onClick={() => openGoalEditor()}><Plus /> {t('goal.create')}</Button>
+      </> : <div className="goal-items">
+        {goals.map(item => {
+          const pct = Math.min(100, Math.round((item.saved / item.target) * 100));
+          return <article key={item.id} className={`goal-item goal-category-${item.category}`}>
+            <div className="goal-item-heading">
+              <div className="goal-item-title">
+                <h3 dir="auto">{item.name}</h3>
+                <span className="goal-category-label">{t(`goal.category.${item.category}` as TKey)}</span>
+              </div>
+              <div className="goal-item-tools">
+                <Button variant="ghost" size="icon" aria-label={t('goal.edit')} title={t('goal.edit')} onClick={() => openGoalEditor(item)}><Ellipsis /></Button>
+                <Button variant="ghost" size="icon" aria-label={t('goal.delete')} title={t('goal.delete')} onClick={() => void deleteGoal(item)}><Trash2 /></Button>
+              </div>
+            </div>
+            <div className="goal-saved">{cur} <Num>{i.wholeMoney(item.saved)}</Num> <span>{t('goal.ofTarget', { target: i.wholeMoney(item.target) })}</span></div>
+            <div className="progress-track"><progress value={Math.min(item.saved, item.target)} max={item.target} aria-label={t('goal.progressAria')} /></div>
+            <div className="progress-labels"><strong>{t('goal.there', { pct })}</strong><span>{item.saved < item.target ? t('goal.closer') : t('goal.done')}</span></div>
+            <Button className="goal-add" onClick={() => { setActiveGoalId(item.id); setModal('goal'); }}><Plus /> {t('goal.add')}</Button>
+          </article>;
+        })}
+      </div>}
     </section>
   );
 
@@ -552,10 +606,12 @@ export function Dashboard() {
 
         {view === 'Goals' && <div className="goal-view-grid">
           {goalCard}
-          <section className="panel"><div className="panel-header"><h2>{t('goal.next')}</h2><Target className="h-5 w-5 text-primary" /></div>
-            <p className="text-sm leading-7 text-muted-foreground">{!goal ? t('goal.noneSub') : goal.saved >= goal.target ? t('goal.reached') : t('goal.toGo', { amount: i.money(goal.target - goal.saved) })}</p>
+          <section className="panel goal-overview">
+            <div className="panel-header"><h2>{t('goal.overview')}</h2><Target className="h-5 w-5 text-primary" /></div>
+            <strong className="goal-overview-total">{cur} <Num>{i.wholeMoney(goals.reduce((sum, item) => sum + item.saved, 0))}</Num></strong>
+            <p>{t('goal.overviewCount', { count: goals.length, complete: goals.filter(item => item.saved >= item.target).length })}</p>
             <p className="device-note"><Smartphone /> {t('goal.deviceNote')}</p>
-            <Button variant="outline" className="mt-5" onClick={() => setModal(goal ? 'goal' : 'goalEdit')}><Plus /> {goal ? t('goal.progress') : t('goal.create')}</Button>
+            <Button variant="outline" className="mt-5" onClick={() => openGoalEditor()}><Plus /> {t('goal.addAnother')}</Button>
           </section>
         </div>}
 
@@ -666,9 +722,12 @@ export function Dashboard() {
           </div> : modal === 'help' ? <p className="text-sm leading-7 text-muted-foreground">{t('help.body')}</p> : modal && <form onSubmit={e => void submit(e)} noValidate>
             <div className="form-grid">
               {(modal === 'income' || modal === 'expense') && <label className="field full">{modal === 'income' ? t('form.descIncomeOptional') : t('form.descOptional')}<input name="description" maxLength={120} dir="auto" placeholder={modal === 'income' ? t('form.descIncomePh') : t('form.descPh')} /></label>}
-              {modal === 'goalEdit' && <label className="field full">{t('form.goalName')}<input name="goalName" required maxLength={40} dir="auto" defaultValue={goal?.name ?? ''} placeholder={t('form.goalNamePh')} /></label>}
+              {modal === 'goalEdit' && <>
+                <label className="field full">{t('form.goalName')}<input name="goalName" required maxLength={40} dir="auto" defaultValue={editingGoal?.name ?? ''} placeholder={t('form.goalNamePh')} /></label>
+                <label className="field full">{t('form.goalCategory')}<select name="goalCategory" defaultValue={editingGoal?.category ?? 'other'}>{GOAL_CATEGORIES.map(category => <option key={category} value={category}>{t(`goal.category.${category}` as TKey)}</option>)}</select></label>
+              </>}
               {modal === 'invest' && <label className="field full">{t('form.kind')}<select name="kind" defaultValue={investKind}><option value="added">{t('inv.kind.added')}</option><option value="gain">{t('inv.kind.gain')}</option><option value="loss">{t('inv.kind.loss')}</option></select></label>}
-              <label className={`field ${modal === 'income' || modal === 'expense' ? '' : 'full'}`}>{modal === 'budget' ? t('form.budget') : modal === 'goalEdit' ? t('form.goalTarget') : t('form.amount')}<input name="amount" type="number" inputMode="decimal" min="0.01" max={MAX_AMOUNT} step="0.01" required dir="ltr" defaultValue={modal === 'budget' ? budget ?? undefined : modal === 'goalEdit' ? goal?.target : undefined} placeholder="0.00" autoFocus /></label>
+              <label className={`field ${modal === 'income' || modal === 'expense' ? '' : 'full'}`}>{modal === 'budget' ? t('form.budget') : modal === 'goalEdit' ? t('form.goalTarget') : t('form.amount')}<input name="amount" type="number" inputMode="decimal" min="0.01" max={MAX_AMOUNT} step="0.01" required dir="ltr" defaultValue={modal === 'budget' ? budget ?? undefined : modal === 'goalEdit' ? editingGoal?.target : undefined} placeholder="0.00" autoFocus /></label>
               {(modal === 'income' || modal === 'expense') && <label className="field">{t('form.category')}<select name="category" defaultValue={modal === 'income' ? 'Salary' : 'Food'}>{(modal === 'income' ? incomeCategories : expenseCategories).map(c => <option key={c} value={c}>{i.category(c)}</option>)}</select></label>}
               {(modal === 'income' || modal === 'expense' || modal === 'invest') && <label className={`field ${modal === 'invest' ? 'full' : ''}`}>{t('form.date')}<input name="date" type="date" dir="ltr" max={todayKey} value={pickedDate} onChange={e => setPickedDate(e.target.value)} />{pickedDate && pickedDate !== todayKey && <small className="field-hint date-warning">{t('form.dateHint')}</small>}</label>}
               {(modal === 'income' || modal === 'expense') && <label className="field full"><span>{t('form.time')}</span><div className="time-picker" dir="ltr">
@@ -681,7 +740,7 @@ export function Dashboard() {
               {(modal === 'budget' || modal === 'goal' || modal === 'goalEdit') && <p className="device-note full"><Smartphone /> {session!.guest ? t('device.only') : t('device.synced')}</p>}
             </div>
             {formError && <p className="form-error" role="alert">{formError}</p>}
-            <Button type="submit" className="form-submit" disabled={busy}><Check />{busy ? t('form.saving') : modal === 'budget' ? t('form.saveBudget') : modal === 'goalEdit' ? t('form.saveGoal') : modal === 'goal' ? t('form.addGoal') : modal === 'invest' ? t('form.saveInv') : t('form.save')}</Button>
+            <Button type="submit" className="form-submit" disabled={busy}><Check />{busy ? t('form.saving') : modal === 'budget' ? t('form.saveBudget') : modal === 'goalEdit' ? t(editingGoalId ? 'form.saveGoal' : 'goal.create') : modal === 'goal' ? t('form.addGoal') : modal === 'invest' ? t('form.saveInv') : t('form.save')}</Button>
           </form>}
         </DialogContent>
       </Dialog>
