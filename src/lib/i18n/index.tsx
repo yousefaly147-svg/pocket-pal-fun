@@ -36,7 +36,10 @@ function makeApi(lang: Lang, currency: string) {
     t,
     money,
     wholeMoney,
-    date: (iso: string, opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(dateLocale(lang), opts).format(new Date(iso)),
+    date: (iso: string, opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(
+      dateLocale(lang),
+      { ...opts, ...(opts.hour || opts.minute ? { hourCycle: 'h12' as const } : {}) },
+    ).format(new Date(iso)),
     month: (key: string) => {
       const [y = 1970, m = 1] = key.split('-').map(Number);
       return new Intl.DateTimeFormat(dateLocale(lang), { month: 'long', year: 'numeric' }).format(new Date(y, m - 1, 1));
