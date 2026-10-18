@@ -1,4 +1,5 @@
 // Client for the external My Money Express API (hosted on Render).
+import { normalizeGoals, type SavingsGoal } from './goals';
 // Only confirmed routes are used: auth register/login, GET /api/data,
 // POST/DELETE /api/transactions and POST/DELETE /api/investments.
 
@@ -31,8 +32,8 @@ export type InvKind = 'added' | 'gain' | 'loss';
 export type Transaction = { id: string; type: TxType; amount: number; category: string; description: string; createdAt: string; source?: string };
 export type Investment = { id: string; kind: InvKind; amount: number; note: string; createdAt: string };
 export type MoneyData = { transactions: Transaction[]; investments: Investment[] };
-export type SavingsGoal = { name: string; target: number; saved: number };
-export type UserPreferences = { budget: number | null; goal: SavingsGoal | null; currency: string | null };
+export type { SavingsGoal } from './goals';
+export type UserPreferences = { budget: number | null; goal: SavingsGoal[]; currency: string | null };
 export type PreferencesResult = { preferences: UserPreferences; hasSavedPreferences: boolean };
 export type AuthResult = { token: string; user: { id: string; email: string; username: string } };
 
@@ -226,27 +227,20 @@ export const api = {
   getData: async (token: string) => isGuestToken(token) ? readGuestData(token) : toMoneyData(await request('/api/data', { token })),
   getPreferences: async (token: string): Promise<PreferencesResult> => {
     if (isGuestToken(token)) {
-      return { preferences: { budget: null, goal: null, currency: null }, hasSavedPreferences: false };
+      return { preferences: { budget: null, goal: [], currency: null }, hasSavedPreferences: false };
     }
     const raw = (await request('/api/preferences', { token })) as Raw;
     const p = (raw['preferences'] && typeof raw['preferences'] === 'object' ? raw['preferences'] : {}) as Raw;
     const budgetValue = p['budget'];
     const budget = budgetValue == null ? null : Number(budgetValue);
-    const suppliedGoal = p['goal'];
-    const goal = suppliedGoal && typeof suppliedGoal === 'object' && !Array.isArray(suppliedGoal)
-      ? {
-          name: typeof (suppliedGoal as Raw)['name'] === 'string' ? String((suppliedGoal as Raw)['name']) : '',
-          target: Number((suppliedGoal as Raw)['target']),
-          saved: Number((suppliedGoal as Raw)['saved'] ?? 0),
-        }
-      : null;
+    const goal = normalizeGoals(p['goal']);
     const currencies = ['EGP', 'USD', 'SAR', 'EUR', 'AED', 'GBP'];
     const rawCurrency = p['currency'];
     const currency = typeof rawCurrency === 'string' && currencies.includes(rawCurrency) ? rawCurrency : null;
     return {
       preferences: {
         budget: budget !== null && Number.isFinite(budget) && budget > 0 ? budget : null,
-        goal: goal && goal.name.trim() && Number.isFinite(goal.target) && goal.target > 0 && Number.isFinite(goal.saved) && goal.saved >= 0 ? goal : null,
+        goal,
         currency,
       },
       hasSavedPreferences: raw['hasSavedPreferences'] === true,
@@ -258,21 +252,14 @@ export const api = {
     const p = (raw['preferences'] && typeof raw['preferences'] === 'object' ? raw['preferences'] : {}) as Raw;
     const budgetValue = p['budget'];
     const budget = budgetValue == null ? null : Number(budgetValue);
-    const suppliedGoal = p['goal'];
-    const goal = suppliedGoal && typeof suppliedGoal === 'object' && !Array.isArray(suppliedGoal)
-      ? {
-          name: typeof (suppliedGoal as Raw)['name'] === 'string' ? String((suppliedGoal as Raw)['name']) : '',
-          target: Number((suppliedGoal as Raw)['target']),
-          saved: Number((suppliedGoal as Raw)['saved'] ?? 0),
-        }
-      : null;
+    const goal = normalizeGoals(p['goal']);
     const currencies = ['EGP', 'USD', 'SAR', 'EUR', 'AED', 'GBP'];
     const rawCurrency = p['currency'];
     const currency = typeof rawCurrency === 'string' && currencies.includes(rawCurrency) ? rawCurrency : null;
     return {
       preferences: {
         budget: budget !== null && Number.isFinite(budget) && budget > 0 ? budget : null,
-        goal: goal && goal.name.trim() && Number.isFinite(goal.target) && goal.target > 0 && Number.isFinite(goal.saved) && goal.saved >= 0 ? goal : null,
+        goal,
         currency,
       },
       hasSavedPreferences: raw['hasSavedPreferences'] === true,
