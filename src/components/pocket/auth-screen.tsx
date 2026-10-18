@@ -6,11 +6,12 @@ import { ApiError } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { useI18n, type TKey } from '@/lib/i18n';
 import { LangToggle } from './lang-toggle';
-import { GoogleSignIn, googleReady } from './google-signin';
+import { GoogleSignIn, useGoogleConfig } from './google-signin';
 
 export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
   const { t } = useI18n();
   const { login, register, loginWithGoogle, notice } = useAuth();
+  const google = useGoogleConfig();
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [error, setError] = useState<string>(notice ? t('err.sessionExpired') : '');
   const [busy, setBusy] = useState(false);
@@ -55,8 +56,8 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
             {error && <p className="form-error" role="alert">{error}</p>}
             <Button type="submit" className="form-submit" disabled={busy}>{mode === 'login' ? <LogIn /> : <UserPlus />}{busy ? t('auth.working') : t(mode === 'login' ? 'auth.submitLogin' : 'auth.submitRegister')}</Button>
           </form>
-          {googleReady && <><div className="auth-or"><span>{t('auth.or')}</span></div>
-            <GoogleSignIn onCredential={c => { setBusy(true); setError(''); loginWithGoogle(c).catch(() => setError(t('err.google'))).finally(() => setBusy(false)); }} /></>}
+          {google?.enabled && <><div className="auth-or"><span>{t('auth.or')}</span></div>
+            <GoogleSignIn clientId={google.clientId} onCredential={c => { setBusy(true); setError(''); loginWithGoogle(c).catch(() => setError(t('err.google'))).finally(() => setBusy(false)); }} /></>}
           <p className="auth-secure"><ShieldCheck /> {t('auth.secure')}</p>
         </div>
       </main>
