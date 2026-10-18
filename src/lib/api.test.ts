@@ -16,7 +16,7 @@ function jsonResponse(body: unknown, status = 200): Response {
 }
 
 describe('account preference sync API', () => {
-  it('loads budget, savings goal, and currency from the signed-in account', async () => {
+  it('migrates the legacy single-goal preference without losing saved progress', async () => {
     const preferences = {
       budget: 4200,
       goal: { name: 'New tablet', target: 15000, saved: 2500 },
@@ -35,13 +35,23 @@ describe('account preference sync API', () => {
     expect(init.headers).toMatchObject({
       Authorization: 'Bearer account-token',
     });
-    expect(result).toEqual({ preferences, hasSavedPreferences: true });
+    expect(result).toEqual({
+      preferences: {
+        budget: 4200,
+        goal: [{ id: 'legacy-goal-1', name: 'New tablet', target: 15000, saved: 2500, category: 'other' }],
+        currency: 'SAR',
+      },
+      hasSavedPreferences: true,
+    });
   });
 
-  it('saves the full preference snapshot to the authenticated account', async () => {
+  it('saves multiple savings goals as a single account preference snapshot', async () => {
     const preferences = {
       budget: 4200,
-      goal: { name: 'New tablet', target: 15000, saved: 2500 },
+      goal: [
+        { id: 'goal-tablet', name: 'New tablet', target: 15000, saved: 2500, category: 'technology' },
+        { id: 'goal-trip', name: 'Summer trip', target: 12000, saved: 1000, category: 'travel' },
+      ],
       currency: 'USD',
     };
     const fetchMock = vi.fn().mockResolvedValue(jsonResponse({
