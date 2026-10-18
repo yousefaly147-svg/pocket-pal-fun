@@ -52,7 +52,7 @@ export function GoogleSignIn({ clientId, onCredential, onError }: { clientId: st
   const [nativeMode] = useState(() => typeof window !== 'undefined' && typeof (window as unknown as PocketWindow).PocketPalAndroid?.requestGoogleSignIn === 'function');
 
   useEffect(() => {
-    if (!clientId || !ref.current) return;
+    if (!clientId) return;
     if (nativeMode) {
       const w = window as unknown as PocketWindow;
       let cancelled = false;
@@ -72,6 +72,7 @@ export function GoogleSignIn({ clientId, onCredential, onError }: { clientId: st
         if (w.__pocketJrOnNativeGoogleError) delete w.__pocketJrOnNativeGoogleError;
       };
     }
+    if (!ref.current) return;
     let cancelled = false;
     const render = () => {
       const g = getGoogle();
