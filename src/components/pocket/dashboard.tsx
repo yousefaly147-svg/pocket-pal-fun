@@ -59,6 +59,9 @@ export function Dashboard() {
   };
   const teldaStatusLabels: Record<string, string> = i.lang === 'ar' ? {
     waiting_for_notification: 'في انتظار إشعار من تيلدا',
+    queued_for_sync: 'تم حفظ إشعار تيلدا؛ هيتزامن مع رجوع الاتصال',
+    waiting_for_network: 'عملية تيلدا محفوظة محليًا؛ جارٍ إعادة المحاولة عند توفر الاتصال',
+    offline_queue_full: 'تعذّر حفظ تنبيه تيلدا الجديد؛ افتح التطبيق وتحقق من التخزين',
     listening: 'يستمع لإشعارات تيلدا',
     listener_disconnected: 'انقطع مستمع الإشعارات؛ تحقق من إذن أندرويد',
     auto_import_disabled: 'الاستيراد التلقائي متوقف',
@@ -73,6 +76,9 @@ export function Dashboard() {
     android_app_required: 'افتح Pocket Jr من تطبيق أندرويد لاستيراد إشعارات تيلدا',
   } : {
     waiting_for_notification: 'Waiting for a Telda notification',
+    queued_for_sync: 'Telda alert saved; it will sync when connected',
+    waiting_for_network: 'Telda transaction is queued and will retry when connected',
+    offline_queue_full: 'Could not save another Telda alert; open the app and check storage',
     listening: 'Listening for Telda notifications',
     listener_disconnected: 'Notification listener disconnected — check Android notification access',
     auto_import_disabled: 'Auto-import is disabled',
