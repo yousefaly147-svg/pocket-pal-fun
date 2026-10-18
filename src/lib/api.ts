@@ -28,7 +28,7 @@ export class ApiError extends Error {
 
 export type TxType = 'income' | 'expense';
 export type InvKind = 'added' | 'gain' | 'loss';
-export type Transaction = { id: string; type: TxType; amount: number; category: string; description: string; createdAt: string };
+export type Transaction = { id: string; type: TxType; amount: number; category: string; description: string; createdAt: string; source?: string };
 export type Investment = { id: string; kind: InvKind; amount: number; note: string; createdAt: string };
 export type MoneyData = { transactions: Transaction[]; investments: Investment[] };
 export type SavingsGoal = { name: string; target: number; saved: number };
@@ -47,6 +47,7 @@ export function toTransaction(r: Raw): Transaction | null {
     category: typeof r['category'] === 'string' && r['category'] ? (r['category'] as string) : 'Other',
     description: typeof r['description'] === 'string' ? (r['description'] as string) : '',
     createdAt: typeof r['created_at'] === 'string' ? (r['created_at'] as string) : new Date().toISOString(),
+    ...(typeof r['source'] === 'string' ? { source: r['source'] } : {}),
   };
 }
 
