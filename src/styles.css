@@ -520,3 +520,10 @@ lovable-badge,
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+
+/* Native Android Google button mirrors Google's standard sign-in surface. */
+.google-signin-native { width:100%; }
+.google-native-button { width:100%; min-height:44px; display:flex; align-items:center; justify-content:center; gap:12px; border:1px solid #747775; border-radius:22px; background:#fff; color:#1f1f1f; font-family:Arial,sans-serif; font-size:14px; font-weight:500; letter-spacing:.1px; cursor:pointer; }
+.google-native-button:disabled { opacity:.65; cursor:wait; }
+.google-g-mark { font-weight:800; font-size:20px; font-family:Arial,sans-serif; background:conic-gradient(from -45deg,#4285f4 0 25%,#34a853 25% 45%,#fbbc05 45% 65%,#ea4335 65% 85%,#4285f4 85%); color:transparent; background-clip:text; -webkit-background-clip:text; }

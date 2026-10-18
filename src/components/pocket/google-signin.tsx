@@ -33,17 +33,45 @@ export function useGoogleConfig(): GoogleConfig | null {
 }
 
 type GoogleId = { accounts: { id: { initialize: (o: Record<string, unknown>) => void; renderButton: (el: HTMLElement, o: Record<string, unknown>) => void } } };
-const getGoogle = () => (window as unknown as { google?: GoogleId }).google;
+type NativeGoogleBridge = { requestGoogleSignIn: (clientId: string) => void };
+type PocketWindow = Window & {
+  google?: GoogleId;
+  PocketPalAndroid?: NativeGoogleBridge;
+  __pocketJrOnNativeGoogleCredential?: (credential: string) => void;
+  __pocketJrOnNativeGoogleError?: (message: string) => void;
+};
+const getGoogle = () => (window as PocketWindow).google;
 
-export function GoogleSignIn({ clientId, onCredential }: { clientId: string; onCredential: (credential: string) => void }) {
+export function GoogleSignIn({ clientId, onCredential, onError }: { clientId: string; onCredential: (credential: string) => void; onError?: (message: string) => void }) {
   const { lang } = useI18n();
   const ref = useRef<HTMLDivElement>(null);
   const cb = useRef(onCredential);
   cb.current = onCredential;
   const [failed, setFailed] = useState(false);
+  const [nativeBusy, setNativeBusy] = useState(false);
+  const [nativeMode] = useState(() => typeof window !== 'undefined' && typeof (window as PocketWindow).PocketPalAndroid?.requestGoogleSignIn === 'function');
 
   useEffect(() => {
     if (!clientId || !ref.current) return;
+    if (nativeMode) {
+      const w = window as PocketWindow;
+      let cancelled = false;
+      w.__pocketJrOnNativeGoogleCredential = credential => {
+        if (cancelled) return;
+        setNativeBusy(false);
+        if (credential) cb.current(credential);
+      };
+      w.__pocketJrOnNativeGoogleError = message => {
+        if (cancelled) return;
+        setNativeBusy(false);
+        onError?.(message || 'Google sign-in could not be completed. Please try again.');
+      };
+      return () => {
+        cancelled = true;
+        if (w.__pocketJrOnNativeGoogleCredential) delete w.__pocketJrOnNativeGoogleCredential;
+        if (w.__pocketJrOnNativeGoogleError) delete w.__pocketJrOnNativeGoogleError;
+      };
+    }
     let cancelled = false;
     const render = () => {
       const g = getGoogle();
@@ -71,8 +99,20 @@ export function GoogleSignIn({ clientId, onCredential }: { clientId: string; onC
       s.removeEventListener('load', render);
       s.removeEventListener('error', onError);
     };
-  }, [clientId, lang]);
+  }, [clientId, lang, nativeMode, onError]);
 
   if (failed) return null;
+  if (nativeMode) return (
+    <div className="google-signin google-signin-native" data-testid="google-signin-native">
+      <button type="button" className="google-native-button" disabled={nativeBusy} onClick={() => {
+        setNativeBusy(true);
+        try { (window as PocketWindow).PocketPalAndroid?.requestGoogleSignIn(clientId); }
+        catch { setNativeBusy(false); onError?.('Google sign-in could not be started. Please try again.'); }
+      }}>
+        <span className="google-g-mark" aria-hidden="true">G</span>
+        <span>{nativeBusy ? 'Waiting for Google…' : 'Continue with Google'}</span>
+      </button>
+    </div>
+  );
   return <div className="google-signin" ref={ref} data-testid="google-signin" />;
 }

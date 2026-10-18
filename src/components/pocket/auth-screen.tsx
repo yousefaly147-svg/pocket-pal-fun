@@ -57,7 +57,7 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
             <Button type="submit" className="form-submit" disabled={busy}>{mode === 'login' ? <LogIn /> : <UserPlus />}{busy ? t('auth.working') : t(mode === 'login' ? 'auth.submitLogin' : 'auth.submitRegister')}</Button>
           </form>
           {google?.enabled && <><div className="auth-or"><span>{t('auth.or')}</span></div>
-            <GoogleSignIn clientId={google.clientId} onCredential={c => { setBusy(true); setError(''); loginWithGoogle(c).catch(() => setError(t('err.google'))).finally(() => setBusy(false)); }} /></>}
+            <GoogleSignIn clientId={google.clientId} onError={message => setError(message)} onCredential={c => { setBusy(true); setError(''); loginWithGoogle(c).catch(() => setError(t('err.google'))).finally(() => setBusy(false)); }} /></>}
           <p className="auth-secure"><ShieldCheck /> {t('auth.secure')}</p>
         </div>
       </main>

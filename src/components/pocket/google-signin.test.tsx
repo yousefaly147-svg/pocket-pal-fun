@@ -13,6 +13,9 @@ afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
   delete (window as unknown as { google?: unknown }).google;
+  delete (window as unknown as { PocketPalAndroid?: unknown }).PocketPalAndroid;
+  delete (window as unknown as { __pocketJrOnNativeGoogleCredential?: unknown }).__pocketJrOnNativeGoogleCredential;
+  delete (window as unknown as { __pocketJrOnNativeGoogleError?: unknown }).__pocketJrOnNativeGoogleError;
   document.querySelectorAll('script[data-gsi]').forEach(s => s.remove());
 });
 
@@ -71,6 +74,31 @@ describe('GoogleSignIn button', () => {
     expect(renderButton).toHaveBeenCalled();
     callback?.({ credential: 'id-token-123' });
     expect(onCredential).toHaveBeenCalledWith('id-token-123');
+  });
+
+  it('uses the native Android bridge instead of loading the unsupported web SDK', async () => {
+    const requestGoogleSignIn = vi.fn();
+    (window as unknown as { PocketPalAndroid: unknown }).PocketPalAndroid = { requestGoogleSignIn };
+    const onCredential = vi.fn();
+    const onError = vi.fn();
+    const { getByRole } = render(<GoogleSignIn clientId="abc.apps.googleusercontent.com" onCredential={onCredential} onError={onError} />);
+    const button = getByRole('button', { name: /continue with google/i });
+    expect(document.querySelector('script[data-gsi]')).toBeNull();
+    act(() => { button.click(); });
+    expect(requestGoogleSignIn).toHaveBeenCalledWith('abc.apps.googleusercontent.com');
+    const w = window as unknown as { __pocketJrOnNativeGoogleCredential?: (v: string) => void; __pocketJrOnNativeGoogleError?: (v: string) => void };
+    act(() => { w.__pocketJrOnNativeGoogleCredential?.('native-id-token'); });
+    expect(onCredential).toHaveBeenCalledWith('native-id-token');
+    act(() => { w.__pocketJrOnNativeGoogleError?.('User cancelled'); });
+    expect(onError).toHaveBeenCalledWith('User cancelled');
+  });
+
+  it('cleans up native bridge callbacks on unmount', () => {
+    (window as unknown as { PocketPalAndroid: unknown }).PocketPalAndroid = { requestGoogleSignIn: vi.fn() };
+    const { unmount } = render(<GoogleSignIn clientId="abc.apps.googleusercontent.com" onCredential={() => {}} />);
+    expect((window as unknown as { __pocketJrOnNativeGoogleCredential?: unknown }).__pocketJrOnNativeGoogleCredential).toBeTypeOf('function');
+    unmount();
+    expect((window as unknown as { __pocketJrOnNativeGoogleCredential?: unknown }).__pocketJrOnNativeGoogleCredential).toBeUndefined();
   });
 
   it('removes script listeners on unmount', () => {
