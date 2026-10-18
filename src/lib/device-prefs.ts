@@ -1,23 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api, type UserPreferences } from './api';
+import { normalizeGoals, type SavingsGoal } from './goals';
 
 // Signed-in preferences are stored in the My Money account and shared by its devices.
 // Guests keep the same preference fields locally, on this device only.
-export type Goal = { name: string; target: number; saved: number };
+export type Goal = SavingsGoal;
 /** Currency changes the displayed label only; it never converts stored amounts. */
 export type DevicePrefs = UserPreferences;
-const empty: DevicePrefs = { budget: null, goal: null, currency: null };
+const empty: DevicePrefs = { budget: null, goal: [], currency: null };
 export const CURRENCIES = ['EGP', 'USD', 'SAR', 'EUR', 'AED', 'GBP'] as const;
 const keyFor = (userId: string) => `pocket:device:${userId}`;
 
 function normalize(raw?: Partial<DevicePrefs> | null): DevicePrefs {
   const budget = typeof raw?.budget === 'number' && Number.isFinite(raw.budget) && raw.budget > 0
     ? raw.budget : null;
-  const g = raw?.goal;
-  const goal = g && typeof g.name === 'string' && g.name.trim().length > 0 &&
-    typeof g.target === 'number' && Number.isFinite(g.target) && g.target > 0
-    ? { name: g.name, target: g.target, saved: Math.max(0, Number.isFinite(g.saved) ? g.saved : 0) }
-    : null;
+  const goal = normalizeGoals(raw?.goal);
   const currency = typeof raw?.currency === 'string' &&
     (CURRENCIES as readonly string[]).includes(raw.currency) ? raw.currency : null;
   return { budget, goal, currency };
@@ -36,7 +33,7 @@ function write(userId: string, prefs: DevicePrefs): void {
 }
 
 function hasPreferences(prefs: DevicePrefs): boolean {
-  return prefs.budget !== null || prefs.goal !== null || prefs.currency !== null;
+  return prefs.budget !== null || prefs.goal.length > 0 || prefs.currency !== null;
 }
 
 export function useDevicePrefs(userId: string, token: string, guest: boolean) {
@@ -134,7 +131,7 @@ export function useDevicePrefs(userId: string, token: string, guest: boolean) {
   }, [loaded, guest, syncError, update]);
 
   // Keep the selected currency while clearing the budget and savings goal.
-  const clear = useCallback(() => update({ budget: null, goal: null }), [update]);
+  const clear = useCallback(() => update({ budget: null, goal: [] }), [update]);
 
   return { prefs, loaded, syncError, update, clear };
 }
