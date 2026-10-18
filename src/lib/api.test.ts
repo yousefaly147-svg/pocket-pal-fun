@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { api } from './api';
+import { api, type UserPreferences } from './api';
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -46,7 +46,7 @@ describe('account preference sync API', () => {
   });
 
   it('saves multiple savings goals as a single account preference snapshot', async () => {
-    const preferences = {
+    const preferences: UserPreferences = {
       budget: 4200,
       goal: [
         { id: 'goal-tablet', name: 'New tablet', target: 15000, saved: 2500, category: 'technology' },
