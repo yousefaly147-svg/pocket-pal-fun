@@ -11,7 +11,10 @@ declare global {
       setAutoImportEnabled(enabled: boolean): void;
       getTeldaImportStatus(): string;
       requestNotificationAccess(): void;
+      configureDailyReminder(enabled: boolean, hour: number, minute: number, title: string, body: string): void;
+      areDailyReminderNotificationsEnabled(): boolean;
     };
+    __pocketJrOnDailyReminderResult?: (success: boolean) => void;
   }
 }
 
