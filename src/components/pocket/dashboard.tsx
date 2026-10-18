@@ -359,7 +359,7 @@ export function Dashboard() {
       <div className={`transaction-head ${full ? 'with-action' : ''}`}><span>{t('tx.colTx')}</span><span>{t('tx.colDate')}</span><span>{t('tx.colAmount')}</span>{full && <span />}</div>
       {(full ? visibleTxs : monthTxs.slice(0, 5)).map(x => (
         <div className={`transaction-row ${full ? 'with-action' : ''}`} key={x.id}>
-          <div className="transaction-merchant"><CategoryIcon category={x.category} source={x.source} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{x.type === 'income' ? `${t('tx.income')} · ${i.category(x.category)}` : i.category(x.category)}</small></div></div>
+          <div className="transaction-merchant"><CategoryIcon category={x.category} {...(x.source ? { source: x.source } : {})} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{x.type === 'income' ? `${t('tx.income')} · ${i.category(x.category)}` : i.category(x.category)}</small></div></div>
           <span className="transaction-date"><span>{relDate(x.createdAt)}</span><small className="transaction-time">{i.date(x.createdAt, { hour: '2-digit', minute: '2-digit' })}</small></span>
           <span className={`transaction-amount ${x.type === 'income' ? 'positive' : ''}`}><Num>{x.type === 'income' ? '+' : '−'}{i.money(x.amount)}</Num><small>{cur}</small></span>
           {full && <Button variant="ghost" size="icon" className="row-delete" disabled={deleting === x.id} aria-label={t('tx.deleteAria', { name: x.description || i.category(x.category) })} title={t('tx.deleteAria', { name: x.description || i.category(x.category) })} onClick={() => void deleteTx(x)}><Trash2 /></Button>}
@@ -419,7 +419,7 @@ export function Dashboard() {
       </div>
       {dayInfo.items.length === 0 ? <div className="empty-state">{t('day.empty')}</div> : dayInfo.items.map(x => (
         <div className="transaction-row" key={x.id}>
-          <div className="transaction-merchant"><CategoryIcon category={x.category} source={x.source} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{i.category(x.category)}</small></div></div>
+          <div className="transaction-merchant"><CategoryIcon category={x.category} {...(x.source ? { source: x.source } : {})} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{i.category(x.category)}</small></div></div>
           <span className="transaction-date">{i.date(x.createdAt, { hour: '2-digit', minute: '2-digit' })}</span>
           <span className={`transaction-amount ${x.type === 'income' ? 'positive' : ''}`}><Num>{x.type === 'income' ? '+' : '−'}{i.money(x.amount)}</Num><small>{cur}</small></span>
         </div>
