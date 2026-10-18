@@ -27,7 +27,12 @@ export function GuestEntry() {
     }
   }, []);
 
-  const { prefs, loaded, update } = useDevicePrefs(guestId ? `guest-${guestId}` : 'guest-pending');
+  const guestToken = guestId ? `${GUEST_TOKEN_PREFIX}${guestId}` : 'guest-pending';
+  const { prefs, loaded, update } = useDevicePrefs(
+    guestId ? `guest-${guestId}` : 'guest-pending',
+    guestToken,
+    true,
+  );
 
   useEffect(() => {
     if (guestId && loaded && prefs.currency) startGuest(guestId);
