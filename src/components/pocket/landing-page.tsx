@@ -22,9 +22,9 @@ function startWithEgp(startGuest: (guestId: string) => void) {
       previous = JSON.parse(localStorage.getItem(prefsKey) ?? '{}') as Record<string, unknown>;
     } catch { /* use defaults */ }
     localStorage.setItem(prefsKey, JSON.stringify({
-      budget: typeof previous.budget === 'number' ? previous.budget : null,
-      goal: previous.goal ?? null,
-      currency: typeof previous.currency === 'string' ? previous.currency : 'EGP',
+      budget: typeof previous['budget'] === 'number' ? previous['budget'] : null,
+      goal: previous['goal'] ?? null,
+      currency: typeof previous['currency'] === 'string' ? previous['currency'] : 'EGP',
     }));
   } catch { /* guest mode can still start for this visit if storage is unavailable */ }
   startGuest(guestId);

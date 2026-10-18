@@ -16,7 +16,7 @@ declare global {
 }
 
 const TOKEN_KEY = 'pocket_token';
-const GUEST_TOKEN_PREFIX = 'guest-local:';
+export const GUEST_TOKEN_PREFIX = 'guest-local:';
 
 function syncNativeSession(token: string | null) {
   try {
@@ -54,7 +54,7 @@ function sessionFrom(token: string, fallback?: { id: string; email: string; user
   const email = p?.email || fallback?.email || '';
   return {
     token, userId, email,
-    username: p?.username || fallback?.username || email.split('@')[0],
+    username: p?.username || fallback?.username || email.split('@')[0] || '',
     guest: false,
   };
 }

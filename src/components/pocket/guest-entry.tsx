@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { LogoMark } from '@/components/cartoon';
 import { CurrencyPrompt } from './currency-prompt';
-import { useAuth } from '@/lib/auth';
+import { GUEST_TOKEN_PREFIX, useAuth } from '@/lib/auth';
 import { useDevicePrefs } from '@/lib/device-prefs';
 
 function createGuestId(): string {
@@ -27,7 +27,12 @@ export function GuestEntry() {
     }
   }, []);
 
-  const { prefs, loaded, update } = useDevicePrefs(guestId ? `guest-${guestId}` : 'guest-pending');
+  const guestToken = guestId ? `${GUEST_TOKEN_PREFIX}${guestId}` : 'guest-pending';
+  const { prefs, loaded, update } = useDevicePrefs(
+    guestId ? `guest-${guestId}` : 'guest-pending',
+    guestToken,
+    true,
+  );
 
   useEffect(() => {
     if (guestId && loaded && prefs.currency) startGuest(guestId);
