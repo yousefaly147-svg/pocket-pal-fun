@@ -145,7 +145,7 @@
 .goal-item { --goal-accent:var(--other); min-width:0; padding:14px; border:1px solid color-mix(in oklch,var(--goal-accent) 34%,var(--border)); border-radius:14px; background:color-mix(in oklch,var(--goal-accent) 13%,var(--card)); }
 .goal-category-travel { --goal-accent:var(--transport); }
 .goal-category-technology { --goal-accent:var(--shopping); }
-.goal-category-education { --goal-accent:var(--primary); }
+.goal-category-education { --goal-accent:var(--entertainment); }
 .goal-category-emergency { --goal-accent:var(--food); }
 .goal-category-home { --goal-accent:var(--goal-leaf); }
 .goal-category-other { --goal-accent:var(--other); }
