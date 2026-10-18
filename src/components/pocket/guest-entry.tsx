@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { LogoMark } from '@/components/cartoon';
 import { CurrencyPrompt } from './currency-prompt';
-import { useAuth } from '@/lib/auth';
+import { GUEST_TOKEN_PREFIX, useAuth } from '@/lib/auth';
 import { useDevicePrefs } from '@/lib/device-prefs';
 
 function createGuestId(): string {

@@ -82,7 +82,7 @@ describe('entry creation API payloads', () => {
       description: 'Lunch', created_at: createdAt,
     });
 
-    const request = fetchMock.mock.calls[0][1] as RequestInit;
+    const [, request] = fetchMock.mock.calls[0] as [string, RequestInit];
     const body = JSON.parse(String(request.body));
     expect(body.created_at).toBe(createdAt);
     expect(body.createdAt).toBe(createdAt);
@@ -101,7 +101,7 @@ describe('entry creation API payloads', () => {
       kind: 'added', amount: 500, note: 'Savings', created_at: createdAt,
     });
 
-    const request = fetchMock.mock.calls[0][1] as RequestInit;
+    const [, request] = fetchMock.mock.calls[0] as [string, RequestInit];
     expect(JSON.parse(String(request.body)).createdAt).toBe(createdAt);
     expect(result.createdAt).toBe('2024-02-20T12:00:00.000Z');
   });
