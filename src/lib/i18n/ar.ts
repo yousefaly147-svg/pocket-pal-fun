@@ -360,6 +360,8 @@ export const ar: Record<TKey, string> = {
   'telda.enabledToast': 'تم تفعيل الاستيراد التلقائي من تلدا.',
   'telda.disabledToast': 'تم إيقاف الاستيراد التلقائي من تلدا.',
   'auth.or': 'أو',
+  'auth.googleRetry': 'إعادة محاولة تسجيل الدخول بجوجل',
+  'auth.googleConnecting': 'جارٍ إعادة الاتصال بتسجيل الدخول عبر جوجل. لن يستغرق ذلك سوى لحظات.',
   'err.google': 'تسجيل الدخول بجوجل منفعش. جرّب تاني.',
 
   'landing.navAria': 'القائمة الرئيسية',
