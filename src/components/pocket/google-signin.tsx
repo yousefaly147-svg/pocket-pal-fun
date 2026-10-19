@@ -9,25 +9,89 @@ import { useI18n } from '@/lib/i18n';
 
 export type GoogleConfig = { enabled: false } | { enabled: true; clientId: string };
 
-export async function fetchGoogleConfig(signal?: AbortSignal): Promise<GoogleConfig> {
+const GOOGLE_CONFIG_CACHE_KEY = 'pocket:google-config:v1';
+
+function readCachedGoogleConfig(): GoogleConfig | null {
+  if (typeof window === 'undefined') return null;
   try {
-    const res = await fetch(`${getApiBase()}/api/auth/google/config`, signal ? { signal } : {});
-    if (!res.ok || !(res.headers.get('content-type') ?? '').includes('json')) return { enabled: false };
-    const body = (await res.json()) as Record<string, unknown>;
-    const clientId = body['clientId'];
-    if (body['enabled'] === true && typeof clientId === 'string' && clientId.trim()) return { enabled: true, clientId: clientId.trim() };
-  } catch { /* quiet: Google stays hidden */ }
-  return { enabled: false };
+    const value = JSON.parse(window.localStorage.getItem(GOOGLE_CONFIG_CACHE_KEY) ?? 'null') as Record<string, unknown> | null;
+    const clientId = value?.['clientId'];
+    return value?.['enabled'] === true && typeof clientId === 'string' && clientId.trim()
+      ? { enabled: true, clientId: clientId.trim() }
+      : null;
+  } catch {
+    return null;
+  }
 }
 
-/** null while loading; disabled on any error. */
+function writeGoogleConfigCache(config: GoogleConfig): void {
+  if (typeof window === 'undefined') return;
+  try {
+    if (config.enabled) window.localStorage.setItem(GOOGLE_CONFIG_CACHE_KEY, JSON.stringify(config));
+    else window.localStorage.removeItem(GOOGLE_CONFIG_CACHE_KEY);
+  } catch { /* optional cache; Google sign-in must not depend on storage */ }
+}
+
+// null means a transient/unusable response; it must not erase the last known working config.
+async function requestGoogleConfig(signal?: AbortSignal): Promise<GoogleConfig | null> {
+  try {
+    const res = await fetch(`${getApiBase()}/api/auth/google/config`, signal ? { signal } : {});
+    if (!res.ok || !(res.headers.get('content-type') ?? '').includes('json')) return null;
+    const body = (await res.json()) as Record<string, unknown>;
+    if (body['enabled'] === false) return { enabled: false };
+    const clientId = body['clientId'];
+    if (body['enabled'] === true && typeof clientId === 'string' && clientId.trim()) {
+      return { enabled: true, clientId: clientId.trim() };
+    }
+  } catch { /* retry below; do not make a temporary outage hide a working setup */ }
+  return null;
+}
+
+export async function fetchGoogleConfig(signal?: AbortSignal): Promise<GoogleConfig> {
+  return (await requestGoogleConfig(signal)) ?? { enabled: false };
+}
+
+/** Uses the last working public client ID and retries transient API failures. */
 export function useGoogleConfig(): GoogleConfig | null {
-  const [config, setConfig] = useState<GoogleConfig | null>(null);
+  const [config, setConfig] = useState<GoogleConfig | null>(() => readCachedGoogleConfig());
   useEffect(() => {
-    const controller = new AbortController();
     let active = true;
-    fetchGoogleConfig(controller.signal).then(c => { if (active) setConfig(c); });
-    return () => { active = false; controller.abort(); };
+    let attempt = 0;
+    let controller: AbortController | null = null;
+    let retryTimer: number | undefined;
+    const delays = [1000, 2500, 5000, 8000, 10000, 10000, 10000, 10000];
+
+    const load = async () => {
+      if (!active) return;
+      controller?.abort();
+      controller = new AbortController();
+      const next = await requestGoogleConfig(controller.signal);
+      if (!active) return;
+      if (next) {
+        setConfig(next);
+        writeGoogleConfigCache(next);
+        attempt = 0;
+        return;
+      }
+      if (attempt < delays.length) {
+        retryTimer = window.setTimeout(load, delays[attempt++]);
+      }
+    };
+    const retryNow = () => {
+      if (retryTimer !== undefined) window.clearTimeout(retryTimer);
+      attempt = 0;
+      void load();
+    };
+    void load();
+    window.addEventListener('online', retryNow);
+    window.addEventListener('focus', retryNow);
+    return () => {
+      active = false;
+      controller?.abort();
+      if (retryTimer !== undefined) window.clearTimeout(retryTimer);
+      window.removeEventListener('online', retryNow);
+      window.removeEventListener('focus', retryNow);
+    };
   }, []);
   return config;
 }
@@ -48,6 +112,7 @@ export function GoogleSignIn({ clientId, onCredential, onError }: { clientId: st
   const cb = useRef(onCredential);
   cb.current = onCredential;
   const [failed, setFailed] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const [nativeBusy, setNativeBusy] = useState(false);
   const [nativeMode] = useState(() => typeof window !== 'undefined' && typeof (window as unknown as PocketWindow).PocketPalAndroid?.requestGoogleSignIn === 'function');
 
@@ -100,9 +165,17 @@ export function GoogleSignIn({ clientId, onCredential, onError }: { clientId: st
       s.removeEventListener('load', render);
       s.removeEventListener('error', onScriptError);
     };
-  }, [clientId, lang, nativeMode]);
+  }, [clientId, lang, nativeMode, retryCount]);
 
-  if (failed) return null;
+  if (failed && !nativeMode) return (
+    <div className="google-signin google-signin-retry" data-testid="google-signin-retry">
+      <button type="button" className="google-native-button" onClick={() => {
+        document.querySelector('script[data-gsi]')?.remove();
+        setFailed(false);
+        setRetryCount(count => count + 1);
+      }}>Retry Google sign-in</button>
+    </div>
+  );
   if (nativeMode) return (
     <div className="google-signin google-signin-native" data-testid="google-signin-native">
       <button type="button" className="google-native-button" disabled={nativeBusy} onClick={() => {
