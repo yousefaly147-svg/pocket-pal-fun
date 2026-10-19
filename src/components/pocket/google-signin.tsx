@@ -9,6 +9,11 @@ import { useI18n } from '@/lib/i18n';
 
 export type GoogleConfig = { enabled: false } | { enabled: true; clientId: string };
 
+const GOOGLE_CONFIG_RETRY_EVENT = 'pocket:google-config-retry';
+export function retryGoogleConfig(): void {
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event(GOOGLE_CONFIG_RETRY_EVENT));
+}
+
 const GOOGLE_CONFIG_CACHE_KEY = 'pocket:google-config:v1';
 
 function readCachedGoogleConfig(): GoogleConfig | null {
@@ -85,12 +90,14 @@ export function useGoogleConfig(): GoogleConfig | null {
     void load();
     window.addEventListener('online', retryNow);
     window.addEventListener('focus', retryNow);
+    window.addEventListener(GOOGLE_CONFIG_RETRY_EVENT, retryNow);
     return () => {
       active = false;
       controller?.abort();
       if (retryTimer !== undefined) window.clearTimeout(retryTimer);
       window.removeEventListener('online', retryNow);
       window.removeEventListener('focus', retryNow);
+      window.removeEventListener(GOOGLE_CONFIG_RETRY_EVENT, retryNow);
     };
   }, []);
   return config;
