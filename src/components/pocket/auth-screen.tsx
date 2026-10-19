@@ -6,7 +6,7 @@ import { ApiError } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { useI18n, type TKey } from '@/lib/i18n';
 import { LangToggle } from './lang-toggle';
-import { GoogleSignIn, useGoogleConfig } from './google-signin';
+import { GoogleSignIn, retryGoogleConfig, useGoogleConfig } from './google-signin';
 
 export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
   const { t } = useI18n();
@@ -56,8 +56,14 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
             {error && <p className="form-error" role="alert">{error}</p>}
             <Button type="submit" className="form-submit" disabled={busy}>{mode === 'login' ? <LogIn /> : <UserPlus />}{busy ? t('auth.working') : t(mode === 'login' ? 'auth.submitLogin' : 'auth.submitRegister')}</Button>
           </form>
-          {google?.enabled && <><div className="auth-or"><span>{t('auth.or')}</span></div>
-            <GoogleSignIn clientId={google.clientId} onError={message => setError(message)} onCredential={c => { setBusy(true); setError(''); loginWithGoogle(c).catch((err: unknown) => setError(err instanceof Error && err.message ? err.message : t('err.google'))).finally(() => setBusy(false)); }} /></>}
+          {google?.enabled ? <><div className="auth-or"><span>{t('auth.or')}</span></div>
+            <GoogleSignIn clientId={google.clientId} onError={message => setError(message)} onCredential={c => { setBusy(true); setError(''); loginWithGoogle(c).catch((err: unknown) => setError(err instanceof Error && err.message ? err.message : t('err.google'))).finally(() => setBusy(false)); }} /></>
+            : google === null ? <><div className="auth-or"><span>{t('auth.or')}</span></div>
+              <div className="google-signin google-signin-pending" role="status" aria-live="polite">
+                <button type="button" className="google-native-button" onClick={retryGoogleConfig}>{t('auth.googleRetry')}</button>
+                <p className="field-hint">{t('auth.googleConnecting')}</p>
+              </div>
+            </> : null}
           <p className="auth-secure"><ShieldCheck /> {t('auth.secure')}</p>
         </div>
       </main>
