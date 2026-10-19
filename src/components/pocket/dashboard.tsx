@@ -677,15 +677,24 @@ export function Dashboard() {
             </div>
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => void saveUsername()} disabled={usernameBusy}><Check /> {usernameBusy ? t('auth.working') : t('settings.usernameSave')}</Button>}
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button>}
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-6 border-t border-border pt-4">
               <a
                 href="https://www.instagram.com/youssef3lyy/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t('settings.instagram')}
                 title={t('settings.instagram')}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              ><Instagram className="h-4 w-4" aria-hidden="true" /></a>
+                className="inline-flex w-fit items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                data-testid="instagram-profile-link"
+              >
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 via-pink-500 to-orange-400 text-white shadow-sm">
+                  <Instagram className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span className="flex flex-col items-start gap-0.5">
+                  <span>Instagram</span>
+                  <span className="text-xs font-normal text-muted-foreground">@youssef3lyy</span>
+                </span>
+              </a>
             </div>
           </section>
           <DailyReminder />
