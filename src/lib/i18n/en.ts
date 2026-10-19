@@ -358,6 +358,8 @@ export const en = {
   'telda.enabledToast': 'Telda auto-import enabled.',
   'telda.disabledToast': 'Telda auto-import turned off.',
   'auth.or': 'or',
+  'auth.googleRetry': 'Retry Google sign-in',
+  'auth.googleConnecting': 'Google sign-in is reconnecting. This should only take a moment.',
   'err.google': 'Google sign-in didn’t work. Please try again.',
 
   'landing.navAria': 'Main navigation',
