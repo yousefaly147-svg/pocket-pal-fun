@@ -17,6 +17,7 @@ afterEach(() => {
   delete (window as unknown as { __pocketJrOnNativeGoogleCredential?: unknown }).__pocketJrOnNativeGoogleCredential;
   delete (window as unknown as { __pocketJrOnNativeGoogleError?: unknown }).__pocketJrOnNativeGoogleError;
   document.querySelectorAll('script[data-gsi]').forEach(s => s.remove());
+  window.localStorage.removeItem('pocket:google-config:v1');
 });
 
 describe('Google runtime config', () => {
@@ -49,6 +50,14 @@ describe('Google runtime config', () => {
   it('returns the public client ID when enabled', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(res({ enabled: true, clientId: 'abc.apps.googleusercontent.com' })));
     expect(await fetchGoogleConfig()).toEqual({ enabled: true, clientId: 'abc.apps.googleusercontent.com' });
+  });
+
+  it('keeps the last working client ID visible when a later config request fails', async () => {
+    const cached = { enabled: true, clientId: 'cached.apps.googleusercontent.com' };
+    window.localStorage.setItem('pocket:google-config:v1', JSON.stringify(cached));
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
+    const { result } = renderHook(() => useGoogleConfig());
+    expect(result.current).toEqual(cached);
   });
 
   it('hook is null while loading, then resolves', async () => {
@@ -111,9 +120,9 @@ describe('GoogleSignIn button', () => {
     expect(remove).toHaveBeenCalledWith('error', expect.any(Function));
   });
 
-  it('hides itself quietly if the Google script fails to load', async () => {
-    const { container } = render(<GoogleSignIn clientId="abc" onCredential={() => {}} />);
+  it('keeps a visible retry action if the Google script fails to load', async () => {
+    const { getByRole } = render(<GoogleSignIn clientId="abc" onCredential={() => {}} />);
     act(() => { document.querySelector('script[data-gsi]')!.dispatchEvent(new Event('error')); });
-    await waitFor(() => expect(container.querySelector('.google-signin')).toBeNull());
+    expect(getByRole('button', { name: /retry google sign-in/i })).toBeTruthy();
   });
 });
