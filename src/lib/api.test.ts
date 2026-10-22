@@ -125,3 +125,27 @@ describe('entry creation API payloads', () => {
     })).rejects.toMatchObject({ code: 'invalidInput', status: 400 });
   });
 });
+
+
+describe('account deletion API', () => {
+  it('sends an authenticated DELETE request to the account endpoint', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ ok: true }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(api.deleteAccount('account-token')).resolves.toBeUndefined();
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/api/account');
+    expect(init.method).toBe('DELETE');
+    expect(init.headers).toMatchObject({ Authorization: 'Bearer account-token' });
+  });
+
+  it('does not send a remote delete request for local guest sessions', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(api.deleteAccount('guest-local:test'))
+      .rejects.toMatchObject({ code: 'invalidInput', status: 400 });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+});
