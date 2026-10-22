@@ -149,3 +149,65 @@ describe('account deletion API', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });
+
+
+describe('account authentication API', () => {
+  it('creates an account through the registration endpoint and parses the session', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({
+      token: 'registered-session-token',
+      user: { id: 301, email: 'new-pocketjr-user@example.com', username: 'pocketjr-test' },
+    }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const result = await api.register('new-pocketjr-user@example.com', 'test-password-123', 'pocketjr-test');
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/api/auth/register');
+    expect(init.method).toBe('POST');
+    expect(JSON.parse(String(init.body))).toEqual({
+      email: 'new-pocketjr-user@example.com',
+      password: 'test-password-123',
+      username: 'pocketjr-test',
+    });
+    expect(result).toEqual({
+      token: 'registered-session-token',
+      user: { id: '301', email: 'new-pocketjr-user@example.com', username: 'pocketjr-test' },
+    });
+  });
+
+  it('logs in with email and password through the login endpoint', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({
+      token: 'email-login-session-token',
+      user: { id: 302, email: 'existing-pocketjr-user@example.com', username: 'existing-user' },
+    }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const result = await api.login('existing-pocketjr-user@example.com', 'test-password-123');
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/api/auth/login');
+    expect(init.method).toBe('POST');
+    expect(JSON.parse(String(init.body))).toEqual({
+      email: 'existing-pocketjr-user@example.com',
+      password: 'test-password-123',
+    });
+    expect(result.token).toBe('email-login-session-token');
+    expect(result.user.username).toBe('existing-user');
+  });
+
+  it('submits the Google credential to the server for verification', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({
+      token: 'google-login-session-token',
+      user: { id: 303, email: 'google-pocketjr-user@example.com', username: 'google-user' },
+    }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const result = await api.googleLogin('google-id-token-for-test');
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/api/auth/google');
+    expect(init.method).toBe('POST');
+    expect(JSON.parse(String(init.body))).toEqual({ credential: 'google-id-token-for-test' });
+    expect(result.token).toBe('google-login-session-token');
+  });
+});
