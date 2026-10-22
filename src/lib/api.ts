@@ -222,6 +222,10 @@ export const api = {
   login: async (email: string, password: string) => toAuth(await request('/api/auth/login', { method: 'POST', body: { email, password } })),
   register: async (email: string, password: string, username: string) => toAuth(await request('/api/auth/register', { method: 'POST', body: { email, password, username } })),
   updateUsername: async (token: string, username: string) => toAuth(await request('/api/profile', { method: 'PATCH', body: { username }, token })),
+  deleteAccount: async (token: string) => {
+    if (isGuestToken(token)) throw new ApiError('invalidInput', 400, 'Guest sessions do not have a cloud account to delete.');
+    await request('/api/account', { method: 'DELETE', token });
+  },
   /** Requires a configured Google client ID on the frontend and a verified server endpoint. */
   googleLogin: async (credential: string) => toAuth(await request('/api/auth/google', { method: 'POST', body: { credential } })),
   getData: async (token: string) => isGuestToken(token) ? readGuestData(token) : toMoneyData(await request('/api/data', { token })),
