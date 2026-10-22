@@ -158,6 +158,7 @@ export function Dashboard() {
   const [chartMode, setChartMode] = useState<'amount' | 'percent'>('amount');
   const [usernameDraft, setUsernameDraft] = useState(session?.username ?? '');
   const [usernameBusy, setUsernameBusy] = useState(false);
+  const [deletingAccount, setDeletingAccount] = useState(false);
   const [formError, setFormError] = useState('');
   const [busy, setBusy] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
@@ -388,6 +389,22 @@ export function Dashboard() {
       show(errorText(err), true);
     } finally {
       setUsernameBusy(false);
+    }
+  }
+
+  async function deleteAccount() {
+    if (!session || session.guest || deletingAccount) return;
+    if (!window.confirm(t('settings.confirmDeleteAccount'))) return;
+    setDeletingAccount(true);
+    try {
+      await api.deleteAccount(session.token);
+      // Preferences are cached by account ID in this browser; remove that local copy too.
+      try { window.localStorage.removeItem(`pocket:device:${session.userId}`); } catch { /* optional local cache */ }
+      window.alert(t('settings.accountDeleted'));
+      logout();
+    } catch (err) {
+      show(errorText(err), true);
+      setDeletingAccount(false);
     }
   }
 
@@ -677,6 +694,8 @@ export function Dashboard() {
             </div>
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => void saveUsername()} disabled={usernameBusy}><Check /> {usernameBusy ? t('auth.working') : t('settings.usernameSave')}</Button>}
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button>}
+            {!session!.guest && <Button variant="destructive" className="mt-3" onClick={() => void deleteAccount()} disabled={deletingAccount}><Trash2 /> {deletingAccount ? t('auth.working') : t('settings.deleteAccount')}</Button>}
+            <a href="/delete-account" className="mt-3 inline-flex w-fit text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">{t('settings.deleteAccountWeb')}</a>
             <div className="mt-6 border-t border-border pt-4">
               <a
                 href="https://www.instagram.com/youssef3lyy/"
