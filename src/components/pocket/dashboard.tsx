@@ -158,10 +158,10 @@ export function Dashboard() {
   const [chartMode, setChartMode] = useState<'amount' | 'percent'>('amount');
   const [usernameDraft, setUsernameDraft] = useState(session?.username ?? '');
   const [usernameBusy, setUsernameBusy] = useState(false);
-  const [deletingAccount, setDeletingAccount] = useState(false);
   const [formError, setFormError] = useState('');
   const [busy, setBusy] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [transactionToDelete, setTransactionToDelete] = useState<Transaction | null>(null);
   const [slow, setSlow] = useState(false);
   const [now, setNow] = useState<Date | null>(null);
 
@@ -359,11 +359,19 @@ export function Dashboard() {
   }
 
   async function deleteTx(tx: Transaction) {
-    if (!window.confirm(t('tx.confirmDelete'))) return;
+    if (deleting) return;
     setDeleting(tx.id);
-    try { await api.deleteTransaction(token, tx.id); setData(d => ({ ...d, transactions: d.transactions.filter(x => x.id !== tx.id) })); show(t('tx.deleted')); }
-    catch (err) { handleError(err, true); }
-    finally { setDeleting(null); }
+    try {
+      await api.deleteTransaction(token, tx.id);
+      setData(d => ({ ...d, transactions: d.transactions.filter(x => x.id !== tx.id) }));
+      setTransactionToDelete(null);
+      show(t('tx.deleted'));
+    } catch (err) {
+      handleError(err, true);
+      setTransactionToDelete(null);
+    } finally {
+      setDeleting(null);
+    }
   }
   async function deleteInv(id: string, kind: InvKind) {
     if (!window.confirm(t('inv.confirmDelete') + (kind === 'added' ? `\n\n${t('inv.deleteAddedNote')}` : ''))) return;
@@ -392,22 +400,6 @@ export function Dashboard() {
     }
   }
 
-  async function deleteAccount() {
-    if (!session || session.guest || deletingAccount) return;
-    if (!window.confirm(t('settings.confirmDeleteAccount'))) return;
-    setDeletingAccount(true);
-    try {
-      await api.deleteAccount(session.token);
-      // Preferences are cached by account ID in this browser; remove that local copy too.
-      try { window.localStorage.removeItem(`pocket:device:${session.userId}`); } catch { /* optional local cache */ }
-      window.alert(t('settings.accountDeleted'));
-      logout();
-    } catch (err) {
-      show(errorText(err), true);
-      setDeletingAccount(false);
-    }
-  }
-
   // ---------- Loading / error ----------
   if ((query.isPending || !prefsLoaded) && !query.data) {
     return <div className="state-screen" role="status" aria-live="polite"><LogoMark /><div className="state-spinner" aria-hidden="true" /><h1>{t('load.title')}</h1>{slow && <p>{t('load.waking')}</p>}</div>;
@@ -428,13 +420,13 @@ export function Dashboard() {
           ? <select className="tiny-select" aria-label={t('tx.filterAria')} value={filter} onChange={e => setFilter(e.target.value)}><option value="all">{t('tx.allCategories')}</option>{usedCategories.map(c => <option key={c} value={c}>{i.category(c)}</option>)}</select>
           : <Button variant="text" onClick={() => setView('Transactions')}>{t('tx.viewAll')} <ArrowRight className="flip-rtl" /></Button>}
       </div>
-      <div className={`transaction-head ${full ? 'with-action' : ''}`}><span>{t('tx.colTx')}</span><span>{t('tx.colDate')}</span><span>{t('tx.colAmount')}</span>{full && <span />}</div>
+      <div className="transaction-head with-action"><span>{t('tx.colTx')}</span><span>{t('tx.colDate')}</span><span>{t('tx.colAmount')}</span><span /></div>
       {(full ? visibleTxs : monthTxs.slice(0, 5)).map(x => (
-        <div className={`transaction-row ${full ? 'with-action' : ''}`} key={x.id}>
+        <div className="transaction-row with-action" key={x.id}>
           <div className="transaction-merchant"><CategoryIcon category={x.category} {...(x.source ? { source: x.source } : {})} /><div className="transaction-name"><strong dir="auto">{x.description || t('tx.noDescription')}</strong><small>{x.type === 'income' ? `${t('tx.income')} · ${i.category(x.category)}` : i.category(x.category)}</small></div></div>
           <span className="transaction-date"><span>{relDate(x.createdAt)}</span><small className="transaction-time">{i.date(x.createdAt, { hour: '2-digit', minute: '2-digit' })}</small></span>
           <span className={`transaction-amount ${x.type === 'income' ? 'positive' : ''}`}><Num>{x.type === 'income' ? '+' : '−'}{i.money(x.amount)}</Num><small>{cur}</small></span>
-          {full && <Button variant="ghost" size="icon" className="row-delete" disabled={deleting === x.id} aria-label={t('tx.deleteAria', { name: x.description || i.category(x.category) })} title={t('tx.deleteAria', { name: x.description || i.category(x.category) })} onClick={() => void deleteTx(x)}><Trash2 /></Button>}
+          <Button variant="ghost" size="icon" className="row-delete" disabled={deleting === x.id} aria-label={t('tx.deleteAria', { name: x.description || i.category(x.category) })} title={t('tx.deleteAria', { name: x.description || i.category(x.category) })} onClick={() => setTransactionToDelete(x)}><Trash2 /></Button>
         </div>
       ))}
       {(full ? visibleTxs : monthTxs).length === 0 && <div className="empty-state">{full && monthTxs.length > 0 ? t('tx.noMatch') : t('tx.empty')}</div>}
@@ -694,8 +686,7 @@ export function Dashboard() {
             </div>
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => void saveUsername()} disabled={usernameBusy}><Check /> {usernameBusy ? t('auth.working') : t('settings.usernameSave')}</Button>}
             {!session!.guest && <Button variant="outline" className="mt-5" onClick={() => logout()}><LogOut /> {t('settings.logout')}</Button>}
-            {!session!.guest && <Button variant="destructive" className="mt-3" onClick={() => void deleteAccount()} disabled={deletingAccount}><Trash2 /> {deletingAccount ? t('auth.working') : t('settings.deleteAccount')}</Button>}
-            <a href="/delete-account" className="mt-3 inline-flex w-fit text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">{t('settings.deleteAccountWeb')}</a>
+            {!session!.guest && <Button asChild variant="destructive" className="mt-3"><a href="/delete-account"><Trash2 /> {t('settings.deleteAccount')}</a></Button>}
             <div className="mt-6 border-t border-border pt-4">
               <a
                 href="https://www.instagram.com/youssef3lyy/"
@@ -784,6 +775,17 @@ export function Dashboard() {
             {formError && <p className="form-error" role="alert">{formError}</p>}
             <Button type="submit" className="form-submit" disabled={busy}><Check />{busy ? t('form.saving') : modal === 'budget' ? t('form.saveBudget') : modal === 'goalEdit' ? t(editingGoalId ? 'form.saveGoal' : 'goal.create') : modal === 'goal' ? t('form.addGoal') : modal === 'invest' ? t('form.saveInv') : t('form.save')}</Button>
           </form>}
+        </DialogContent>
+      </Dialog>
+      <Dialog open={transactionToDelete !== null} onOpenChange={open => { if (!open && !deleting) setTransactionToDelete(null); }}>
+        <DialogContent className="modal-card">
+          <DialogTitle>{t('tx.confirmDelete')}</DialogTitle>
+          <div className="mt-5 flex flex-wrap justify-end gap-3">
+            <Button variant="destructive" disabled={!transactionToDelete || deleting !== null} onClick={() => { if (transactionToDelete) void deleteTx(transactionToDelete); }}>
+              {deleting && transactionToDelete && deleting === transactionToDelete.id ? t('form.saving') : t('tx.confirmOk')}
+            </Button>
+            <Button variant="outline" disabled={deleting !== null} onClick={() => setTransactionToDelete(null)}>{t('tx.confirmCancel')}</Button>
+          </div>
         </DialogContent>
       </Dialog>
       {toast && <div className={`toast-message ${toast.error ? 'toast-error' : ''}`} role={toast.error ? 'alert' : 'status'}>{toast.error ? <CircleAlert /> : <Check />}{toast.text}</div>}
