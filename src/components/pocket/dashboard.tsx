@@ -705,6 +705,7 @@ export function Dashboard() {
                   <span className="text-xs font-normal text-muted-foreground">@youssef3lyy</span>
                 </span>
               </a>
+              <a href="/privacy-policy" className="mt-4 inline-flex text-sm font-medium underline underline-offset-4">Privacy Policy · سياسة الخصوصية</a>
             </div>
           </section>
           <DailyReminder />
