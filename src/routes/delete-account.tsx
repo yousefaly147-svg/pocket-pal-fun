@@ -34,6 +34,9 @@ function AccountDeletionPage() {
     setError('');
     try {
       await api.deleteAccount(session.token);
+      // In the Android app, purge unsent Telda notification records associated with this deleted account.
+      // The bridge is absent on the ordinary website, so browser deletion still works without it.
+      try { window.PocketPalAndroid?.clearPendingTeldaImports(session.userId); } catch { /* optional native bridge */ }
       try { window.localStorage.removeItem(`pocket:device:${session.userId}`); } catch { /* optional local cache */ }
       setCompleted(true);
       logout();
