@@ -134,6 +134,7 @@ export function LandingPage() {
       <footer className="landing-footer">
         <a className="landing-brand" href="/" aria-label="Pocket Pal home"><LogoMark /><span className="landing-brand-word">pocket<span>.</span></span></a>
         <p>{t('landing.footer')}</p>
+        <a href="/privacy-policy" className="text-sm font-medium underline underline-offset-4">Privacy Policy · سياسة الخصوصية</a>
         <button type="button" onClick={openAuthScreen}>{t('auth.accountCta')}</button>
       </footer>
     </div>
