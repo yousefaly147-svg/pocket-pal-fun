@@ -309,6 +309,8 @@ export const ar: Record<TKey, string> = {
   'auth.tabsAria': 'سجّل دخول أو اعمل حساب',
   'auth.email': 'الإيميل',
   'auth.password': 'الباسورد',
+  'auth.showPassword': 'إظهار الباسورد',
+  'auth.hidePassword': 'إخفاء الباسورد',
   'auth.passwordHint': '8 حروف على الأقل',
   'auth.submitLogin': 'دخول',
   'auth.submitRegister': 'اعمل حسابي',
