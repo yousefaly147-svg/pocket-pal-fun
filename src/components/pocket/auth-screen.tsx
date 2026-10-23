@@ -65,6 +65,7 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
               </div>
             </> : null}
           <p className="auth-secure"><ShieldCheck /> {t('auth.secure')}</p>
+          <p className="mt-4 text-center text-sm text-muted-foreground"><a href="/privacy-policy" className="underline underline-offset-4">Privacy Policy · سياسة الخصوصية</a></p>
         </div>
       </main>
     </div>
