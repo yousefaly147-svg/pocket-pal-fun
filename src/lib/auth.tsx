@@ -6,6 +6,7 @@ declare global {
   interface Window {
     PocketPalAndroid?: {
       setAuthToken(token: string): void;
+      clearPendingTeldaImports(accountId: string): void;
       isNotificationAccessEnabled(): boolean;
       isAutoImportEnabled(): boolean;
       setAutoImportEnabled(enabled: boolean): void;
