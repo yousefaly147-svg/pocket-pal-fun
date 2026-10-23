@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { LogIn, ShieldCheck, UserPlus } from 'lucide-react';
+import { Eye, EyeOff, LogIn, ShieldCheck, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LogoMark, WalletFriend } from '@/components/cartoon';
 import { ApiError } from '@/lib/api';
@@ -15,6 +15,7 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [error, setError] = useState<string>(notice ? t('err.sessionExpired') : '');
   const [busy, setBusy] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,14 +45,29 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
         <div className="auth-art balance-card"><WalletFriend /><h1>{t('auth.welcome')}</h1><p>{t('auth.sub')}</p></div>
         <div className="auth-form">
           <div className="auth-tabs" role="tablist" aria-label={t('auth.tabsAria')}>
-            <button type="button" role="tab" aria-selected={mode === 'login'} className={mode === 'login' ? 'active' : ''} onClick={() => { setMode('login'); setError(''); }}>{t('auth.login')}</button>
-            <button type="button" role="tab" aria-selected={mode === 'register'} className={mode === 'register' ? 'active' : ''} onClick={() => { setMode('register'); setError(''); }}>{t('auth.register')}</button>
+            <button type="button" role="tab" aria-selected={mode === 'login'} className={mode === 'login' ? 'active' : ''} onClick={() => { setMode('login'); setError(''); setShowPassword(false); }}>{t('auth.login')}</button>
+            <button type="button" role="tab" aria-selected={mode === 'register'} className={mode === 'register' ? 'active' : ''} onClick={() => { setMode('register'); setError(''); setShowPassword(false); }}>{t('auth.register')}</button>
           </div>
           <form onSubmit={onSubmit} noValidate>
             <div className="form-grid">
               {mode === 'register' && <label className="field full">{t('auth.username')}<input name="username" type="text" autoComplete="username" required minLength={3} maxLength={20} pattern="[A-Za-z0-9_.-]{3,20}" dir="ltr" /><small className="field-hint">{t('auth.usernameHint')}</small></label>}
               <label className="field full">{t('auth.email')}<input name="email" type="email" autoComplete="email" required dir="ltr" maxLength={120} /></label>
-              <label className="field full">{t('auth.password')}<input name="password" type="password" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} required minLength={mode === 'register' ? 8 : undefined} maxLength={200} dir="ltr" />{mode === 'register' && <small className="field-hint">{t('auth.passwordHint')}</small>}</label>
+              <label className="field full">{t('auth.password')}
+                <div className="password-input-wrap">
+                  <input name="password" type={showPassword ? 'text' : 'password'} autoComplete={mode === 'login' ? 'current-password' : 'new-password'} required minLength={mode === 'register' ? 8 : undefined} maxLength={200} dir="ltr" />
+                  <button
+                    type="button"
+                    className="password-visibility"
+                    onClick={() => setShowPassword((visible) => !visible)}
+                    aria-label={t(showPassword ? 'auth.hidePassword' : 'auth.showPassword')}
+                    aria-pressed={showPassword}
+                    title={t(showPassword ? 'auth.hidePassword' : 'auth.showPassword')}
+                  >
+                    {showPassword ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
+                  </button>
+                </div>
+                {mode === 'register' && <small className="field-hint">{t('auth.passwordHint')}</small>}
+              </label>
             </div>
             {error && <p className="form-error" role="alert">{error}</p>}
             <Button type="submit" className="form-submit" disabled={busy}>{mode === 'login' ? <LogIn /> : <UserPlus />}{busy ? t('auth.working') : t(mode === 'login' ? 'auth.submitLogin' : 'auth.submitRegister')}</Button>
