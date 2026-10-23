@@ -307,6 +307,8 @@ export const en = {
   'auth.tabsAria': 'Log in or create an account',
   'auth.email': 'Email',
   'auth.password': 'Password',
+  'auth.showPassword': 'Show password',
+  'auth.hidePassword': 'Hide password',
   'auth.passwordHint': 'At least 8 characters',
   'auth.submitLogin': 'Log in',
   'auth.submitRegister': 'Create my account',
