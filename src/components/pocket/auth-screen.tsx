@@ -52,9 +52,10 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
             <div className="form-grid">
               {mode === 'register' && <label className="field full">{t('auth.username')}<input name="username" type="text" autoComplete="username" required minLength={3} maxLength={20} pattern="[A-Za-z0-9_.-]{3,20}" dir="ltr" /><small className="field-hint">{t('auth.usernameHint')}</small></label>}
               <label className="field full">{t('auth.email')}<input name="email" type="email" autoComplete="email" required dir="ltr" maxLength={120} /></label>
-              <label className="field full">{t('auth.password')}
+              <div className="field full">
+                <label htmlFor="auth-password">{t('auth.password')}</label>
                 <div className="password-input-wrap">
-                  <input name="password" type={showPassword ? 'text' : 'password'} autoComplete={mode === 'login' ? 'current-password' : 'new-password'} required minLength={mode === 'register' ? 8 : undefined} maxLength={200} dir="ltr" />
+                  <input id="auth-password" name="password" type={showPassword ? 'text' : 'password'} autoComplete={mode === 'login' ? 'current-password' : 'new-password'} required minLength={mode === 'register' ? 8 : undefined} maxLength={200} dir="ltr" />
                   <button
                     type="button"
                     className="password-visibility"
@@ -67,7 +68,7 @@ export function AuthScreen({ onDismiss }: { onDismiss?: () => void }) {
                   </button>
                 </div>
                 {mode === 'register' && <small className="field-hint">{t('auth.passwordHint')}</small>}
-              </label>
+              </div>
             </div>
             {error && <p className="form-error" role="alert">{error}</p>}
             <Button type="submit" className="form-submit" disabled={busy}>{mode === 'login' ? <LogIn /> : <UserPlus />}{busy ? t('auth.working') : t(mode === 'login' ? 'auth.submitLogin' : 'auth.submitRegister')}</Button>
