@@ -55,8 +55,9 @@ function AccountDeletionPage() {
           </div>
         </header>
         {children}
-        <footer className="mt-8 border-t border-border pt-5">
+        <footer className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5">
           <Link to="/" className="text-sm font-medium text-primary underline-offset-4 hover:underline">{t('deletePage.home')}</Link>
+          <Link to="/privacy-policy" className="text-sm font-medium text-primary underline-offset-4 hover:underline">Privacy Policy · سياسة الخصوصية</Link>
         </footer>
       </section>
     </main>
