@@ -707,8 +707,8 @@ export function Dashboard() {
               </a>
               <a
                 href="mailto:yousefaly147@gmail.com"
-                aria-label="Email Pocketjr support"
-                title="Email Pocketjr support"
+                aria-label={t('settings.contactEmail')}
+                title={t('settings.contactEmail')}
                 className="mt-3 inline-flex w-fit items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
                 data-testid="support-email-link"
               >
@@ -716,7 +716,7 @@ export function Dashboard() {
                   <Mail className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <span className="flex flex-col items-start gap-0.5">
-                  <span>Email</span>
+                  <span>{t('settings.contactEmail')}</span>
                   <span className="text-xs font-normal text-muted-foreground">yousefaly147@gmail.com</span>
                 </span>
               </a>
