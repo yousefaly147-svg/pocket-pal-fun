@@ -159,6 +159,7 @@ export const en = {
 
   'settings.title': 'Your account',
   'settings.instagram': 'Open Instagram profile',
+  'settings.contactEmail': 'Email us',
   'reminder.title': 'Daily money reminder',
   'reminder.description': 'A gentle nudge to review spending or add today’s transactions.',
   'reminder.time': 'Reminder time',
