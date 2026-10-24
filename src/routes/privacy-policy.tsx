@@ -149,8 +149,10 @@ function PrivacyPolicyPage() {
           <h2 className="text-xl font-bold">7. Changes and contact</h2>
           <p className="leading-7 text-muted-foreground">
             We may update this policy when the service or its data practices change. The latest
-            version will be posted at this URL with a revised update date. For privacy questions,
-            contact Pocketjr through
+            version will be posted at this URL with a revised update date. For privacy questions or
+            support, email
+            {' '}<a className="underline underline-offset-4" href="mailto:yousefaly147@gmail.com">yousefaly147@gmail.com</a>
+            {' '}or contact us on
             {' '}<a className="underline underline-offset-4" href="https://www.instagram.com/youssef3lyy/" target="_blank" rel="noopener noreferrer">Instagram @youssef3lyy</a>.
           </p>
           <p className="leading-7 text-muted-foreground">
@@ -207,9 +209,12 @@ function PrivacyPolicyPage() {
           <section className="space-y-2">
             <h3 className="text-lg font-bold">التواصل والتعديلات</h3>
             <p className="leading-8 text-muted-foreground">
-              قد نحدّث هذه السياسة عند تغيير الخدمة أو طريقة التعامل مع البيانات. للاستفسارات المتعلقة بالخصوصية، تواصل مع Pocketjr عبر
+              ممكن نحدّث سياسة الخصوصية دي لو الخدمة أو طريقة التعامل مع البيانات اتغيّرت. هتلاقي أحدث نسخة على نفس الصفحة مع تاريخ التحديث.
+              لو عندك سؤال عن الخصوصية أو محتاج مساعدة، ابعت إيميل على
+              <a className="mx-1 underline underline-offset-4" href="mailto:yousefaly147@gmail.com">yousefaly147@gmail.com</a>
+              أو تواصل معانا على
               <a className="mx-1 underline underline-offset-4" href="https://www.instagram.com/youssef3lyy/" target="_blank" rel="noopener noreferrer">إنستغرام @youssef3lyy</a>.
-              Pocketjr أداة لتسجيل الشؤون المالية الشخصية، وليست بنكًا أو استشارة مالية أو ضريبية أو استثمارية.
+              Pocketjr أداة لتسجيل الشؤون المالية الشخصية، مش بنك ومش بيقدّم نصايح مالية أو ضريبية أو استثمارية.
             </p>
           </section>
         </div>
