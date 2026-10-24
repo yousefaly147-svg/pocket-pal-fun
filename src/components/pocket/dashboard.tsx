@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   ArrowDownLeft, ArrowUpRight, ArrowRight, Bell, LayoutDashboard, ReceiptText, ChartPie, Flag, Settings, ChevronDown, CalendarDays,
   Utensils, CarFront, ShoppingBag, Music2, Ellipsis, Plus, Eye, EyeOff, TrendingDown, TrendingUp, Lightbulb, Heart, ShieldCheck, CircleHelp,
-  Sparkles, Check, Search, Banknote, Target, Hand, UserRound, Sun, Receipt, GraduationCap, HeartPulse, Gift, Trophy, PiggyBank, Trash2,
+  Sparkles, Check, Search, Banknote, Target, Hand, UserRound, Sun, Receipt, GraduationCap, HeartPulse, Gift, Trophy, PiggyBank, Trash2, Mail,
   LogIn, LogOut, RefreshCw, Smartphone, CircleAlert, ChevronLeft, ChevronRight, Instagram, type LucideIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -703,6 +703,21 @@ export function Dashboard() {
                 <span className="flex flex-col items-start gap-0.5">
                   <span>Instagram</span>
                   <span className="text-xs font-normal text-muted-foreground">@youssef3lyy</span>
+                </span>
+              </a>
+              <a
+                href="mailto:yousefaly147@gmail.com"
+                aria-label="Email Pocketjr support"
+                title="Email Pocketjr support"
+                className="mt-3 inline-flex w-fit items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                data-testid="support-email-link"
+              >
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+                  <Mail className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span className="flex flex-col items-start gap-0.5">
+                  <span>Email</span>
+                  <span className="text-xs font-normal text-muted-foreground">yousefaly147@gmail.com</span>
                 </span>
               </a>
               <a href="/privacy-policy" className="mt-4 inline-flex text-sm font-medium underline underline-offset-4">Privacy Policy · سياسة الخصوصية</a>
