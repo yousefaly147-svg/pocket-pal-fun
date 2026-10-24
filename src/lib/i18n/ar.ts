@@ -161,6 +161,7 @@ export const ar: Record<TKey, string> = {
 
   'settings.title': 'حسابك',
   'settings.instagram': 'افتح حساب إنستجرام',
+  'settings.contactEmail': 'راسلنا على الإيميل',
   'reminder.title': 'تذكير يومي بالفلوس',
   'reminder.description': 'تذكير لطيف تراجع الصرف بتاعك أو تسجّل معاملات النهارده.',
   'reminder.time': 'ميعاد التذكير',
