@@ -367,7 +367,7 @@ export const en = {
   'live.unavailable': 'Couldn\'t load live rates right now. Nothing is shown instead of guessing.',
   'live.retry': 'Try again',
   'live.loading': 'Loading live rates…',
-  'live.note': 'For information only. Rates never change your recorded amounts.',
+  'live.note': 'For information only. The FX source updates daily; international gold spot is rechecked every 5 minutes while this screen is active. Rates never change your recorded amounts.',
   'telda.title': 'Telda automatic transactions (Android)',
   'telda.body': 'Enable notification access to automatically add supported Telda payments and money received to your transactions.',
   'telda.enable': 'Enable Telda auto-import',
