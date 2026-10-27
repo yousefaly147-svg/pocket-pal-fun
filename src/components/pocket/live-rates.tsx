@@ -70,7 +70,7 @@ export function LiveRates() {
           {tile(t('live.gold'), goldEgp, gold.data?.updated, GOLD_STALE_MS, 'gold-api.com + ExchangeRate-API')}
         </div>
         {(fx.isError || gold.isError) && <p className="form-error live-error" role="alert"><CircleAlert className="inline h-4 w-4" /> {t('live.unavailable')}</p>}
-        <p className="live-note">{t('live.goldNote')} {t('live.note')}</p>
+        <p className="live-note">{t('live.goldNote')} {t('live.note')} <a className="underline" href="https://www.exchangerate-api.com" target="_blank" rel="noreferrer">Rates By Exchange Rate API</a></p>
       </>}
     </section>
   );
