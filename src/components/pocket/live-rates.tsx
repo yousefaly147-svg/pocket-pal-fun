@@ -10,6 +10,10 @@ const GOLD_URL = 'https://api.gold-api.com/price/XAU';   // gold-api.com spot, U
 const TROY_OZ_GRAMS = 31.1034768;
 const FX_STALE_MS = 36 * 3600_000;
 const GOLD_STALE_MS = 24 * 3600_000;
+// The public FX feed refreshes daily; poll hourly to pick up its next published rate.
+const FX_REFRESH_MS = 60 * 60_000;
+// Gold is a spot-price feed, so re-check it every five minutes while the app is active.
+const GOLD_REFRESH_MS = 5 * 60_000;
 
 type Fx = { usdEgp: number; sarEgp: number; updated: string };
 type Gold = { usdPerOz: number; updated: string };
@@ -40,8 +44,8 @@ async function fetchGold(): Promise<Gold> {
 export function LiveRates() {
   const i = useI18n();
   const { t } = i;
-  const fx = useQuery({ queryKey: ['live-fx'], queryFn: fetchFx, staleTime: 10 * 60_000, retry: 1 });
-  const gold = useQuery({ queryKey: ['live-gold'], queryFn: fetchGold, staleTime: 5 * 60_000, retry: 1 });
+  const fx = useQuery({ queryKey: ['live-fx'], queryFn: fetchFx, staleTime: 10 * 60_000, refetchInterval: FX_REFRESH_MS, refetchIntervalInBackground: false, retry: 1 });
+  const gold = useQuery({ queryKey: ['live-gold'], queryFn: fetchGold, staleTime: 5 * 60_000, refetchInterval: GOLD_REFRESH_MS, refetchIntervalInBackground: false, retry: 1 });
   const when = (iso: string) => i.date(iso, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   const isStale = (iso: string, ms: number) => Date.now() - new Date(iso).getTime() > ms;
   const goldEgp = fx.data && gold.data ? (gold.data.usdPerOz * fx.data.usdEgp) / TROY_OZ_GRAMS : null;
