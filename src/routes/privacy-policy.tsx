@@ -21,7 +21,7 @@ export const Route = createFileRoute('/privacy-policy')({
   component: PrivacyPolicyPage,
 });
 
-function PrivacyPolicyPage() {
+export function PrivacyPolicyPage() {
   return (
     <main className="min-h-screen bg-background px-4 py-10 text-foreground">
       <article className="panel mx-auto w-full max-w-3xl space-y-8 p-6 md:p-10">
