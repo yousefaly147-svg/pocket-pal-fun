@@ -16,6 +16,9 @@ export const Route = createFileRoute('/privacy-policy')({
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/privacy-policy' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/privacy-policy' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/privacy-policy' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/privacy-policy' },
     ],
   }),
   component: PrivacyPolicyPage,
