@@ -35,37 +35,37 @@ const ArRoute = ArRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArIndexRoute = ArIndexRouteImport.update({
-  id: '/ar/',
+  id: '/',
   path: '/',
   getParentRoute: () => ArRoute,
 } as any)
 const ArAboutRoute = ArAboutRouteImport.update({
-  id: '/ar/about',
+  id: '/about',
   path: '/about',
   getParentRoute: () => ArRoute,
 } as any)
 const ArHelpRoute = ArHelpRouteImport.update({
-  id: '/ar/help',
+  id: '/help',
   path: '/help',
   getParentRoute: () => ArRoute,
 } as any)
 const ArGuidesRoute = ArGuidesRouteImport.update({
-  id: '/ar/guides',
+  id: '/guides',
   path: '/guides',
   getParentRoute: () => ArRoute,
 } as any)
 const ArPrivacyPolicyRoute = ArPrivacyPolicyRouteImport.update({
-  id: '/ar/privacy-policy',
+  id: '/privacy-policy',
   path: '/privacy-policy',
   getParentRoute: () => ArRoute,
 } as any)
 const ArTermsRoute = ArTermsRouteImport.update({
-  id: '/ar/terms',
+  id: '/terms',
   path: '/terms',
   getParentRoute: () => ArRoute,
 } as any)
 const ArDeleteAccountRoute = ArDeleteAccountRouteImport.update({
-  id: '/ar/delete-account',
+  id: '/delete-account',
   path: '/delete-account',
   getParentRoute: () => ArRoute,
 } as any)
