@@ -9,7 +9,7 @@ export const LANG_KEY = 'pocket_lang';
 const dictionaries: Record<Lang, Record<TKey, string>> = { en, ar };
 
 /** Runs before hydration so the first paint already has the right direction. */
-export const langBootScript = `try{var l=localStorage.getItem('${LANG_KEY}')==='ar'?'ar':'en';document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}`;
+export const langBootScript = `try{var p=location.pathname;var l=(p==='/ar'||p.indexOf('/ar/')===0)?'ar':(p==='/'&&localStorage.getItem('${LANG_KEY}')==='ar'?'ar':'en');document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}`;
 
 /** The language already applied to <html> by the boot script (browser only). */
 function initialLang(): Lang {
@@ -52,12 +52,13 @@ function makeApi(lang: Lang, currency: string) {
 type I18nCtx = ReturnType<typeof makeApi> & { setLang: (l: Lang) => void; setCurrency: (c: string) => void };
 const Ctx = createContext<I18nCtx | null>(null);
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+export function I18nProvider({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Lang | undefined }) {
   // Start from what the boot script already put on <html>, so there is no English flash
   // and nothing ever writes the wrong direction back over it on refresh.
-  const [lang, setLangState] = useState<Lang>(initialLang);
+  const [lang, setLangState] = useState<Lang>(initialLanguage ?? initialLang);
   const [currency, setCurrency] = useState('EGP');
   useEffect(() => {
+    if (initialLanguage) return;
     let saved: Lang = lang;
     try { saved = localStorage.getItem(LANG_KEY) === 'ar' ? 'ar' : 'en'; } catch { /* ignore */ }
     if (saved !== lang) setLangState(saved);

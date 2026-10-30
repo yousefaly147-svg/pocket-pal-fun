@@ -14,12 +14,15 @@ export const Route = createFileRoute('/about')({
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/about' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/about' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/about' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/about' },
     ],
   }),
   component: AboutPage,
 });
 
-function AboutPage() {
+export function AboutPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   return (

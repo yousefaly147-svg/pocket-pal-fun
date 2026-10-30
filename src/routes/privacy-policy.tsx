@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { LogoMark } from '@/components/cartoon';
+import { LangToggle } from '@/components/pocket/lang-toggle';
+import { useI18n } from '@/lib/i18n';
 
 export const Route = createFileRoute('/privacy-policy')({
   head: () => ({
@@ -16,17 +18,26 @@ export const Route = createFileRoute('/privacy-policy')({
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/privacy-policy' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/privacy-policy' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/privacy-policy' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/privacy-policy' },
     ],
   }),
   component: PrivacyPolicyPage,
 });
 
-function PrivacyPolicyPage() {
+export function PrivacyPolicyPage() {
+  const { lang } = useI18n();
+  const ar = lang === 'ar';
+  const homePath = ar ? '/ar/' : '/';
+  const deleteAccountPath = ar ? '/ar/delete-account' : '/delete-account';
+
   return (
     <main className="min-h-screen bg-background px-4 py-10 text-foreground">
       <article className="panel mx-auto w-full max-w-3xl space-y-8 p-6 md:p-10">
         <header className="flex items-center gap-3">
           <LogoMark />
+          <LangToggle className="ml-auto" />
           <div>
             <p className="text-sm text-muted-foreground">Pocketjr</p>
             <h1 className="text-3xl font-extrabold tracking-tight">Privacy Policy</h1>
@@ -142,7 +153,7 @@ function PrivacyPolicyPage() {
           <p className="leading-7 text-muted-foreground">
             Account information and synced finance records are kept while your account is active.
             You can initiate permanent account deletion from Settings in Pocketjr or from our
-            <Link to="/delete-account" className="mx-1 underline underline-offset-4">account deletion page</Link>.
+            <Link to={deleteAccountPath} className="mx-1 underline underline-offset-4">account deletion page</Link>.
             After a verified deletion succeeds, the live account record and associated server-stored
             transactions, investments, device registrations, and preferences are deleted. We may
             retain limited records where required by law or for legitimate security purposes.
@@ -228,7 +239,7 @@ function PrivacyPolicyPage() {
             <p className="leading-8 text-muted-foreground">
               تستخدم اتصالات الخادم HTTPS، وتُجزّأ كلمات المرور قبل تخزينها، وتُحمى رموز الجلسة والجهاز في أندرويد باستخدام Android Keystore.
               نحتفظ ببيانات الحساب والسجلات المتزامنة ما دام الحساب نشطًا. يمكنك بدء حذف الحساب نهائيًا من الإعدادات أو من
-              <Link to="/delete-account" className="mx-1 underline underline-offset-4">صفحة حذف الحساب</Link>.
+              <Link to={deleteAccountPath} className="mx-1 underline underline-offset-4">صفحة حذف الحساب</Link>.
               عند نجاح الحذف، تُحذف سجلات الحساب والمعاملات والاستثمارات والأجهزة والتفضيلات المخزنة على الخادم.
             </p>
             <p className="leading-8 text-muted-foreground">
@@ -249,8 +260,8 @@ function PrivacyPolicyPage() {
           </section>
         </div>
         <footer className="flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
-          <Link to="/" className="font-medium underline underline-offset-4">Home</Link>
-          <Link to="/delete-account" className="font-medium underline underline-offset-4">Delete account</Link>
+          <Link to={homePath} className="font-medium underline underline-offset-4">Home</Link>
+          <Link to={deleteAccountPath} className="font-medium underline underline-offset-4">Delete account</Link>
         </footer>
       </article>
     </main>

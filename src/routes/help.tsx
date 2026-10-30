@@ -14,12 +14,15 @@ export const Route = createFileRoute('/help')({
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/help' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/help' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/help' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/help' },
     ],
   }),
   component: HelpPage,
 });
 
-function HelpPage() {
+export function HelpPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   const items = ar ? [

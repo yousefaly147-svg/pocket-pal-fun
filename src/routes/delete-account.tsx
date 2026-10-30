@@ -19,7 +19,7 @@ export const Route = createFileRoute('/delete-account')({
   component: AccountDeletionPage,
 });
 
-function AccountDeletionPage() {
+export function AccountDeletionPage() {
   const { t, dir } = useI18n();
   const { status, session, logout } = useAuth();
   const [showAuth, setShowAuth] = useState(false);

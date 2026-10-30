@@ -1,4 +1,5 @@
 name: Verify frontend
+# Also run the standard frontend checks for localized-route and SEO changes.
 on:
   push:
     branches: [main, fix/persist-selected-entry-dates]
