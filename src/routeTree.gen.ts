@@ -155,6 +155,9 @@ export interface FileRoutesByFullPath {
   '/help': typeof HelpRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
+  '/monthly-budget': typeof MonthlyBudgetRoute
+  '/expense-tracking': typeof ExpenseTrackingRoute
+  '/savings-goals': typeof SavingsGoalsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -174,6 +177,9 @@ export interface FileRoutesByTo {
   '/help': typeof HelpRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
+  '/monthly-budget': typeof MonthlyBudgetRoute
+  '/expense-tracking': typeof ExpenseTrackingRoute
+  '/savings-goals': typeof SavingsGoalsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -195,13 +201,16 @@ export interface FileRoutesById {
   '/help': typeof HelpRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
+  '/monthly-budget': typeof MonthlyBudgetRoute
+  '/expense-tracking': typeof ExpenseTrackingRoute
+  '/savings-goals': typeof SavingsGoalsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  fullPaths: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/monthly-budget' | '/expense-tracking' | '/savings-goals' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
-  id: '__root__' | '/ar' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  to: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/monthly-budget' | '/expense-tracking' | '/savings-goals' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  id: '__root__' | '/ar' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/' | '/monthly-budget' | '/expense-tracking' | '/savings-goals' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface ArRouteChildren {
