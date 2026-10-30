@@ -10,6 +10,9 @@ export const Route = createFileRoute('/guides')({
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/guides' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/guides' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/guides' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/guides' },
     ],
   }),
   component: GuidesPage,
