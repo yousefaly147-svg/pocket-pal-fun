@@ -313,6 +313,9 @@ export const en = {
   'auth.passwordHint': 'At least 8 characters',
   'auth.submitLogin': 'Log in',
   'auth.submitRegister': 'Create my account',
+  'login.signingIn': 'Signing you in…',
+  'login.preparing': 'Getting your pocket ready…',
+  'login.wait': 'Please wait',
   'auth.working': 'One moment…',
   'auth.secure': 'Your data stays in your own account. Pocket only shows what belongs to you.',
 

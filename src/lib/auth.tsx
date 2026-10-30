@@ -29,11 +29,17 @@ function syncNativeSession(token: string | null) {
 }
 export type Session = { token: string; userId: string; email: string; username: string; guest: boolean };
 type Status = 'checking' | 'signedOut' | 'signedIn';
+/** Login-only full-screen transition: shown from auth submit until the first dashboard load settles. */
+export type LoginTransition = { phase: 'authenticating' | 'loading' | 'settled'; startedAt: number };
 type AuthCtx = {
   status: Status;
   session: Session | null;
   notice: 'sessionExpired' | null;
   authScreenOpen: boolean;
+  loginTransition: LoginTransition | null;
+  /** Dashboard reports that its first data refresh and preferences load have finished. */
+  settleLoginTransition: () => void;
+  endLoginTransition: () => void;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, username: string) => Promise<void>;
   loginWithGoogle: (credential: string) => Promise<void>;
@@ -69,6 +75,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [notice, setNotice] = useState<'sessionExpired' | null>(null);
   const [authScreenOpen, setAuthScreenOpen] = useState(false);
+  const [loginTransition, setLoginTransition] = useState<LoginTransition | null>(null);
+
+  const withTransition = useCallback(async (run: () => Promise<void>) => {
+    setLoginTransition({ phase: 'authenticating', startedAt: Date.now() });
+    try {
+      await run();
+      setLoginTransition(t => (t ? { ...t, phase: 'loading' } : t));
+    } catch (err) {
+      setLoginTransition(null);
+      throw err;
+    }
+  }, []);
+  const settleLoginTransition = useCallback(() => {
+    setLoginTransition(t => (t && t.phase === 'loading' ? { ...t, phase: 'settled' } : t));
+  }, []);
+  const endLoginTransition = useCallback(() => setLoginTransition(null), []);
 
   useEffect(() => {
     let token: string | null = null;
@@ -93,19 +115,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [queryClient]);
 
   const login = useCallback(async (email: string, password: string) => {
-    const r = await api.login(email, password);
-    start(r.token, r.user);
-  }, [start]);
+    await withTransition(async () => { const r = await api.login(email, password); start(r.token, r.user); });
+  }, [start, withTransition]);
 
   const register = useCallback(async (email: string, password: string, username: string) => {
-    const r = await api.register(email, password, username);
-    start(r.token, r.user);
-  }, [start]);
+    await withTransition(async () => { const r = await api.register(email, password, username); start(r.token, r.user); });
+  }, [start, withTransition]);
 
   const loginWithGoogle = useCallback(async (credential: string) => {
-    const r = await api.googleLogin(credential);
-    start(r.token, r.user);
-  }, [start]);
+    await withTransition(async () => { const r = await api.googleLogin(credential); start(r.token, r.user); });
+  }, [start, withTransition]);
 
   const changeUsername = useCallback(async (username: string) => {
     if (!session || session.guest) throw new Error('Sign in to change your username.');
@@ -139,10 +158,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setNotice(reason ?? null);
     setStatus('signedOut');
     setAuthScreenOpen(false);
+    setLoginTransition(null);
   }, [queryClient, session]);
 
   return <Ctx.Provider value={{
-    status, session, notice, authScreenOpen, login, register, loginWithGoogle,
+    status, session, notice, authScreenOpen, loginTransition, settleLoginTransition, endLoginTransition, login, register, loginWithGoogle,
     changeUsername, startGuest, openAuthScreen, closeAuthScreen, logout,
   }}>{children}</Ctx.Provider>;
 }

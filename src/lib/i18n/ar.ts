@@ -315,6 +315,9 @@ export const ar: Record<TKey, string> = {
   'auth.passwordHint': '8 خانات على الأقل',
   'auth.submitLogin': 'دخول',
   'auth.submitRegister': 'اعمل حسابي',
+  'login.signingIn': 'بنسجّل دخولك…',
+  'login.preparing': 'بنجهّز محفظتك…',
+  'login.wait': 'استنى لحظة',
   'auth.working': 'لحظة واحدة…',
   'auth.secure': 'بياناتك بتفضل في حسابك. Pocketjr بيعرض اللي يخصّك إنت بس.',
 

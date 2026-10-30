@@ -12,6 +12,7 @@ import { WalletFriend, GoalFriend, LogoMark } from '@/components/cartoon';
 import { api, ApiError, readCachedMoneyData, writeCachedMoneyData, type InvKind, type MoneyData, type Transaction, type TxType } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { CURRENCIES, useDevicePrefs } from '@/lib/device-prefs';
+import { useSettleLoginTransition } from './login-overlay';
 import { GOAL_CATEGORIES, updateGoalSaved, type GoalCategory, type SavingsGoal } from '@/lib/goals';
 import { LiveRates } from './live-rates';
 import { cashBalance, currentMonthKey, dayKeyOf, daySummary, shiftDay, monthKeyOf, monthOptions, monthTotals, portfolio, previousMonthKey, spendingByCategory } from '@/lib/finance';
@@ -187,6 +188,8 @@ export function Dashboard() {
     const id = setTimeout(() => setSlow(true), 5000);
     return () => clearTimeout(id);
   }, [query.isPending]);
+  // Tell a login transition overlay when the first refresh and preferences have settled.
+  useSettleLoginTransition(prefsLoaded, query.fetchStatus === 'idle');
   useEffect(() => {
     if (query.error instanceof ApiError && query.error.code === 'unauthorized') logout('sessionExpired');
   }, [query.error, logout]);
