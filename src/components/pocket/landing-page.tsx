@@ -4,6 +4,7 @@ import { LogoMark, WalletFriend } from '@/components/cartoon';
 import { useAuth } from '@/lib/auth';
 import { useI18n } from '@/lib/i18n';
 import { LangToggle } from './lang-toggle';
+import { AdSenseVerification } from './adsense-verification';
 
 function makeGuestId() {
   return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
@@ -36,7 +37,9 @@ export function LandingPage() {
   const ar = lang === 'ar';
 
   return (
-    <div className="public-landing" dir={ar ? 'rtl' : 'ltr'}>
+    <>
+      <AdSenseVerification />
+      <div className="public-landing" dir={ar ? 'rtl' : 'ltr'}>
       <header className="landing-nav">
         <a className="landing-brand" href="/" aria-label="Pocket Pal home">
           <LogoMark />
@@ -144,7 +147,8 @@ export function LandingPage() {
         </nav>
         <button type="button" onClick={openAuthScreen}>{t('auth.accountCta')}</button>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { LogoMark } from '@/components/cartoon';
+import { AdSenseVerification } from '@/components/pocket/adsense-verification';
 
 export const Route = createFileRoute('/privacy-policy')({
   head: () => ({
@@ -16,7 +17,9 @@ export const Route = createFileRoute('/privacy-policy')({
 
 function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-background px-4 py-10 text-foreground">
+    <>
+      <AdSenseVerification />
+      <main className="min-h-screen bg-background px-4 py-10 text-foreground">
       <article className="panel mx-auto w-full max-w-3xl space-y-8 p-6 md:p-10">
         <header className="flex items-center gap-3">
           <LogoMark />
@@ -108,14 +111,16 @@ function PrivacyPolicyPage() {
             {' '}<a className="underline underline-offset-4" href="https://lovable.dev/privacy" target="_blank" rel="noopener noreferrer">Lovable</a>.
           </p>
           <p className="leading-7 text-muted-foreground">
-            If website advertising is introduced in the future, advertising partners such as Google
-            may use cookies or similar technologies to deliver and measure ads and, where permitted,
-            personalize them according to applicable settings and your choices. We will update this
-            policy and provide any required notice and consent choices before enabling ads. Any
-            future ad code is intended for public educational pages only, not the signed-in finance
-            dashboard, authentication screens or account tools. We do not intend to include transaction
-            amounts, balances or descriptions in advertising requests. You can learn more about
-            Google's practices in its <a className="underline underline-offset-4" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">advertising technologies policy</a>.
+            A Google AdSense site-ownership verification script is currently used on the signed-out
+            public landing page and public information pages. It verifies site ownership and does not
+            itself display ads; advertising is not currently active on Pocketjr. If ads are introduced
+            later, advertising partners such as Google may use cookies or similar technologies to
+            deliver and measure ads and, where permitted, personalize them according to applicable
+            settings and your choices. We will provide any required notice and consent choices before
+            enabling ads. The verification script and any future ad placements are kept off the
+            signed-in finance dashboard, authentication screens and account tools. We do not intend
+            to include transaction amounts, balances or descriptions in advertising requests. You
+            can learn more about Google's practices in its <a className="underline underline-offset-4" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">advertising technologies policy</a>.
           </p>
         </section>
 
@@ -208,9 +213,10 @@ function PrivacyPolicyPage() {
               وRender لاستضافة واجهة API، وSupabase لاستضافة قاعدة البيانات، وLovable لاستضافة الموقع ونشره، كما قد نفصح عن معلومات إذا ألزمنا القانون بذلك.
             </p>
             <p className="leading-8 text-muted-foreground">
-              إذا فعّلنا الإعلانات على الموقع مستقبلًا، فقد يستخدم شركاء الإعلان مثل Google ملفات تعريف الارتباط أو تقنيات مشابهة لعرض الإعلانات وقياس أدائها،
-              وقد يستخدمونها لتخصيص الإعلانات حيثما تسمح القواعد والإعدادات واختياراتك. سنحدّث هذه السياسة ونوفر أي إشعار وخيارات موافقة مطلوبة قبل تفعيل الإعلانات.
-              وأي شيفرة إعلانية مستقبلية مخصصة للصفحات التعليمية العامة فقط، ولن نضيفها إلى لوحة التحكم المالية بعد تسجيل الدخول أو شاشات المصادقة وأدوات الحساب.
+              نستخدم حاليًا شيفرة تحقق من ملكية الموقع في Google AdSense على الصفحة الرئيسية العامة عند تسجيل الخروج وصفحات المعلومات العامة فقط.
+              هذه الشيفرة مخصصة للتحقق من ملكية الموقع ولا تعرض إعلانات بحد ذاتها؛ الإعلانات غير مفعّلة حاليًا في Pocketjr. إذا أضفنا إعلانات مستقبلًا،
+              فقد يستخدم شركاء الإعلان مثل Google ملفات تعريف الارتباط أو تقنيات مشابهة لعرض الإعلانات وقياس أدائها وتخصيصها حيثما تسمح القواعد والإعدادات واختياراتك.
+              سنوفر أي إشعار وخيارات موافقة مطلوبة قبل تفعيل الإعلانات. لن نضيف شيفرة التحقق أو مواضع الإعلانات إلى لوحة التحكم المالية بعد تسجيل الدخول أو شاشات المصادقة وأدوات الحساب.
               لا ننوي تضمين مبالغ المعاملات أو الأرصدة أو أوصاف المعاملات في طلبات الإعلانات.
             </p>
           </section>
@@ -244,6 +250,7 @@ function PrivacyPolicyPage() {
           <Link to="/delete-account" className="font-medium underline underline-offset-4">Delete account</Link>
         </footer>
       </article>
-    </main>
+      </main>
+    </>
   );
 }
