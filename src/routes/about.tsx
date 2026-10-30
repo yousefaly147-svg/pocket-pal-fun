@@ -19,7 +19,7 @@ export const Route = createFileRoute('/about')({
   component: AboutPage,
 });
 
-function AboutPage() {
+export function AboutPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   return (
