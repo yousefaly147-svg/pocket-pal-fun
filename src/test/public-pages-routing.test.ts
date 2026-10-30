@@ -16,6 +16,7 @@ const publicPages = [
   "/ar/guides",
   "/ar/privacy-policy",
   "/ar/terms",
+  "/ar/delete-account",
 ] as const;
 
 describe("public information pages", () => {
