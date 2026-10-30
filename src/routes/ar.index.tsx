@@ -13,9 +13,9 @@ export const Route = createFileRoute('/ar/')({
       { name: 'twitter:description', content: 'تابع الدخل والصرف والاستثمارات والميزانية وأهداف الادخار مع Pocketjr، أداة مجانية لإدارة المال الشخصي بالعربية والإنجليزية.' },
     ],
     links: [
-      { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar' },
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/' },
       { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/' },
-      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/' },
       { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/' },
     ],
   }),
