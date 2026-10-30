@@ -34,11 +34,12 @@ export function LandingPage() {
   const { openAuthScreen, startGuest } = useAuth();
   const { t, lang } = useI18n();
   const ar = lang === 'ar';
+  const pagePath = (path: string) => ar ? (path === '/' ? '/ar' : `/ar${path}`) : path;
 
   return (
     <div className="public-landing" dir={ar ? 'rtl' : 'ltr'}>
       <header className="landing-nav">
-        <a className="landing-brand" href="/" aria-label="Pocket Pal home">
+        <a className="landing-brand" href={pagePath('/')} aria-label="Pocket Pal home">
           <LogoMark />
           <span className="landing-brand-word">pocket<span>.</span></span>
         </a>
@@ -132,14 +133,14 @@ export function LandingPage() {
       </main>
 
       <footer className="landing-footer">
-        <a className="landing-brand" href="/" aria-label="Pocketjr home"><LogoMark /><span className="landing-brand-word">pocket<span>.</span></span></a>
+        <a className="landing-brand" href={pagePath('/')} aria-label="Pocketjr home"><LogoMark /><span className="landing-brand-word">pocket<span>.</span></span></a>
         <p>{t('landing.footer')}</p>
         <nav className="landing-footer-links" aria-label={ar ? 'روابط الموقع' : 'Website links'}>
-          <a href="/about">{ar ? 'عن Pocketjr' : 'About'}</a>
-          <a href="/help">{ar ? 'المساعدة والأسئلة' : 'Help & FAQ'}</a>
-          <a href="/guides">{ar ? 'دليل المال' : 'Money guides'}</a>
-          <a href="/privacy-policy">{ar ? 'الخصوصية' : 'Privacy'}</a>
-          <a href="/terms">{ar ? 'الشروط' : 'Terms'}</a>
+          <a href={pagePath('/about')}>{ar ? 'عن Pocketjr' : 'About'}</a>
+          <a href={pagePath('/help')}>{ar ? 'المساعدة والأسئلة' : 'Help & FAQ'}</a>
+          <a href={pagePath('/guides')}>{ar ? 'دليل المال' : 'Money guides'}</a>
+          <a href={pagePath('/privacy-policy')}>{ar ? 'الخصوصية' : 'Privacy'}</a>
+          <a href={pagePath('/terms')}>{ar ? 'الشروط' : 'Terms'}</a>
           <a href="mailto:yousefaly147@gmail.com">{ar ? 'تواصل معنا' : 'Contact'}</a>
         </nav>
         <button type="button" onClick={openAuthScreen}>{t('auth.accountCta')}</button>
