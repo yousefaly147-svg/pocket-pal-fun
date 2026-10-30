@@ -23,7 +23,7 @@ function PrivacyPolicyPage() {
           <div>
             <p className="text-sm text-muted-foreground">Pocketjr</p>
             <h1 className="text-3xl font-extrabold tracking-tight">Privacy Policy</h1>
-            <p className="mt-1 text-sm text-muted-foreground">Last updated: 23 October 2026</p>
+            <p className="mt-1 text-sm text-muted-foreground">Last updated: 30 October 2026</p>
           </div>
         </header>
 
@@ -91,18 +91,31 @@ function PrivacyPolicyPage() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold">3. Service providers and sharing</h2>
           <p className="leading-7 text-muted-foreground">
-            We do not sell your personal or transaction data and do not use it for targeted
-            advertising. Information is shared only as needed to operate the service with providers
-            such as Google for sign-in, Render for API hosting, Supabase for database hosting, and
-            Lovable for website hosting and deployment. These providers may process technical
-            information under their own terms and privacy practices. We may disclose information if
-            required by law or when reasonably necessary to protect the service, users, or others.
+            We do not sell your personal or transaction data. Advertising is not currently active
+            on Pocketjr. The website is configured to use Google Analytics to measure general website
+            usage, such as visits and pages viewed. Google may process technical and usage information
+            under its own privacy terms. We do not intentionally send transaction amounts, balances,
+            or transaction descriptions as Google Analytics event data. Information is also shared
+            as needed to operate the service with providers such as Google for sign-in, Render for API
+            hosting, Supabase for database hosting, and Lovable for website hosting and deployment.
+            We may disclose information if required by law or when reasonably necessary to protect
+            the service, users, or others.
           </p>
           <p className="leading-7 text-muted-foreground">
             Relevant provider policies: <a className="underline underline-offset-4" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a>,
             {' '}<a className="underline underline-offset-4" href="https://render.com/privacy" target="_blank" rel="noopener noreferrer">Render</a>,
             {' '}<a className="underline underline-offset-4" href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase</a>, and
             {' '}<a className="underline underline-offset-4" href="https://lovable.dev/privacy" target="_blank" rel="noopener noreferrer">Lovable</a>.
+          </p>
+          <p className="leading-7 text-muted-foreground">
+            If website advertising is introduced in the future, advertising partners such as Google
+            may use cookies or similar technologies to deliver and measure ads and, where permitted,
+            personalize them according to applicable settings and your choices. We will update this
+            policy and provide any required notice and consent choices before enabling ads. Any
+            future ad code is intended for public educational pages only, not the signed-in finance
+            dashboard, authentication screens or account tools. We do not intend to include transaction
+            amounts, balances or descriptions in advertising requests. You can learn more about
+            Google's practices in its <a className="underline underline-offset-4" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">advertising technologies policy</a>.
           </p>
         </section>
 
@@ -166,7 +179,7 @@ function PrivacyPolicyPage() {
           <h2 className="text-2xl font-extrabold">سياسة الخصوصية</h2>
           <p className="leading-8 text-muted-foreground">
             توضح هذه السياسة كيفية تعامل Pocketjr (الذي يظهر أحيانًا باسم Pocket Pal) مع المعلومات عند استخدام الموقع وتطبيق أندرويد.
-            آخر تحديث: ٢٣ أكتوبر ٢٠٢٦.
+            آخر تحديث: ٣٠ أكتوبر ٢٠٢٦.
           </p>
           <section className="space-y-2">
             <h3 className="text-lg font-bold">المعلومات التي نتعامل معها</h3>
@@ -189,8 +202,16 @@ function PrivacyPolicyPage() {
             <h3 className="text-lg font-bold">كيف نستخدم المعلومات ونشاركها</h3>
             <p className="leading-8 text-muted-foreground">
               نستخدم البيانات لتسجيل الدخول ومزامنة المعاملات وعرض لوحة التحكم وحفظ تفضيلاتك واستيراد العمليات التي تختارها وتحسين أمان الخدمة.
-              لا نبيع بياناتك الشخصية أو المالية ولا نستخدمها للإعلانات الموجهة. وقد تتم معالجة البيانات اللازمة لتشغيل الخدمة عبر Google لتسجيل الدخول،
+              لا نبيع بياناتك الشخصية أو المالية، والإعلانات غير مفعّلة حاليًا في Pocketjr. الموقع مُعد لاستخدام Google Analytics لقياس الاستخدام العام للموقع،
+              مثل الزيارات والصفحات التي تمت مشاهدتها. وقد تعالج Google معلومات تقنية ومعلومات استخدام وفقًا لسياسة الخصوصية الخاصة بها. لا نضيف عمدًا مبالغ المعاملات
+              أو الأرصدة أو أوصاف المعاملات كبيانات لأحداث Google Analytics. وقد تتم أيضًا معالجة البيانات اللازمة لتشغيل الخدمة عبر Google لتسجيل الدخول،
               وRender لاستضافة واجهة API، وSupabase لاستضافة قاعدة البيانات، وLovable لاستضافة الموقع ونشره، كما قد نفصح عن معلومات إذا ألزمنا القانون بذلك.
+            </p>
+            <p className="leading-8 text-muted-foreground">
+              إذا فعّلنا الإعلانات على الموقع مستقبلًا، فقد يستخدم شركاء الإعلان مثل Google ملفات تعريف الارتباط أو تقنيات مشابهة لعرض الإعلانات وقياس أدائها،
+              وقد يستخدمونها لتخصيص الإعلانات حيثما تسمح القواعد والإعدادات واختياراتك. سنحدّث هذه السياسة ونوفر أي إشعار وخيارات موافقة مطلوبة قبل تفعيل الإعلانات.
+              وأي شيفرة إعلانية مستقبلية مخصصة للصفحات التعليمية العامة فقط، ولن نضيفها إلى لوحة التحكم المالية بعد تسجيل الدخول أو شاشات المصادقة وأدوات الحساب.
+              لا ننوي تضمين مبالغ المعاملات أو الأرصدة أو أوصاف المعاملات في طلبات الإعلانات.
             </p>
           </section>
           <section className="space-y-2">
