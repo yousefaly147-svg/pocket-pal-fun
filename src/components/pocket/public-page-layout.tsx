@@ -13,7 +13,7 @@ type PublicPageLayoutProps = {
 export function PublicPageLayout({ title, description, children }: PublicPageLayoutProps) {
   const { lang } = useI18n();
   const ar = lang === 'ar';
-  const pagePath = (path: string) => ar ? (path === '/' ? '/ar' : `/ar${path}`) : path;
+  const pagePath = (path: string) => ar ? (path === '/' ? '/ar/' : `/ar${path}`) : path;
   const labels = ar
     ? { home: 'الرئيسية', about: 'عن Pocketjr', help: 'المساعدة والأسئلة', guides: 'دليل المال', privacy: 'الخصوصية', terms: 'الشروط', contact: 'تواصل معنا', eyebrow: 'موارد Pocketjr' }
     : { home: 'Home', about: 'About', help: 'Help & FAQ', guides: 'Money guides', privacy: 'Privacy', terms: 'Terms', contact: 'Contact', eyebrow: 'Pocketjr resources' };
