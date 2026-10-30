@@ -9,12 +9,20 @@ import { useAuth } from '@/lib/auth';
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
-      { title: 'Pocket Pal – Free Expense Tracker & Money Manager' },
-      { name: 'description', content: 'Track expenses, income, and investments with Pocket Pal, a friendly personal finance tracker with English and Arabic support. Start in EGP, no account required.' },
-      { property: 'og:title', content: 'Pocket Pal – Your Money, Feeling Good' },
-      { property: 'og:description', content: 'Track expenses, income, and investments with Pocket Pal. Explore the money tracker as a guest or create an account to save your data.' },
+      { title: 'Pocketjr – Free Expense Tracker & Budget Planner' },
+      { name: 'description', content: 'Track income, expenses, investments, budgets and savings goals with Pocketjr, a free personal finance tracker for web and Android with English and Arabic support. Try it as a guest.' },
+      { property: 'og:title', content: 'Pocketjr – Free Expense Tracker & Budget Planner' },
+      { property: 'og:description', content: 'Track income, expenses, budgets and savings goals in one simple finance tracker. Start as a guest or create an account to sync supported data.' },
       { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'Pocketjr' },
+      { property: 'og:url', content: 'https://pocketjr.lovable.app/' },
+      { name: 'twitter:title', content: 'Pocketjr – Free Expense Tracker & Budget Planner' },
+      { name: 'twitter:description', content: 'A simple English and Arabic money tracker for income, expenses, budgets and savings goals.' },
+
       { name: 'twitter:card', content: 'summary_large_image' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/' },
     ],
   }),
   component: Index,

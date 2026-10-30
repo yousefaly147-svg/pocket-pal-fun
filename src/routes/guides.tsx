@@ -5,8 +5,11 @@ import { useI18n } from '@/lib/i18n';
 export const Route = createFileRoute('/guides')({
   head: () => ({
     meta: [
-      { title: 'Personal Finance Guides | Pocketjr' },
-      { name: 'description', content: 'Practical beginner guides to making a budget, tracking expenses and setting savings goals.' },
+      { title: 'Budgeting & Expense Tracking Guides | Pocketjr' },
+      { name: 'description', content: 'Practical personal finance guides: make a monthly budget in EGP, track everyday expenses, categorize spending and build realistic savings goals.' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/guides' },
     ],
   }),
   component: GuidesPage,
