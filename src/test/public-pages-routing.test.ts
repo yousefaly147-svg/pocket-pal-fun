@@ -17,9 +17,15 @@ const publicPages = [
   "/ar/privacy-policy",
   "/ar/terms",
   "/ar/delete-account",
+  "/monthly-budget",
+  "/expense-tracking",
+  "/savings-goals",
+  "/ar/monthly-budget",
+  "/ar/expense-tracking",
+  "/ar/savings-goals",
 ] as const;
 
-describe("public information pages", () => {
+describe("public information pages and SEO article routes", () => {
   // Each locale is a real route so Google can crawl and index its language-specific URL.
   it.each(publicPages)("matches %s as a real route", (path) => {
     const router = createRouter({
