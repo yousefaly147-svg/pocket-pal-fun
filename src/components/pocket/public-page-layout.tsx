@@ -3,7 +3,6 @@ import { Link } from '@tanstack/react-router';
 import { LogoMark } from '@/components/cartoon';
 import { LangToggle } from './lang-toggle';
 import { useI18n } from '@/lib/i18n';
-import { AdSenseVerification } from './adsense-verification';
 
 type PublicPageLayoutProps = {
   title: string;
@@ -19,9 +18,7 @@ export function PublicPageLayout({ title, description, children }: PublicPageLay
     : { home: 'Home', about: 'About', help: 'Help & FAQ', guides: 'Money guides', privacy: 'Privacy', terms: 'Terms', contact: 'Contact', eyebrow: 'Pocketjr resources' };
 
   return (
-    <>
-      <AdSenseVerification />
-      <main className="public-content" dir={ar ? 'rtl' : 'ltr'}>
+    <main className="public-content" dir={ar ? 'rtl' : 'ltr'}>
       <header className="public-content-header">
         <Link to="/" className="landing-brand" aria-label="Pocketjr home">
           <LogoMark />
@@ -52,7 +49,6 @@ export function PublicPageLayout({ title, description, children }: PublicPageLay
         <Link to="/terms">{labels.terms}</Link>
         <a href="mailto:yousefaly147@gmail.com">{labels.contact}</a>
       </footer>
-      </main>
-    </>
+  </main>
   );
 }
