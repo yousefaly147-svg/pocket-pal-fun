@@ -14,6 +14,9 @@ export const Route = createFileRoute('/terms')({
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/terms' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/terms' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/terms' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/terms' },
     ],
   }),
   component: TermsPage,
