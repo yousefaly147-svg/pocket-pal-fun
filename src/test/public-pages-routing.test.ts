@@ -20,6 +20,7 @@ const publicPages = [
 ] as const;
 
 describe("public information pages", () => {
+  // Each locale is a real route so Google can crawl and index its language-specific URL.
   it.each(publicPages)("matches %s as a real route", (path) => {
     const router = createRouter({
       routeTree,
