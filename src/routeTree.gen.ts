@@ -15,6 +15,12 @@ import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as MonthlyBudgetRouteImport } from './routes/monthly-budget'
+import { Route as ExpenseTrackingRouteImport } from './routes/expense-tracking'
+import { Route as SavingsGoalsRouteImport } from './routes/savings-goals'
+import { Route as ArMonthlyBudgetRouteImport } from './routes/ar.monthly-budget'
+import { Route as ArExpenseTrackingRouteImport } from './routes/ar.expense-tracking'
+import { Route as ArSavingsGoalsRouteImport } from './routes/ar.savings-goals'
 import { Route as ArRouteImport } from './routes/ar'
 import { Route as ArIndexRouteImport } from './routes/ar.index'
 import { Route as ArAboutRouteImport } from './routes/ar.about'
@@ -69,6 +75,21 @@ const ArDeleteAccountRoute = ArDeleteAccountRouteImport.update({
   path: '/delete-account',
   getParentRoute: () => ArRoute,
 } as any)
+const ArMonthlyBudgetRoute = ArMonthlyBudgetRouteImport.update({
+  id: '/monthly-budget',
+  path: '/monthly-budget',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArExpenseTrackingRoute = ArExpenseTrackingRouteImport.update({
+  id: '/expense-tracking',
+  path: '/expense-tracking',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArSavingsGoalsRoute = ArSavingsGoalsRouteImport.update({
+  id: '/savings-goals',
+  path: '/savings-goals',
+  getParentRoute: () => ArRoute,
+} as any)
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -100,6 +121,21 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MonthlyBudgetRoute = MonthlyBudgetRouteImport.update({
+  id: '/monthly-budget',
+  path: '/monthly-budget',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExpenseTrackingRoute = ExpenseTrackingRouteImport.update({
+  id: '/expense-tracking',
+  path: '/expense-tracking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavingsGoalsRoute = SavingsGoalsRouteImport.update({
+  id: '/savings-goals',
+  path: '/savings-goals',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -110,6 +146,9 @@ export interface FileRoutesByFullPath {
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/terms': typeof ArTermsRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
+  '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
+  '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/savings-goals': typeof ArSavingsGoalsRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/guides': typeof GuidesRoute
@@ -126,6 +165,9 @@ export interface FileRoutesByTo {
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/terms': typeof ArTermsRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
+  '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
+  '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/savings-goals': typeof ArSavingsGoalsRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/guides': typeof GuidesRoute
@@ -143,6 +185,9 @@ export interface FileRoutesById {
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/terms': typeof ArTermsRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
+  '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
+  '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/savings-goals': typeof ArSavingsGoalsRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
@@ -153,10 +198,10 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  fullPaths: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
-  id: '__root__' | '/ar' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  to: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  id: '__root__' | '/ar' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/ar/monthly-budget' | '/ar/expense-tracking' | '/ar/savings-goals' | '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface ArRouteChildren {
@@ -167,6 +212,9 @@ export interface ArRouteChildren {
   ArPrivacyPolicyRoute: typeof ArPrivacyPolicyRoute
   ArTermsRoute: typeof ArTermsRoute
   ArDeleteAccountRoute: typeof ArDeleteAccountRoute
+  ArMonthlyBudgetRoute: typeof ArMonthlyBudgetRoute
+  ArExpenseTrackingRoute: typeof ArExpenseTrackingRoute
+  ArSavingsGoalsRoute: typeof ArSavingsGoalsRoute
 }
 const arRouteChildren: ArRouteChildren = {
   ArIndexRoute: ArIndexRoute,
@@ -176,6 +224,9 @@ const arRouteChildren: ArRouteChildren = {
   ArPrivacyPolicyRoute: ArPrivacyPolicyRoute,
   ArTermsRoute: ArTermsRoute,
   ArDeleteAccountRoute: ArDeleteAccountRoute,
+  ArMonthlyBudgetRoute: ArMonthlyBudgetRoute,
+  ArExpenseTrackingRoute: ArExpenseTrackingRoute,
+  ArSavingsGoalsRoute: ArSavingsGoalsRoute,
 }
 const ArRouteWithChildren = ArRoute._addFileChildren(arRouteChildren)
 
@@ -188,6 +239,9 @@ export interface RootRouteChildren {
   HelpRoute: typeof HelpRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsRoute: typeof TermsRoute
+  MonthlyBudgetRoute: typeof MonthlyBudgetRoute
+  ExpenseTrackingRoute: typeof ExpenseTrackingRoute
+  SavingsGoalsRoute: typeof SavingsGoalsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -255,6 +309,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArDeleteAccountRouteImport
       parentRoute: typeof ArRoute
     }
+    '/ar/monthly-budget': {
+      id: '/ar/monthly-budget'
+      path: '/monthly-budget'
+      fullPath: '/ar/monthly-budget'
+      preLoaderRoute: typeof ArMonthlyBudgetRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/expense-tracking': {
+      id: '/ar/expense-tracking'
+      path: '/expense-tracking'
+      fullPath: '/ar/expense-tracking'
+      preLoaderRoute: typeof ArExpenseTrackingRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/savings-goals': {
+      id: '/ar/savings-goals'
+      path: '/savings-goals'
+      fullPath: '/ar/savings-goals'
+      preLoaderRoute: typeof ArSavingsGoalsRouteImport
+      parentRoute: typeof ArRoute
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -297,6 +372,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/monthly-budget': {
+      id: '/monthly-budget'
+      path: '/monthly-budget'
+      fullPath: '/monthly-budget'
+      preLoaderRoute: typeof MonthlyBudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/expense-tracking': {
+      id: '/expense-tracking'
+      path: '/expense-tracking'
+      fullPath: '/expense-tracking'
+      preLoaderRoute: typeof ExpenseTrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/savings-goals': {
+      id: '/savings-goals'
+      path: '/savings-goals'
+      fullPath: '/savings-goals'
+      preLoaderRoute: typeof SavingsGoalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -309,6 +405,9 @@ const rootRouteChildren: RootRouteChildren = {
   HelpRoute: HelpRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsRoute: TermsRoute,
+  MonthlyBudgetRoute: MonthlyBudgetRoute,
+  ExpenseTrackingRoute: ExpenseTrackingRoute,
+  SavingsGoalsRoute: SavingsGoalsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
