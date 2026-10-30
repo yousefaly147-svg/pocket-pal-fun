@@ -8,6 +8,14 @@ export const LOGIN_OVERLAY_MIN_MS = 750;
 /** Safety net: never keep the overlay up longer than this, even if something stalls. */
 export const LOGIN_OVERLAY_MAX_MS = 45_000;
 
+/** Called by the Dashboard: settles a login transition once data and preferences are both ready. */
+export function useSettleLoginTransition(prefsReady: boolean, dataReady: boolean) {
+  const { settleLoginTransition } = useAuth();
+  useEffect(() => {
+    if (prefsReady && dataReady) settleLoginTransition();
+  }, [prefsReady, dataReady, settleLoginTransition]);
+}
+
 export function LoginOverlay() {
   const { t } = useI18n();
   const { loginTransition, endLoginTransition } = useAuth();
