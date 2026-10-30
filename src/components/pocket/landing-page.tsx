@@ -143,7 +143,8 @@ export function LandingPage() {
           <a href="mailto:yousefaly147@gmail.com">{ar ? 'تواصل معنا' : 'Contact'}</a>
         </nav>
         <button type="button" onClick={openAuthScreen}>{t('auth.accountCta')}</button>
-      </footer>   </div>
+      </footer>
+    </div>
   );
 }
 
