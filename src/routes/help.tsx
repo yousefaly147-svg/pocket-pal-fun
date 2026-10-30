@@ -19,7 +19,7 @@ export const Route = createFileRoute('/help')({
   component: HelpPage,
 });
 
-function HelpPage() {
+export function HelpPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   const items = ar ? [
