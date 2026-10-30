@@ -26,7 +26,7 @@ export const Route = createFileRoute('/privacy-policy')({
   component: PrivacyPolicyPage,
 });
 
-export export function PrivacyPolicyPage() {
+export function PrivacyPolicyPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   const homePath = ar ? '/ar/' : '/';
