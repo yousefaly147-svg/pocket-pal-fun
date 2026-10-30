@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { LogoMark } from '@/components/cartoon';
 import { AuthScreen } from '@/components/pocket/auth-screen';
 import { Dashboard } from '@/components/pocket/dashboard';
 import { LandingPage } from '@/components/pocket/landing-page';
