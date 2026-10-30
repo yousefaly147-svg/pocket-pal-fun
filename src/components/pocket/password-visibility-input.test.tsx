@@ -39,9 +39,10 @@ describe('PasswordVisibilityInput', () => {
 
     const newPassword = screen.getByLabelText('New password') as HTMLInputElement;
     const confirmation = screen.getByLabelText('Confirm password') as HTMLInputElement;
-    const [showButtons] = screen.getAllByRole('button', { name: 'Show password' });
+    const showNewPassword = screen.getAllByRole('button', { name: 'Show password' })[0];
+    if (!showNewPassword) throw new Error('New password visibility control was not found');
 
-    fireEvent.click(showButtons);
+    fireEvent.click(showNewPassword);
     expect(newPassword.type).toBe('text');
     expect(confirmation.type).toBe('password');
     expect(newPassword.value).toBe('first-secret');
