@@ -30,7 +30,11 @@ function syncNativeSession(token: string | null) {
 export type Session = { token: string; userId: string; email: string; username: string; guest: boolean };
 type Status = 'checking' | 'signedOut' | 'signedIn';
 /** Login-only full-screen transition: shown from auth submit until the first dashboard load settles. */
-export type LoginTransition = { phase: 'authenticating' | 'loading' | 'settled'; startedAt: number };
+export type LoginTransition = {
+  phase: 'authenticating' | 'loading' | 'settled';
+  startedAt: number;
+  phaseStartedAt: number;
+};
 type AuthCtx = {
   status: Status;
   session: Session | null;
@@ -78,10 +82,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loginTransition, setLoginTransition] = useState<LoginTransition | null>(null);
 
   const withTransition = useCallback(async (run: () => Promise<void>) => {
-    setLoginTransition({ phase: 'authenticating', startedAt: Date.now() });
+    const startedAt = Date.now();
+    setLoginTransition({ phase: 'authenticating', startedAt, phaseStartedAt: startedAt });
     try {
       await run();
-      setLoginTransition(t => (t ? { ...t, phase: 'loading' } : t));
+      const phaseStartedAt = Date.now();
+      setLoginTransition(t => (t ? { ...t, phase: 'loading', phaseStartedAt } : t));
     } catch (err) {
       setLoginTransition(null);
       throw err;
