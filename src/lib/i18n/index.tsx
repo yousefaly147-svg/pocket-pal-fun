@@ -52,7 +52,7 @@ function makeApi(lang: Lang, currency: string) {
 type I18nCtx = ReturnType<typeof makeApi> & { setLang: (l: Lang) => void; setCurrency: (c: string) => void };
 const Ctx = createContext<I18nCtx | null>(null);
 
-export function I18nProvider({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Lang }) {
+export function I18nProvider({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Lang | undefined }) {
   // Start from what the boot script already put on <html>, so there is no English flash
   // and nothing ever writes the wrong direction back over it on refresh.
   const [lang, setLangState] = useState<Lang>(initialLanguage ?? initialLang);
