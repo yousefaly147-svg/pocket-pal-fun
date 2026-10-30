@@ -9,6 +9,13 @@ export const Route = createFileRoute('/privacy-policy')({
         name: 'description',
         content: 'Learn what information Pocketjr collects, how it is used, and how to request account and data deletion.',
       },
+      { property: 'og:title', content: 'Privacy Policy | Pocketjr' },
+      { property: 'og:description', content: 'Learn how Pocketjr handles account details, financial entries, privacy choices and data deletion.' },
+      { name: 'twitter:title', content: 'Privacy Policy | Pocketjr' },
+      { name: 'twitter:description', content: 'Information about Pocketjr privacy and data handling.' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/privacy-policy' },
     ],
   }),
   component: PrivacyPolicyPage,
