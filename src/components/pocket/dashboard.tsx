@@ -159,6 +159,11 @@ export function Dashboard() {
   const [chartMode, setChartMode] = useState<'amount' | 'percent'>('amount');
   const [usernameDraft, setUsernameDraft] = useState(session?.username ?? '');
   const [usernameBusy, setUsernameBusy] = useState(false);
+  const [passwordStatus, setPasswordStatus] = useState<{ googleLinked: boolean; passwordSet: boolean } | null>(null);
+  const [passwordStatusError, setPasswordStatusError] = useState(false);
+  const [passwordDraft, setPasswordDraft] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [passwordBusy, setPasswordBusy] = useState(false);
   const [formError, setFormError] = useState('');
   const [busy, setBusy] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
@@ -168,6 +173,16 @@ export function Dashboard() {
 
   useEffect(() => { const n = new Date(); setNow(n); setDay(dayKeyOf(n.toISOString())); }, []);
   useEffect(() => { setUsernameDraft(session?.username ?? ''); }, [session?.username]);
+  useEffect(() => {
+    if (view !== 'Settings' || session!.guest) return;
+    let cancelled = false;
+    setPasswordStatus(null);
+    setPasswordStatusError(false);
+    api.getPasswordStatus(token)
+      .then(status => { if (!cancelled) setPasswordStatus(status); })
+      .catch(() => { if (!cancelled) setPasswordStatusError(true); });
+    return () => { cancelled = true; };
+  }, [view, token, session?.guest]);
   const todayKey = now ? dayKeyOf(now.toISOString()) : '';
   const [pickedDate, setPickedDate] = useState('');
   const [pickedHour, setPickedHour] = useState('12');
@@ -401,6 +416,29 @@ export function Dashboard() {
       show(errorText(err), true);
     } finally {
       setUsernameBusy(false);
+    }
+  }
+
+  async function saveEmailPassword() {
+    if (passwordDraft.length < 8 || passwordDraft.length > 200) {
+      show(t('err.password'), true);
+      return;
+    }
+    if (passwordDraft !== passwordConfirm) {
+      show(t('settings.passwordMismatch'), true);
+      return;
+    }
+    setPasswordBusy(true);
+    try {
+      await api.setPassword(token, passwordDraft);
+      setPasswordStatus({ googleLinked: true, passwordSet: true });
+      setPasswordDraft('');
+      setPasswordConfirm('');
+      show(t('settings.passwordSaved'));
+    } catch (err) {
+      show(errorText(err), true);
+    } finally {
+      setPasswordBusy(false);
     }
   }
 
@@ -727,6 +765,25 @@ export function Dashboard() {
               <a href="/privacy-policy" className="mt-4 inline-flex text-sm font-medium underline underline-offset-4">Privacy Policy · سياسة الخصوصية</a>
             </div>
           </section>
+          {!session!.guest && passwordStatusError && <p className="text-sm text-muted-foreground" role="status">{t('settings.passwordStatusError')}</p>}
+          {!session!.guest && passwordStatus?.googleLinked && !passwordStatus.passwordSet && (
+            <section className="panel settings-panel">
+              <h2 className="settings-title">{t('settings.passwordTitle')}</h2>
+              <p className="mb-4 text-sm leading-6 text-muted-foreground">{t('settings.passwordDescription')}</p>
+              <div className="form-grid">
+                <label className="field">{t('settings.passwordNew')}
+                  <input type="password" value={passwordDraft} onChange={e => setPasswordDraft(e.target.value)} autoComplete="new-password" minLength={8} maxLength={200} dir="ltr" />
+                </label>
+                <label className="field">{t('settings.passwordConfirm')}
+                  <input type="password" value={passwordConfirm} onChange={e => setPasswordConfirm(e.target.value)} autoComplete="new-password" minLength={8} maxLength={200} dir="ltr" />
+                </label>
+              </div>
+              <Button variant="outline" className="mt-5" onClick={() => void saveEmailPassword()} disabled={passwordBusy}>
+                <Check /> {passwordBusy ? t('auth.working') : t('settings.passwordSave')}
+              </Button>
+            </section>
+          )}
+          {passwordStatus === null && !passwordStatusError && view === 'Settings' && !session!.guest && <p className="text-xs text-muted-foreground">{t('settings.passwordChecking')}</p>}
           <DailyReminder />
           {isAndroid && <section className="panel settings-panel" aria-label={t('telda.title')}>
             <h2 className="settings-title"><Smartphone className="inline h-5 w-5" /> {t('telda.title')}</h2>
