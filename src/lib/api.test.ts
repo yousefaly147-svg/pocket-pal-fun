@@ -210,4 +210,29 @@ describe('account authentication API', () => {
     expect(JSON.parse(String(init.body))).toEqual({ credential: 'google-id-token-for-test' });
     expect(result.token).toBe('google-login-session-token');
   });
+
+  it('checks whether the signed-in Google account needs an email password', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ googleLinked: true, passwordSet: false }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const result = await api.getPasswordStatus('signed-in-token');
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/api/account/password-status');
+    expect(init.headers).toMatchObject({ Authorization: 'Bearer signed-in-token' });
+    expect(result).toEqual({ googleLinked: true, passwordSet: false });
+  });
+
+  it('sets an email password through an authenticated request', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ ok: true }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(api.setPassword('signed-in-token', 'new-password-123')).resolves.toBeUndefined();
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/api/account/password');
+    expect(init.method).toBe('POST');
+    expect(init.headers).toMatchObject({ Authorization: 'Bearer signed-in-token' });
+    expect(JSON.parse(String(init.body))).toEqual({ password: 'new-password-123' });
+  });
 });
