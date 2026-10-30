@@ -3,6 +3,7 @@ import { LogoMark } from '@/components/cartoon';
 import { AuthScreen } from '@/components/pocket/auth-screen';
 import { Dashboard } from '@/components/pocket/dashboard';
 import { LandingPage } from '@/components/pocket/landing-page';
+import { LoginOverlay } from '@/components/pocket/login-overlay';
 import { useAuth } from '@/lib/auth';
 
 export const Route = createFileRoute('/')({
@@ -22,7 +23,10 @@ export const Route = createFileRoute('/')({
 function Index() {
   const { status, session, authScreenOpen, closeAuthScreen } = useAuth();
   if (status === 'checking') return <div className="state-screen" aria-busy="true"><LogoMark /><div className="state-spinner" aria-hidden="true" /></div>;
-  if (authScreenOpen) return <AuthScreen onDismiss={closeAuthScreen} />;
-  if (status === 'signedOut' || !session) return <LandingPage />;
-  return <Dashboard key={session.userId} />;
+  return <>
+    {authScreenOpen ? <AuthScreen onDismiss={closeAuthScreen} />
+      : status === 'signedOut' || !session ? <LandingPage />
+      : <Dashboard key={session.userId} />}
+    <LoginOverlay />
+  </>;
 }

@@ -187,6 +187,10 @@ export function Dashboard() {
     const id = setTimeout(() => setSlow(true), 5000);
     return () => clearTimeout(id);
   }, [query.isPending]);
+  // Tell a login transition overlay when the first refresh and preferences have settled.
+  useEffect(() => {
+    if (prefsLoaded && query.fetchStatus === 'idle') settleLoginTransition();
+  }, [prefsLoaded, query.fetchStatus, settleLoginTransition]);
   useEffect(() => {
     if (query.error instanceof ApiError && query.error.code === 'unauthorized') logout('sessionExpired');
   }, [query.error, logout]);
