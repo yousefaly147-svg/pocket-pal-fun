@@ -15,12 +15,55 @@ import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ArRouteImport } from './routes/ar'
+import { Route as ArIndexRouteImport } from './routes/ar.index'
+import { Route as ArAboutRouteImport } from './routes/ar.about'
+import { Route as ArHelpRouteImport } from './routes/ar.help'
+import { Route as ArGuidesRouteImport } from './routes/ar.guides'
+import { Route as ArPrivacyPolicyRouteImport } from './routes/ar.privacy-policy'
+import { Route as ArTermsRouteImport } from './routes/ar.terms'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArRoute = ArRouteImport.update({
+  id: '/ar',
+  path: '/ar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArIndexRoute = ArIndexRouteImport.update({
+  id: '/ar/',
+  path: '/',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArAboutRoute = ArAboutRouteImport.update({
+  id: '/ar/about',
+  path: '/about',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArHelpRoute = ArHelpRouteImport.update({
+  id: '/ar/help',
+  path: '/help',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArGuidesRoute = ArGuidesRouteImport.update({
+  id: '/ar/guides',
+  path: '/guides',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArPrivacyPolicyRoute = ArPrivacyPolicyRouteImport.update({
+  id: '/ar/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArTermsRoute = ArTermsRouteImport.update({
+  id: '/ar/terms',
+  path: '/terms',
+  getParentRoute: () => ArRoute,
+} as any)
+
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -54,6 +97,12 @@ const TermsRoute = TermsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ar/': typeof ArIndexRoute
+  '/ar/about': typeof ArAboutRoute
+  '/ar/help': typeof ArHelpRoute
+  '/ar/guides': typeof ArGuidesRoute
+  '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
+  '/ar/terms': typeof ArTermsRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/guides': typeof GuidesRoute
@@ -63,6 +112,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ar/': typeof ArIndexRoute
+  '/ar/about': typeof ArAboutRoute
+  '/ar/help': typeof ArHelpRoute
+  '/ar/guides': typeof ArGuidesRoute
+  '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
+  '/ar/terms': typeof ArTermsRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/guides': typeof GuidesRoute
@@ -72,6 +127,13 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/ar': typeof ArRoute
+  '/ar/': typeof ArIndexRoute
+  '/ar/about': typeof ArAboutRoute
+  '/ar/help': typeof ArHelpRoute
+  '/ar/guides': typeof ArGuidesRoute
+  '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
+  '/ar/terms': typeof ArTermsRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
@@ -82,13 +144,32 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  fullPaths: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
-  id: '__root__' | '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  to: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  id: '__root__' | '/ar' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesById: FileRoutesById
 }
+export interface ArRouteChildren {
+  ArIndexRoute: typeof ArIndexRoute
+  ArAboutRoute: typeof ArAboutRoute
+  ArHelpRoute: typeof ArHelpRoute
+  ArGuidesRoute: typeof ArGuidesRoute
+  ArPrivacyPolicyRoute: typeof ArPrivacyPolicyRoute
+  ArTermsRoute: typeof ArTermsRoute
+}
+const arRouteChildren: ArRouteChildren = {
+  ArIndexRoute: ArIndexRoute,
+  ArAboutRoute: ArAboutRoute,
+  ArHelpRoute: ArHelpRoute,
+  ArGuidesRoute: ArGuidesRoute,
+  ArPrivacyPolicyRoute: ArPrivacyPolicyRoute,
+  ArTermsRoute: ArTermsRoute,
+}
+const ArRouteWithChildren = ArRoute._addFileChildren(arRouteChildren)
+
 export interface RootRouteChildren {
+  ArRoute: typeof ArRouteWithChildren
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   DeleteAccountRoute: typeof DeleteAccountRoute
@@ -106,6 +187,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/ar': {
+      id: '/ar'
+      path: '/ar'
+      fullPath: '/ar'
+      preLoaderRoute: typeof ArRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ar/': {
+      id: '/ar/'
+      path: '/'
+      fullPath: '/ar/'
+      preLoaderRoute: typeof ArIndexRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/about': {
+      id: '/ar/about'
+      path: '/about'
+      fullPath: '/ar/about'
+      preLoaderRoute: typeof ArAboutRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/help': {
+      id: '/ar/help'
+      path: '/help'
+      fullPath: '/ar/help'
+      preLoaderRoute: typeof ArHelpRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/guides': {
+      id: '/ar/guides'
+      path: '/guides'
+      fullPath: '/ar/guides'
+      preLoaderRoute: typeof ArGuidesRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/privacy-policy': {
+      id: '/ar/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/ar/privacy-policy'
+      preLoaderRoute: typeof ArPrivacyPolicyRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/terms': {
+      id: '/ar/terms'
+      path: '/terms'
+      fullPath: '/ar/terms'
+      preLoaderRoute: typeof ArTermsRouteImport
+      parentRoute: typeof ArRoute
     }
     '/about': {
       id: '/about'
@@ -153,6 +283,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  ArRoute: ArRouteWithChildren,
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   DeleteAccountRoute: DeleteAccountRoute,
