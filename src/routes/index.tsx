@@ -23,7 +23,7 @@ export const Route = createFileRoute('/')({
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/' },
       { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/' },
-      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar' },
+      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/' },
       { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/' },
     ],
   }),
