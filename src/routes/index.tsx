@@ -36,7 +36,7 @@ function WebsiteStructuredData() {
     "@type": "WebSite",
     "url": "https://pocketjr.lovable.app/",
     "name": "Pocketjr Finance",
-    "alternateName": ["Pocketjr Money Manager", "Pocketjr Budget Tracker", "Pocketjr"],
+    "alternateName": ["Pocketjr Money Manager"],
     "description": "A free personal finance tracker for recording income, expenses, budgets, investments and savings goals.",
   };
 
