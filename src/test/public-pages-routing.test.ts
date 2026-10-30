@@ -4,7 +4,19 @@ import { describe, expect, it } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 
-const publicPages = ["/about", "/help", "/guides", "/privacy-policy", "/terms"] as const;
+const publicPages = [
+  "/about",
+  "/help",
+  "/guides",
+  "/privacy-policy",
+  "/terms",
+  "/ar/",
+  "/ar/about",
+  "/ar/help",
+  "/ar/guides",
+  "/ar/privacy-policy",
+  "/ar/terms",
+] as const;
 
 describe("public information pages", () => {
   it.each(publicPages)("matches %s as a real route", (path) => {
