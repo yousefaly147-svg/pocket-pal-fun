@@ -169,6 +169,8 @@ export const ar: Record<TKey, string> = {
   'settings.passwordMismatch': 'كلمتا المرور مش متطابقتين.',
   'settings.passwordChecking': 'بنتحقق من طرق تسجيل الدخول…',
   'settings.passwordStatusError': 'معرفناش نتحقق من طرق تسجيل الدخول. حدّث الإعدادات وجرّب تاني.',
+  'settings.showPassword': 'إظهار كلمة المرور',
+  'settings.hidePassword': 'إخفاء كلمة المرور',
   'settings.instagram': 'افتح حساب إنستجرام',
   'settings.contactEmail': 'راسلنا على الإيميل',
   'reminder.title': 'تذكير يومي بالفلوس',

@@ -167,6 +167,8 @@ export const en = {
   'settings.passwordMismatch': 'The passwords do not match.',
   'settings.passwordChecking': 'Checking your sign-in options…',
   'settings.passwordStatusError': 'Could not check your sign-in options. Refresh Settings and try again.',
+  'settings.showPassword': 'Show password',
+  'settings.hidePassword': 'Hide password',
   'settings.instagram': 'Open Instagram profile',
   'settings.contactEmail': 'Email us',
   'reminder.title': 'Daily money reminder',

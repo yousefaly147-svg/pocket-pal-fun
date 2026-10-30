@@ -20,6 +20,7 @@ import { useI18n, type TKey } from '@/lib/i18n';
 import { categorySlug, expenseCategories, incomeCategories, INVESTMENT_CATEGORY } from '@/lib/money-data';
 import { LangToggle } from './lang-toggle';
 import { DailyReminder } from './daily-reminder';
+import { PasswordVisibilityInput } from './password-visibility-input';
 import { CartesianGrid, Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 type View = 'Dashboard' | 'Transactions' | 'Budgets' | 'Goals' | 'Investments' | 'Settings';
@@ -771,12 +772,26 @@ export function Dashboard() {
               <h2 className="settings-title">{t('settings.passwordTitle')}</h2>
               <p className="mb-4 text-sm leading-6 text-muted-foreground">{t('settings.passwordDescription')}</p>
               <div className="form-grid">
-                <label className="field">{t('settings.passwordNew')}
-                  <input type="password" value={passwordDraft} onChange={e => setPasswordDraft(e.target.value)} autoComplete="new-password" minLength={8} maxLength={200} dir="ltr" />
-                </label>
-                <label className="field">{t('settings.passwordConfirm')}
-                  <input type="password" value={passwordConfirm} onChange={e => setPasswordConfirm(e.target.value)} autoComplete="new-password" minLength={8} maxLength={200} dir="ltr" />
-                </label>
+                <PasswordVisibilityInput
+                  label={t('settings.passwordNew')}
+                  value={passwordDraft}
+                  onChange={setPasswordDraft}
+                  autoComplete="new-password"
+                  minLength={8}
+                  maxLength={200}
+                  showLabel={t('settings.showPassword')}
+                  hideLabel={t('settings.hidePassword')}
+                />
+                <PasswordVisibilityInput
+                  label={t('settings.passwordConfirm')}
+                  value={passwordConfirm}
+                  onChange={setPasswordConfirm}
+                  autoComplete="new-password"
+                  minLength={8}
+                  maxLength={200}
+                  showLabel={t('settings.showPassword')}
+                  hideLabel={t('settings.hidePassword')}
+                />
               </div>
               <Button variant="outline" className="mt-5" onClick={() => void saveEmailPassword()} disabled={passwordBusy}>
                 <Check /> {passwordBusy ? t('auth.working') : t('settings.passwordSave')}
