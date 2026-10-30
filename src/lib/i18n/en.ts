@@ -403,7 +403,7 @@ export const en = {
   'landing.eyebrow': 'A friendlier way to manage money',
   'landing.heroTitle': 'Your money, made',
   'landing.heroHighlight': 'a little happier.',
-  'landing.heroBody': 'Keep everyday spending, income, and investments in one calm, cheerful place. No spreadsheets or complicated setup.',
+  'landing.heroBody': 'Pocketjr Finance is a free personal money manager and expense tracker. Track everyday income, spending, budgets, investments and savings goals in one simple place.',
   'landing.tryFree': 'Try Pocket Pal free',
   'landing.haveAccount': 'Already have an account?',
   'landing.noPressure': 'Try it as a guest. Guest data stays on this device.',
