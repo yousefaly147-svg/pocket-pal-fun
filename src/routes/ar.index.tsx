@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Index } from './index';
 
-export const Route = createFileRoute('/ar')({
+export const Route = createFileRoute('/ar/')({
   head: () => ({
     meta: [
       { title: 'Pocketjr – تطبيق مجاني لتتبع المصروفات وتنظيم الميزانية' },
