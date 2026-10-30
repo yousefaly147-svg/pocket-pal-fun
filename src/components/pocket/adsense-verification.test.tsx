@@ -27,7 +27,7 @@ describe('AdSense site-ownership verification', () => {
 
   it('does not add a duplicate when the verification script already exists', () => {
     const existing = document.createElement('script');
-    existing.dataset.pocketjrAdsenseVerification = 'true';
+    existing.dataset['pocketjrAdsenseVerification'] = 'true';
     document.head.appendChild(existing);
 
     render(<AdSenseVerification />);
