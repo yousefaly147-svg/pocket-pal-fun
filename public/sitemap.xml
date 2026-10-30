@@ -5,14 +5,14 @@
   <url>
     <loc>https://pocketjr.lovable.app/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/" />
     <lastmod>2026-10-30</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pocketjr.lovable.app/ar</loc>
+    <loc>https://pocketjr.lovable.app/ar/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/" />
     <lastmod>2026-10-30</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
