@@ -22,6 +22,7 @@ import { Route as ArHelpRouteImport } from './routes/ar.help'
 import { Route as ArGuidesRouteImport } from './routes/ar.guides'
 import { Route as ArPrivacyPolicyRouteImport } from './routes/ar.privacy-policy'
 import { Route as ArTermsRouteImport } from './routes/ar.terms'
+import { Route as ArDeleteAccountRouteImport } from './routes/ar.delete-account'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -61,6 +62,11 @@ const ArPrivacyPolicyRoute = ArPrivacyPolicyRouteImport.update({
 const ArTermsRoute = ArTermsRouteImport.update({
   id: '/ar/terms',
   path: '/terms',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArDeleteAccountRoute = ArDeleteAccountRouteImport.update({
+  id: '/ar/delete-account',
+  path: '/delete-account',
   getParentRoute: () => ArRoute,
 } as any)
 
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/ar/guides': typeof ArGuidesRoute
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/terms': typeof ArTermsRoute
+  '/ar/delete-account': typeof ArDeleteAccountRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/guides': typeof GuidesRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/ar/guides': typeof ArGuidesRoute
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/terms': typeof ArTermsRoute
+  '/ar/delete-account': typeof ArDeleteAccountRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/guides': typeof GuidesRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/ar/guides': typeof ArGuidesRoute
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/terms': typeof ArTermsRoute
+  '/ar/delete-account': typeof ArDeleteAccountRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
@@ -144,10 +153,10 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  fullPaths: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
-  id: '__root__' | '/ar' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  to: '/' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
+  id: '__root__' | '/ar' | '/ar/' | '/ar/about' | '/ar/help' | '/ar/guides' | '/ar/privacy-policy' | '/ar/terms' | '/ar/delete-account' | '/' | '/about' | '/delete-account' | '/guides' | '/help' | '/privacy-policy' | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface ArRouteChildren {
@@ -157,6 +166,7 @@ export interface ArRouteChildren {
   ArGuidesRoute: typeof ArGuidesRoute
   ArPrivacyPolicyRoute: typeof ArPrivacyPolicyRoute
   ArTermsRoute: typeof ArTermsRoute
+  ArDeleteAccountRoute: typeof ArDeleteAccountRoute
 }
 const arRouteChildren: ArRouteChildren = {
   ArIndexRoute: ArIndexRoute,
@@ -165,6 +175,7 @@ const arRouteChildren: ArRouteChildren = {
   ArGuidesRoute: ArGuidesRoute,
   ArPrivacyPolicyRoute: ArPrivacyPolicyRoute,
   ArTermsRoute: ArTermsRoute,
+  ArDeleteAccountRoute: ArDeleteAccountRoute,
 }
 const ArRouteWithChildren = ArRoute._addFileChildren(arRouteChildren)
 
@@ -235,6 +246,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/ar/terms'
       preLoaderRoute: typeof ArTermsRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/delete-account': {
+      id: '/ar/delete-account'
+      path: '/delete-account'
+      fullPath: '/ar/delete-account'
+      preLoaderRoute: typeof ArDeleteAccountRouteImport
       parentRoute: typeof ArRoute
     }
     '/about': {
