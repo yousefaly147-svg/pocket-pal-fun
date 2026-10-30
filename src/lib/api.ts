@@ -228,6 +228,11 @@ export const api = {
   },
   /** Requires a configured Google client ID on the frontend and a verified server endpoint. */
   googleLogin: async (credential: string) => toAuth(await request('/api/auth/google', { method: 'POST', body: { credential } })),
+  getPasswordStatus: async (token: string): Promise<{ googleLinked: boolean; passwordSet: boolean }> =>
+    await request('/api/account/password-status', { token }) as { googleLinked: boolean; passwordSet: boolean },
+  setPassword: async (token: string, password: string): Promise<void> => {
+    await request('/api/account/password', { method: 'POST', body: { password }, token });
+  },
   getData: async (token: string) => isGuestToken(token) ? readGuestData(token) : toMoneyData(await request('/api/data', { token })),
   getPreferences: async (token: string): Promise<PreferencesResult> => {
     if (isGuestToken(token)) {
