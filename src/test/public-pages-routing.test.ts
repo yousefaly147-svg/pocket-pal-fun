@@ -17,6 +17,12 @@ const publicPages = [
   "/ar/privacy-policy",
   "/ar/terms",
   "/ar/delete-account",
+  "/monthly-budget",
+  "/expense-tracking",
+  "/savings-goals",
+  "/ar/monthly-budget",
+  "/ar/expense-tracking",
+  "/ar/savings-goals",
 ] as const;
 
 describe("public information pages", () => {
