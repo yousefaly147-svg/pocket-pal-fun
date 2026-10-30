@@ -12,7 +12,7 @@ export function LangToggle({ className = '' }: { className?: string }) {
     const nextPath = lang === 'ar'
       ? englishPath
       : pathname === '/'
-        ? '/ar'
+        ? '/ar/'
         : `/ar${pathname}`;
 
     setLang(lang === 'ar' ? 'en' : 'ar');
