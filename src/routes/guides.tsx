@@ -15,7 +15,7 @@ export const Route = createFileRoute('/guides')({
   component: GuidesPage,
 });
 
-function GuidesPage() {
+export function GuidesPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   return (
