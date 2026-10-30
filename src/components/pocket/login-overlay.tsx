@@ -8,13 +8,18 @@ export const LOGIN_OVERLAY_MIN_MS = 750;
 /** Fallback for a stalled dashboard bootstrap, measured after authentication succeeds. */
 export const LOGIN_OVERLAY_LOADING_MAX_MS = 150_000;
 
-/** Called by the Dashboard: settles a login transition once data and preferences are both ready. */
-export function useSettleLoginTransition(prefsReady: boolean, dataReady: boolean) {
+export type DashboardFetchStatus = 'fetching' | 'paused' | 'idle';
+
+/** Called by the Dashboard once preferences are loaded and no request is actively running. */
+export function useSettleLoginTransition(
+  prefsReady: boolean,
+  dataFetchStatus: DashboardFetchStatus,
+) {
   const { settleLoginTransition } = useAuth();
 
   useEffect(() => {
-    if (prefsReady && dataReady) settleLoginTransition();
-  }, [prefsReady, dataReady, settleLoginTransition]);
+    if (prefsReady && dataFetchStatus !== 'fetching') settleLoginTransition();
+  }, [prefsReady, dataFetchStatus, settleLoginTransition]);
 }
 
 export function LoginOverlay() {
