@@ -19,7 +19,7 @@ export const Route = createFileRoute('/terms')({
   component: TermsPage,
 });
 
-function TermsPage() {
+export function TermsPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   return (
