@@ -28,7 +28,7 @@ export const Route = createFileRoute('/')({
   component: Index,
 });
 
-function Index() {
+export function Index() {
   const { status, session, authScreenOpen, closeAuthScreen } = useAuth();
   if (status === 'checking') return <div className="state-screen" aria-busy="true"><LogoMark /><div className="state-spinner" aria-hidden="true" /></div>;
   return <>
