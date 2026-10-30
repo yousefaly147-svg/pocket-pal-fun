@@ -189,7 +189,8 @@ export function Dashboard() {
     return () => clearTimeout(id);
   }, [query.isPending]);
   // Tell a login transition overlay when the first refresh and preferences have settled.
-  useSettleLoginTransition(prefsLoaded, query.fetchStatus === 'idle');
+  // Idle and paused are settled states; only an active network fetch should keep the overlay up.
+  useSettleLoginTransition(prefsLoaded, query.fetchStatus !== 'fetching');
   useEffect(() => {
     if (query.error instanceof ApiError && query.error.code === 'unauthorized') logout('sessionExpired');
   }, [query.error, logout]);
