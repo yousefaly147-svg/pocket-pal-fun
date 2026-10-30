@@ -405,7 +405,7 @@ export const ar: Record<TKey, string> = {
   'landing.eyebrow': 'طريقة ألطف لإدارة فلوسك',
   'landing.heroTitle': 'خلّي علاقتك بفلوسك',
   'landing.heroHighlight': 'أحلى شوية.',
-  'landing.heroBody': 'تابع صرفك ودخلك واستثماراتك في مكان واحد بسيط ومريح، من غير جداول معقدة أو إعدادات كتير.',
+  'landing.heroBody': 'Pocketjr Finance أداة مجانية لإدارة المال الشخصي وتتبع الدخل والصرف والميزانية والاستثمارات وأهداف الادخار في مكان واحد بسيط.',
   'landing.tryFree': 'جرّب Pocketjr مجانًا',
   'landing.haveAccount': 'عندك حساب بالفعل؟',
   'landing.noPressure': 'جرّبه كضيف. بيانات الضيف بتفضل على الجهاز ده.',

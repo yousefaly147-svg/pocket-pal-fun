@@ -7,6 +7,11 @@ export const Route = createFileRoute('/guides')({
     meta: [
       { title: 'Budgeting & Expense Tracking Guides | Pocketjr' },
       { name: 'description', content: 'Practical personal finance guides: make a monthly budget in EGP, track everyday expenses, categorize spending and build realistic savings goals.' },
+      { property: 'og:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
+      { property: 'og:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { name: 'twitter:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/guides' },

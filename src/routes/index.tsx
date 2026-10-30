@@ -8,15 +8,15 @@ import { useAuth } from '@/lib/auth';
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
-      { title: 'Pocketjr Money Tracker | Free Expense Tracker & Budget Planner' },
-      { name: 'description', content: 'Track income, expenses, investments, budgets and savings goals with Pocketjr, a free personal finance tracker for web and Android with English and Arabic support. Try it as a guest.' },
-      { property: 'og:title', content: 'Pocketjr Money Tracker | Free Expense Tracker & Budget Planner' },
-      { property: 'og:description', content: 'Track income, expenses, budgets and savings goals in one simple finance tracker. Start as a guest or create an account to sync supported data.' },
+      { title: 'Pocketjr Finance – Free Money Manager & Expense Tracker' },
+      { name: 'description', content: 'Pocketjr Finance is a free personal money manager and expense tracker for income, spending, budgets, investments and savings goals. Use it in English or Arabic.' },
+      { property: 'og:title', content: 'Pocketjr Finance – Free Money Manager & Expense Tracker' },
+      { property: 'og:description', content: 'Pocketjr Finance helps you manage income, expenses, budgets, investments and savings goals with a free personal money manager and expense tracker.' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Pocketjr' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
       { property: 'og:url', content: 'https://pocketjr.lovable.app/' },
-      { name: 'twitter:title', content: 'Pocketjr Money Tracker | Free Expense Tracker & Budget Planner' },
-      { name: 'twitter:description', content: 'A simple English and Arabic money tracker for income, expenses, budgets and savings goals.' },
+      { name: 'twitter:title', content: 'Pocketjr Finance – Free Money Manager & Expense Tracker' },
+      { name: 'twitter:description', content: 'A free English and Arabic personal money manager for tracking income, expenses, budgets and savings goals.' },
 
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
@@ -35,8 +35,8 @@ function WebsiteStructuredData() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "url": "https://pocketjr.lovable.app/",
-    "name": "Pocketjr Money Tracker",
-    "alternateName": ["Pocketjr", "Pocketjr Budget Tracker"],
+    "name": "Pocketjr Finance",
+    "alternateName": ["Pocketjr Money Manager", "Pocketjr Budget Tracker", "Pocketjr"],
     "description": "A free personal finance tracker for recording income, expenses, budgets, investments and savings goals.",
   };
 
