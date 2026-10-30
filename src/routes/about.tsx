@@ -7,6 +7,13 @@ export const Route = createFileRoute('/about')({
     meta: [
       { title: 'About Pocketjr | A simpler way to understand your money' },
       { name: 'description', content: 'Learn about Pocketjr, a simple personal finance tool for recording spending, income, budgets and savings goals.' },
+      { property: 'og:title', content: 'About Pocketjr | A simpler way to understand your money' },
+      { property: 'og:description', content: 'Learn how Pocketjr helps you record income, spending, budgets and savings goals.' },
+      { name: 'twitter:title', content: 'About Pocketjr' },
+      { name: 'twitter:description', content: 'A simple personal finance tool for everyday money tracking.' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/about' },
     ],
   }),
   component: AboutPage,

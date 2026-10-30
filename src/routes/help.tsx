@@ -7,6 +7,13 @@ export const Route = createFileRoute('/help')({
     meta: [
       { title: 'Pocketjr Help & FAQ | Frequently asked questions' },
       { name: 'description', content: 'Answers about Pocketjr accounts, money tracking, Arabic language support, privacy and account deletion.' },
+      { property: 'og:title', content: 'Pocketjr Help & FAQ' },
+      { property: 'og:description', content: 'Quick answers about Pocketjr accounts, finance tracking, language settings and privacy.' },
+      { name: 'twitter:title', content: 'Pocketjr Help & FAQ' },
+      { name: 'twitter:description', content: 'Get answers about using Pocketjr and managing your account.' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/help' },
     ],
   }),
   component: HelpPage,

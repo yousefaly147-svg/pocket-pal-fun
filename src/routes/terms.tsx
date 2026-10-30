@@ -7,6 +7,13 @@ export const Route = createFileRoute('/terms')({
     meta: [
       { title: 'Terms of Use | Pocketjr' },
       { name: 'description', content: 'Read the terms that apply when using the Pocketjr website and personal finance tools.' },
+      { property: 'og:title', content: 'Terms of Use | Pocketjr' },
+      { property: 'og:description', content: 'Read the terms for using the Pocketjr website and personal finance tools.' },
+      { name: 'twitter:title', content: 'Terms of Use | Pocketjr' },
+      { name: 'twitter:description', content: 'Terms for using Pocketjr.' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/terms' },
     ],
   }),
   component: TermsPage,
