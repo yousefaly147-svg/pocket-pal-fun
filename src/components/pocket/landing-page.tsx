@@ -34,7 +34,7 @@ export function LandingPage() {
   const { openAuthScreen, startGuest } = useAuth();
   const { t, lang } = useI18n();
   const ar = lang === 'ar';
-  const pagePath = (path: string) => ar ? (path === '/' ? '/ar' : `/ar${path}`) : path;
+  const pagePath = (path: string) => ar ? (path === '/' ? '/ar/' : `/ar${path}`) : path;
 
   return (
     <div className="public-landing" dir={ar ? 'rtl' : 'ltr'}>
