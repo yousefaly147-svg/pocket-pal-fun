@@ -16,7 +16,7 @@ export function AdSenseVerification() {
     script.async = true;
     script.src = ADSENSE_SCRIPT_URL;
     script.crossOrigin = 'anonymous';
-    script.dataset.pocketjrAdsenseVerification = 'true';
+    script.dataset['pocketjrAdsenseVerification'] = 'true';
     document.head.appendChild(script);
 
     return () => {
