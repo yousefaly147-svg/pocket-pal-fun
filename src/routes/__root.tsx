@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider, langBootScript } from "../lib/i18n";
 import { AuthProvider } from "../lib/auth";
+import { ADSENSE_SITE_VERIFICATION_META } from "../lib/adsense-verification";
 
 function NotFoundComponent() {
   return (
@@ -82,6 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      ADSENSE_SITE_VERIFICATION_META,
     ],
     links: [
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" },
