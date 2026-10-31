@@ -1,44 +1,42 @@
-# Pocket Pal
+# Pocketjr Finance
 
-Create a polished money-management app UI with a distinctive cartoonish, friendly theme. This is primarily a frontend/UI prototype with realistic mock data, not a banking integration yet.
+Pocketjr Finance is a bilingual personal-finance recordkeeping web app for people who want a clearer view of their income, spending and savings. Open the live website at **https://pocketjr.lovable.app** and use it in English or Arabic.
 
-Design direction:
-- Modern, playful cartoon aesthetic that still feels trustworthy and usable.
-- Soft off-white/light background, rounded cards, bold friendly typography, hand-drawn-ish accents/illustrations, subtle shadows, lively but tasteful accent colors.
-- Avoid childish clutter; aim for a polished app a teenager/young adult would genuinely enjoy using.
-- Responsive desktop and mobile layouts.
+## What it helps you track
 
-Build a main dashboard with:
-1. Header with app logo/name, greeting, profile/avatar, notification button.
-2. Large "Total Balance" card with a prominent balance, small income/expense comparison, and a cute wallet/coin illustration or decorative character.
-3. Quick actions: Add Income, Add Expense, Transfer.
-4. Spending overview with a simple attractive chart and category breakdown (Food, Transport, Shopping, Entertainment, Other).
-5. Recent transactions list with cartoonish category icons, merchant names, dates, and amounts.
-6. Monthly budget/progress section showing how much is spent versus budget, with playful visual progress.
-7. Savings goal card with progress toward a goal and a cheerful illustration.
-8. Bottom/side navigation for Dashboard, Transactions, Budgets, Goals, Settings.
-9. Include interactive-looking controls such as period selector, category filter, and add-transaction modal/form; buttons should work within the UI using local state.
-10. Use Egyptian pounds (EGP) in sample data, since this UI is intended for an Egypt-based user.
+- **Income and expenses:** record transactions with dates, categories and descriptions, then review activity over time.
+- **Monthly budgets:** set a spending limit and compare it with the expenses you record.
+- **Savings goals:** create multiple goals and track progress toward each target.
+- **Investments:** keep a manual record of contributions, gains and losses.
+- **Accounts and preferences:** start in guest mode with records kept on that device, or sign in to save supported account data and preferences for use on other signed-in devices.
+- **Language and currency display:** switch between English and Arabic and choose a display currency. Changing the currency label does not convert existing amounts.
 
-Make the interface feel cohesive and production-quality. Use Lucide icons where appropriate, but also create simple CSS-based/cartoon decorative elements rather than relying on external image URLs. Ensure accessibility, responsive behavior, and good spacing.
+## Important limitations
 
-This project was built with [Lovable](https://lovable.dev).
+Pocketjr is a personal recordkeeping tool, **not a bank, payment wallet or investment service**. It does not execute payments, buy or sell investments, provide financial advice, or connect automatically to every bank. Optional Telda notification import is an Android-specific feature of a compatible Pocketjr Android build and requires notification access; the website itself cannot read Android notifications. The website is available in a browser; this repository does not imply that an Android release is published on Google Play.
 
-## Build with Lovable
+## Public resources
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3e41d358-bdea-4027-b0ff-6ec8a52eba40).
+- [Live website](https://pocketjr.lovable.app/)
+- [Money guides](https://pocketjr.lovable.app/guides)
+- [Arabic money guides](https://pocketjr.lovable.app/ar/guides)
+- [About Pocketjr](https://pocketjr.lovable.app/about)
+- [Help and FAQ](https://pocketjr.lovable.app/help)
+- [Privacy policy](https://pocketjr.lovable.app/privacy-policy)
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Search engine discovery
+
+The public sitemap is available at [https://pocketjr.lovable.app/sitemap.xml](https://pocketjr.lovable.app/sitemap.xml). To notify IndexNow-compatible search engines about the public pages changed in this SEO update, open **GitHub → Actions → Notify search engines with IndexNow → Run workflow**. This workflow is manual, validates that the public key file is deployed, and submits only the updated canonical public URLs. An accepted notification helps search engines discover changes; it does **not** guarantee crawling, indexing or ranking.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+This project uses [Lovable](https://lovable.dev) and is synchronized with its linked GitHub repository.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+git clone https://github.com/yousefaly147-svg/pocket-pal-fun.git
+cd pocket-pal-fun
+bun install --frozen-lockfile
+bun run dev
 ```
+
+The CI workflow runs the TypeScript check, test suite and production build on changes to the main branch and pull requests.
