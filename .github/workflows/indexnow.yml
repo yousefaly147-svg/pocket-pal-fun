@@ -1,0 +1,78 @@
+name: Notify search engines with IndexNow
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pocketjr-indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit-updated-public-urls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify the deployed public IndexNow key
+        shell: bash
+        env:
+          INDEXNOW_KEY: pocketjrindexnow20261031a9f4c82d
+        run: |
+          set -euo pipefail
+          KEY_URL="https://pocketjr.lovable.app/${INDEXNOW_KEY}.txt"
+          echo "Checking public key at ${KEY_URL}"
+          ACTUAL="$(curl --fail --silent --show-error --retry 2 --retry-delay 2 "${KEY_URL}")"
+          if [[ "${ACTUAL}" != "${INDEXNOW_KEY}" ]]; then
+            echo "::error::The deployed key file content does not exactly match the configured IndexNow key."
+            exit 1
+          fi
+          echo "The public key file is deployed and valid."
+
+      - name: Submit recently updated canonical public URLs
+        shell: bash
+        env:
+          INDEXNOW_KEY: pocketjrindexnow20261031a9f4c82d
+        run: |
+          set -euo pipefail
+          KEY_LOCATION="https://pocketjr.lovable.app/${INDEXNOW_KEY}.txt"
+          jq -n \
+            --arg host "pocketjr.lovable.app" \
+            --arg key "${INDEXNOW_KEY}" \
+            --arg keyLocation "${KEY_LOCATION}" \
+            '{
+              host: $host,
+              key: $key,
+              keyLocation: $keyLocation,
+              urlList: [
+                "https://pocketjr.lovable.app/",
+                "https://pocketjr.lovable.app/ar/",
+                "https://pocketjr.lovable.app/monthly-budget",
+                "https://pocketjr.lovable.app/ar/monthly-budget",
+                "https://pocketjr.lovable.app/expense-tracking",
+                "https://pocketjr.lovable.app/ar/expense-tracking",
+                "https://pocketjr.lovable.app/savings-goals",
+                "https://pocketjr.lovable.app/ar/savings-goals"
+              ]
+            }' > indexnow-payload.json
+
+          echo "Submitting the eight updated public canonical URLs to IndexNow."
+          HTTP_STATUS="$(curl --silent --show-error \
+            --output indexnow-response.txt \
+            --write-out "%{http_code}" \
+            --request POST "https://api.indexnow.org/indexnow" \
+            --header "Content-Type: application/json; charset=utf-8" \
+            --data-binary @indexnow-payload.json)"
+
+          echo "IndexNow HTTP status: ${HTTP_STATUS}"
+          echo "IndexNow response body:"
+          cat indexnow-response.txt
+          echo
+
+          if [[ "${HTTP_STATUS}" != "200" ]]; then
+            echo "::error::IndexNow did not return HTTP 200. Check the response above."
+            exit 1
+          fi
+
+          echo "::notice::IndexNow accepted the change notification. This does not confirm crawling or indexing."
