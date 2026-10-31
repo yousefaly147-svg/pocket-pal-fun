@@ -14,7 +14,7 @@ export const Route = createFileRoute('/expense-tracking')({
       { name: 'twitter:description', content: 'Learn a simple daily expense tracking method, choose useful spending categories and find recurring costs without complicated spreadsheets.' },
     ],
     links: [
-      { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/expense-tracking' },
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/expense-tracking' },
       { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/expense-tracking' },
       { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/expense-tracking' },
       { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/expense-tracking' },
