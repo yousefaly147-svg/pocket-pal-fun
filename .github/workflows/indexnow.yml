@@ -2,6 +2,8 @@ name: Notify search engines with IndexNow
 
 on:
   workflow_dispatch:
+  push:
+    branches: [indexnow-retry-once]
 
 permissions:
   contents: read
