@@ -14,7 +14,7 @@ export const Route = createFileRoute('/savings-goals')({
       { name: 'twitter:description', content: 'Turn a savings wish into a practical plan: estimate the cost, choose a timeline, calculate monthly contributions and review progress.' },
     ],
     links: [
-      { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/savings-goals' },
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/savings-goals' },
       { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/savings-goals' },
       { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/savings-goals' },
       { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/savings-goals' },

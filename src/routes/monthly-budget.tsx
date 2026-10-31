@@ -14,7 +14,7 @@ export const Route = createFileRoute('/monthly-budget')({
       { name: 'twitter:description', content: 'A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.' },
     ],
     links: [
-      { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/monthly-budget' },
+      { rel: 'canonical', href: 'https://pocketjr.lovable.app/monthly-budget' },
       { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/monthly-budget' },
       { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/monthly-budget' },
       { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/monthly-budget' },
