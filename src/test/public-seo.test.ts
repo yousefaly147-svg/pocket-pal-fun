@@ -35,7 +35,7 @@ describe("public search discovery files", () => {
     expect(new Set(urls).size).toBe(18);
     expect(urls).toEqual(publicPaths.map((path) => `${origin}${path}`));
     expect(urls.every((url) => url.startsWith(`${origin}/`))).toBe(true);
-    expect(urls.some((url) => /delete-account|dashboard|\\/settings|\\/transactions/i.test(url))).toBe(false);
+    expect(urls.some((url) => /\/settings|\/transactions|delete-account|dashboard/i.test(url))).toBe(false);
   });
 
   it("keeps reciprocal English, Arabic and x-default alternates for every language pair", () => {
