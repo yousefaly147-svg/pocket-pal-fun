@@ -225,7 +225,7 @@ export function GuideArticlePage({ slug }: { slug: GuideSlug }) {
           <Link to={ar ? '/ar/guides' : '/guides'}>{ar ? 'العودة إلى دليل المال' : 'Back to all money guides'}</Link>
         </p>
         <p>
-          <Link to={ar ? '/ar/' : '/'}>{ar ? 'جرّب Pocketjr Finance مجانًا' : 'Try Pocketjr Finance'}</Link>
+          <a href={ar ? '/ar/' : '/'}>{ar ? 'جرّب Pocketjr Finance مجانًا' : 'Try Pocketjr Finance'}</a>
         </p>
       </article>
     </PublicPageLayout>
