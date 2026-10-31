@@ -24,7 +24,7 @@ describe("guide canonical and language relationships", () => {
         const head = route.options.head;
         if (!head) throw new Error("Guide route is missing its head definition");
         // These static metadata functions do not read loader or router context.
-        const metadata = await head({} as Parameters<typeof head>[0]);
+        const metadata = await head({} as never);
         const links = metadata?.links ?? [];
         const englishUrl = `${origin}/${slug}`;
         const arabicUrl = `${origin}/ar/${slug}`;

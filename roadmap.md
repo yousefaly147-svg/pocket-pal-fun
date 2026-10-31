@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Correct the three English guide canonicals, audit public language pairs, and verify regression checks.
+- [x] Correct the three English guide canonicals, audit public language pairs, and verify regression checks.
 - [x] Build the cohesive dashboard, navigation views, and cartoon artwork.
 - [x] Add local transaction, transfer, filter, budget, and goal interactions.
 - [x] Verify desktop/mobile layout and core transaction flow.
