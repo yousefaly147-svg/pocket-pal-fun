@@ -29,7 +29,7 @@ describe("public search discovery files", () => {
 
   it("contains exactly the 18 canonical public URLs in the sitemap", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+    const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1] ?? "");
 
     expect(urls).toHaveLength(18);
     expect(new Set(urls).size).toBe(18);
@@ -44,8 +44,8 @@ describe("public search discovery files", () => {
 
     expect(blocks).toHaveLength(18);
     for (let index = 0; index < blocks.length; index += 2) {
-      const english = blocks[index];
-      const arabic = blocks[index + 1];
+      const english = blocks[index] ?? "";
+      const arabic = blocks[index + 1] ?? "";
       const englishUrl = english.match(/<loc>([^<]+)<\/loc>/)?.[1];
       const arabicUrl = arabic.match(/<loc>([^<]+)<\/loc>/)?.[1];
 
@@ -80,17 +80,17 @@ describe("homepage structured data", () => {
     const application = graph.find((node) => node["@type"] === "SoftwareApplication");
 
     expect(schema["@context"]).toBe("https://schema.org");
-    expect(website?.name).toBe("Pocketjr Finance");
-    expect(application?.name).toBe("Pocketjr Finance");
-    expect(application?.applicationCategory).toBe("FinanceApplication");
-    expect(application?.operatingSystem).toBe("Web browser");
-    expect(application?.isAccessibleForFree).toBe(true);
+    expect(website?.["name"]).toBe("Pocketjr Finance");
+    expect(application?.["name"]).toBe("Pocketjr Finance");
+    expect(application?.["applicationCategory"]).toBe("FinanceApplication");
+    expect(application?.["operatingSystem"]).toBe("Web browser");
+    expect(application?.["isAccessibleForFree"]).toBe(true);
     for (const node of graph) {
       expect(node).not.toHaveProperty("aggregateRating");
       expect(node).not.toHaveProperty("review");
       expect(node).not.toHaveProperty("offers");
     }
-    expect(application?.url).toBe(language === "ar" ? `${origin}/ar/` : `${origin}/`);
+    expect(application?.["url"]).toBe(language === "ar" ? `${origin}/ar/` : `${origin}/`);
   });
 });
 
