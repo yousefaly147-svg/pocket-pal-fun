@@ -260,7 +260,7 @@ export function PrivacyPolicyPage() {
           </section>
         </div>
         <footer className="flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
-          <Link to={homePath} className="font-medium underline underline-offset-4">Home</Link>
+          <Link to={homePath} reloadDocument={ar} className="font-medium underline underline-offset-4">Home</Link>
           <Link to={deleteAccountPath} className="font-medium underline underline-offset-4">Delete account</Link>
         </footer>
       </article>
