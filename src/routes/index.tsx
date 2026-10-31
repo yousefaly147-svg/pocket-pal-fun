@@ -4,9 +4,11 @@ import { Dashboard } from '@/components/pocket/dashboard';
 import { LandingPage } from '@/components/pocket/landing-page';
 import { LoginOverlay } from '@/components/pocket/login-overlay';
 import { useAuth } from '@/lib/auth';
+import { websiteSchema } from '@/lib/website-schema';
 
 export const Route = createFileRoute('/')({
   head: () => ({
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(websiteSchema('en')) }],
     meta: [
       { title: 'Pocketjr Finance – Free Money Manager & Expense Tracker' },
       { name: 'description', content: 'Pocketjr Finance is a free personal money manager and expense tracker for income, spending, budgets, investments and savings goals. Use it in English or Arabic.' },
@@ -30,34 +32,14 @@ export const Route = createFileRoute('/')({
   component: Index,
 });
 
-function WebsiteStructuredData() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": "https://pocketjr.lovable.app/",
-    "name": "Pocketjr Finance",
-    "alternateName": ["Pocketjr Money Manager"],
-    "description": "A free personal finance tracker for recording income, expenses, budgets, investments and savings goals.",
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-    />
-  );
-}
-
 export function Index() {
   const { status, session, authScreenOpen, closeAuthScreen } = useAuth();
   if (status === 'checking') return (
     <>
-      <WebsiteStructuredData />
       <LandingPage />
     </>
   );
   return <>
-    <WebsiteStructuredData />
     {authScreenOpen ? <AuthScreen onDismiss={closeAuthScreen} />
       : status === 'signedOut' || !session ? <LandingPage />
       : <Dashboard key={session.userId} />}
