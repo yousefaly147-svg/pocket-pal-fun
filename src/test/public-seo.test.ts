@@ -40,7 +40,7 @@ describe("public search discovery files", () => {
 
   it("keeps reciprocal English, Arabic and x-default alternates for every language pair", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
+    const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1] ?? "");
 
     expect(blocks).toHaveLength(18);
     for (let index = 0; index < blocks.length; index += 2) {
@@ -61,7 +61,7 @@ describe("public search discovery files", () => {
 
   it("updates lastmod only for the two home pages changed in this pass", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
+    const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1] ?? "");
     const changed = blocks.filter((block) => block.includes("<lastmod>2026-10-31</lastmod>"));
     const untouched = blocks.filter((block) => block.includes("<lastmod>2026-10-30</lastmod>"));
 
