@@ -431,6 +431,18 @@ export const en = {
   'landing.howPointTwo': 'Track deposits, gains, and losses over time',
   'landing.howPointThree': 'Change the display currency and language in Settings',
   'landing.footer': 'A little clarity. A lot more confidence. ♡',
+  'landing.detailTitle': 'A clearer picture of your everyday money',
+  'landing.detailIntro': 'Pocketjr Finance is for people who want to understand their own spending without a complicated spreadsheet. Whether you are managing student expenses, a salary or freelance income, keep a personal record in English or Arabic and review it at your own pace.',
+  'landing.detailTrackTitle': 'From daily expenses to a monthly plan',
+  'landing.detailTrackBody': 'Record income and expenses with categories and optional notes, then review transactions by day or month. A monthly budget compares your recorded spending with the limit you choose. Savings goals track progress toward things that matter to you, such as an emergency fund or a trip; they do not move or hold money.',
+  'landing.detailAccountTitle': 'Your account, or just this device',
+  'landing.detailAccountBody': 'Try guest mode without signing up: its records and preferences stay on this device. With a signed-in account, transactions, investment records, budgets, savings goals and your currency display preference are saved to your account for use on other signed-in devices. Changing the currency label never converts your recorded amounts.',
+  'landing.detailLimitsTitle': 'A recordkeeping tool, not a bank',
+  'landing.detailLimitsBody': 'Pocketjr runs in your web browser. Record investment contributions, gains and losses to follow your own portfolio; Pocketjr does not buy investments, make payments or provide financial advice. There is no universal bank connection. Optional supported Telda notification import requires the compatible Android app and notification access; the website alone cannot read Android notifications.',
+  'landing.detailGuidesTitle': 'Start with one useful habit',
+  'landing.detailBudgetLink': 'Plan a monthly budget',
+  'landing.detailExpensesLink': 'Review everyday expenses',
+  'landing.detailGoalsLink': 'Set a savings goal',
 };
 
 export type TKey = keyof typeof en;

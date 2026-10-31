@@ -130,6 +130,21 @@ export function LandingPage() {
             </Button>
           </div>
         </section>
+        <section className="landing-details" aria-labelledby="money-details-title">
+          <h2 id="money-details-title">{t('landing.detailTitle')}</h2>
+          <p>{t('landing.detailIntro')}</p>
+          <div className="landing-details-grid">
+            <section><h3>{t('landing.detailTrackTitle')}</h3><p>{t('landing.detailTrackBody')}</p></section>
+            <section><h3>{t('landing.detailAccountTitle')}</h3><p>{t('landing.detailAccountBody')}</p></section>
+            <section><h3>{t('landing.detailLimitsTitle')}</h3><p>{t('landing.detailLimitsBody')}</p></section>
+          </div>
+          <h3>{t('landing.detailGuidesTitle')}</h3>
+          <nav className="landing-guide-links" aria-label={t('landing.detailGuidesTitle')}>
+            <a href={pagePath('/monthly-budget')}>{t('landing.detailBudgetLink')}</a>
+            <a href={pagePath('/expense-tracking')}>{t('landing.detailExpensesLink')}</a>
+            <a href={pagePath('/savings-goals')}>{t('landing.detailGoalsLink')}</a>
+          </nav>
+        </section>
       </main>
 
       <footer className="landing-footer">
