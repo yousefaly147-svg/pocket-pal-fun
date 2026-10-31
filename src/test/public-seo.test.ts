@@ -59,16 +59,24 @@ describe("public search discovery files", () => {
     }
   });
 
-  it("updates lastmod only for the two home pages changed in this pass", () => {
+  it("marks only the eight pages whose content or canonical metadata changed on 31 October", () => {
     const sitemap = readPublicFile("sitemap.xml");
     const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1] ?? "");
     const changed = blocks.filter((block) => block.includes("<lastmod>2026-10-31</lastmod>"));
     const untouched = blocks.filter((block) => block.includes("<lastmod>2026-10-30</lastmod>"));
+    const changedUrls = changed.map((block) => block.match(/<loc>([^<]+)<\/loc>/)?.[1]);
 
-    expect(changed).toHaveLength(2);
-    expect(changed[0]).toContain("<loc>https://pocketjr.lovable.app/</loc>");
-    expect(changed[1]).toContain("<loc>https://pocketjr.lovable.app/ar/</loc>");
-    expect(untouched).toHaveLength(16);
+    expect(changedUrls).toEqual([
+      "https://pocketjr.lovable.app/",
+      "https://pocketjr.lovable.app/ar/",
+      "https://pocketjr.lovable.app/monthly-budget",
+      "https://pocketjr.lovable.app/ar/monthly-budget",
+      "https://pocketjr.lovable.app/expense-tracking",
+      "https://pocketjr.lovable.app/ar/expense-tracking",
+      "https://pocketjr.lovable.app/savings-goals",
+      "https://pocketjr.lovable.app/ar/savings-goals",
+    ]);
+    expect(untouched).toHaveLength(10);
   });
 });
 
