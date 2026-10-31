@@ -16,7 +16,10 @@ const guides = [
 
 describe("guide canonical and language relationships", () => {
   for (const { slug, en, ar } of guides) {
-    for (const [locale, route] of [["en", en], ["ar", ar]] as const) {
+    for (const [locale, route] of [
+      ["en", en],
+      ["ar", ar],
+    ] as const) {
       it(`${locale}/${slug} references itself and preserves all language alternates`, async () => {
         const head = route.options.head;
         if (!head) throw new Error("Guide route is missing its head definition");
