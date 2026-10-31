@@ -70,9 +70,17 @@ jobs:
           cat indexnow-response.txt
           echo
 
-          if [[ "${HTTP_STATUS}" != "200" ]]; then
-            echo "::error::IndexNow did not return HTTP 200. Check the response above."
-            exit 1
-          fi
+          case "${HTTP_STATUS}" in
+            200)
+              echo "::notice::IndexNow processed and accepted the URL notification."
+              ;;
+            202)
+              echo "::notice::IndexNow received the notification. Initial key validation is pending; this is an accepted response, not a submission failure."
+              ;;
+            *)
+              echo "::error::IndexNow rejected the notification with HTTP ${HTTP_STATUS}. Check the response above."
+              exit 1
+              ;;
+          esac
 
-          echo "::notice::IndexNow accepted the change notification. This does not confirm crawling or indexing."
+          echo "::notice::Acceptance confirms receipt only; it does not confirm crawling, indexing or ranking."
