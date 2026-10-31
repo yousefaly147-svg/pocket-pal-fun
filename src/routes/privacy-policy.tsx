@@ -29,7 +29,7 @@ export const Route = createFileRoute('/privacy-policy')({
 export function PrivacyPolicyPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
-  const homePath = ar ? '/ar/' : '/';
+  const homePath = ar ? '/ar' : '/';
   const deleteAccountPath = ar ? '/ar/delete-account' : '/delete-account';
 
   return (
