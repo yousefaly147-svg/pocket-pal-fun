@@ -105,7 +105,7 @@ describe("bilingual public homepage explanation", () => {
       expect(dictionary["landing.detailExpensesLink"].length).toBeGreaterThan(4);
       expect(dictionary["landing.detailGoalsLink"].length).toBeGreaterThan(4);
     }
-    expect(en["landing.detailLimitsBody"]).toContain("not a bank");
+    expect(en["landing.detailLimitsBody"]).toContain("no universal bank connection");
     expect(ar["landing.detailLimitsBody"]).toContain("مفيش ربط تلقائي بكل البنوك");
   });
 });
