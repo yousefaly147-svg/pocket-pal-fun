@@ -29,7 +29,7 @@ export const Route = createFileRoute('/privacy-policy')({
 export function PrivacyPolicyPage() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
-  const homePath = ar ? '/ar' : '/';
+  const homePath = ar ? '/ar/' : '/';
   const deleteAccountPath = ar ? '/ar/delete-account' : '/delete-account';
 
   return (
@@ -260,7 +260,7 @@ export function PrivacyPolicyPage() {
           </section>
         </div>
         <footer className="flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
-          <Link to={homePath} reloadDocument={ar} className="font-medium underline underline-offset-4">Home</Link>
+          <a href={homePath} className="font-medium underline underline-offset-4">Home</a>
           <Link to={deleteAccountPath} className="font-medium underline underline-offset-4">Delete account</Link>
         </footer>
       </article>
