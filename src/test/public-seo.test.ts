@@ -5,7 +5,8 @@ import { describe, expect, it } from "vitest";
 import { ar } from "@/lib/i18n/ar";
 import { en } from "@/lib/i18n/en";
 import { websiteSchema } from "@/lib/website-schema";
-import { articleSchema } from "@/lib/public-seo";
+import { articleSchema, publicHead, toolSchema } from "@/lib/public-seo";
+import { egpBudgetFaqs } from "@/lib/tool-content";
 
 const origin = "https://pocketjr.lovable.app";
 const publicPaths = [
@@ -63,13 +64,21 @@ describe("public search discovery files", () => {
     }
   });
 
-  it("updates lastmod for all 24 public pages materially changed in this release", () => {
+  it("includes one valid, non-future lastmod date for every public URL", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = sitemap.split("<url>").slice(1).map((part) => part.split("</url>")[0] ?? "");
-    const recentlyUpdated = blocks.filter((item) => item.includes("<lastmod>2026-11-06</lastmod>"));
-    expect(recentlyUpdated).toHaveLength(24);
-    expect(blocks.every((item) => item.includes("<lastmod>2026-11-06</lastmod>"))).toBe(true);
-  });});
+    const blocks = [...sitemap.matchAll(/<url>([\\s\\S]*?)<\\/url>/g)].map((match) => match[1] ?? "");
+    const today = new Date().toISOString().slice(0, 10);
+
+    expect(blocks).toHaveLength(24);
+    for (const block of blocks) {
+      const dates = [...block.matchAll(/<lastmod>([^<]+)<\\/lastmod>/g)].map((match) => match[1] ?? "");
+      expect(dates).toHaveLength(1);
+      expect(dates[0]).toMatch(/^\\d{4}-\\d{2}-\\d{2}$/);
+      expect(dates[0]! <= today).toBe(true);
+      expect(Number.isNaN(Date.parse(`${dates[0]}T00:00:00Z`))).toBe(false);
+    }
+  });
+});
 
 describe("homepage structured data", () => {
   it.each(["en", "ar"] as const)("provides accurate WebSite and SoftwareApplication schema for %s", (language) => {
@@ -107,6 +116,43 @@ describe("bilingual public homepage explanation", () => {
     }
     expect(en["landing.detailLimitsBody"]).toContain("no universal bank connection");
     expect(ar["landing.detailLimitsBody"]).toContain("مفيش ربط تلقائي بكل البنوك");
+  });
+  
+  it("uses clear and accurate bilingual expense-tracking search language", () => {
+    expect(en["landing.heroHighlight"].toLowerCase()).toContain("expense tracker");
+    expect(en["landing.heroBody"].toLowerCase()).toContain("monthly budget in egp");
+    expect(en["landing.heroBody"].toLowerCase()).toContain("without downloading an app");
+    expect(ar["landing.heroHighlight"]).toContain("مصاريف");
+    expect(ar["landing.heroBody"]).toContain("بالجنيه المصري");
+    expect(ar["landing.heroBody"]).toContain("من غير تحميل تطبيق");
+  });
+});
+
+describe("EGP calculator structured data", () => {
+  it.each(["en", "ar"] as const)("keeps calculator FAQ schema aligned with visible %s FAQs", (language) => {
+    const title = language === "ar" ? "حاسبة الميزانية بالجنيه المصري" : "Free EGP monthly budget calculator";
+    const description = language === "ar" ? "خطط ميزانيتك بالجنيه المصري." : "Plan a monthly budget in Egyptian pounds.";
+    const schema = toolSchema(language, "/egp-budget-calculator", title, description, egpBudgetFaqs[language]);
+    const graph = schema["@graph"] as Array<Record<string, unknown>>;
+    const faqPage = graph.find((node) => node["@type"] === "FAQPage");
+    const questions = faqPage?.["mainEntity"] as Array<Record<string, unknown>>;
+
+    expect(questions).toHaveLength(4);
+    expect(questions.map((question) => question["name"])).toEqual(egpBudgetFaqs[language].map((faq) => faq.q));
+    expect(questions.every((question) => Boolean((question["acceptedAnswer"] as Record<string, unknown>)?.["text"]))).toBe(true);
+  });
+
+  it("provides a self-canonical and reciprocal localized calculator head", () => {
+    const head = publicHead({
+      lang: "ar",
+      enPath: "/egp-budget-calculator",
+      title: "حاسبة الميزانية بالجنيه المصري",
+      description: "خطط ميزانيتك بالجنيه المصري.",
+      schema: toolSchema("ar", "/egp-budget-calculator", "حاسبة الميزانية", "وصف", egpBudgetFaqs.ar),
+    });
+    expect(head.links).toContainEqual({ rel: "canonical", href: `${origin}/ar/egp-budget-calculator` });
+    expect(head.links).toContainEqual({ rel: "alternate", hrefLang: "en", href: `${origin}/egp-budget-calculator` });
+    expect(head.links).toContainEqual({ rel: "alternate", hrefLang: "x-default", href: `${origin}/egp-budget-calculator` });
   });
 });
 
