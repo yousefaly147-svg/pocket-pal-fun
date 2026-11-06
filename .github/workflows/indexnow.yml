@@ -1,4 +1,5 @@
 name: Notify search engines with IndexNow
+# IndexNow can notify participating engines such as Bing; it is not a Google indexing submission.
 
 on:
   workflow_dispatch:
@@ -6,6 +7,24 @@ on:
     branches: [main]
     paths:
       - 'public/sitemap.xml'
+      - 'src/routes/index.tsx'
+      - 'src/routes/ar.index.tsx'
+      - 'src/routes/guides.tsx'
+      - 'src/routes/ar.guides.tsx'
+      - 'src/routes/monthly-budget.tsx'
+      - 'src/routes/ar.monthly-budget.tsx'
+      - 'src/routes/expense-tracking.tsx'
+      - 'src/routes/ar.expense-tracking.tsx'
+      - 'src/routes/egp-budget-calculator.tsx'
+      - 'src/routes/ar.egp-budget-calculator.tsx'
+      - 'src/components/pocket/landing-page.tsx'
+      - 'src/components/pocket/guide-article-page.tsx'
+      - 'src/components/pocket/egp-budget-calculator.tsx'
+      - 'src/lib/i18n/en.ts'
+      - 'src/lib/i18n/ar.ts'
+      - 'src/lib/public-seo.ts'
+      - 'src/lib/website-schema.ts'
+      - 'src/lib/tool-content.ts'
       - '.github/workflows/indexnow.yml'
 
 permissions:
