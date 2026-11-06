@@ -4,11 +4,11 @@ import { AboutPage } from './about';
 export const Route = createFileRoute('/ar/about')({
   head: () => ({
     meta: [
-      { title: 'عن Pocketjr | أداة بسيطة لمتابعة أموالك' },
-      { name: 'description', content: 'تعرف على Pocketjr، أداة مجانية لتسجيل الدخل والصرف ومتابعة الميزانية والأهداف الادخارية.' },
+      { title: 'عن Pocketjr Finance | أداة بسيطة لمتابعة أموالك' },
+      { name: 'description', content: 'تعرف على Pocketjr Finance، أداة مجانية لتسجيل الدخل والصرف ومتابعة الميزانية والأهداف الادخارية.' },
       { property: 'og:title', content: 'عن Pocketjr | أداة بسيطة لمتابعة أموالك' },
       { property: 'og:description', content: 'تعرف على Pocketjr، أداة مجانية لتسجيل الدخل والصرف ومتابعة الميزانية والأهداف الادخارية.' },
-      { property: 'og:site_name', content: 'Pocketjr Money Tracker' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:title', content: 'عن Pocketjr | أداة بسيطة لمتابعة أموالك' },
       { name: 'twitter:description', content: 'تعرف على Pocketjr، أداة مجانية لتسجيل الدخل والصرف ومتابعة الميزانية والأهداف الادخارية.' },
     ],
