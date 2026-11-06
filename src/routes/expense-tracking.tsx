@@ -1,8 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { GuideArticlePage } from '@/components/pocket/guide-article-page';
+import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/expense-tracking')({
   head: () => ({
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/expense-tracking', "How to Track and Categorize Expenses | Pocketjr Finance", "Learn a simple daily expense tracking method, choose useful spending categories and find recurring costs without complicated spreadsheets.")) }],
     meta: [
       { title: 'How to Track and Categorize Expenses | Pocketjr Finance' },
       { name: 'description', content: 'Learn a simple daily expense tracking method, choose useful spending categories and find recurring costs without complicated spreadsheets.' },
