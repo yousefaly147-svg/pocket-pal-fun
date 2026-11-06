@@ -10,6 +10,7 @@ export const Route = createFileRoute('/guides')({
       { property: 'og:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
       { property: 'og:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
       { name: 'twitter:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
       { name: 'twitter:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
