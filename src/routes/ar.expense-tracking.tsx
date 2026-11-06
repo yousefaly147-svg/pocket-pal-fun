@@ -4,16 +4,16 @@ import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/ar/expense-tracking')({
   head: () => ({
-    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('ar', '/expense-tracking', "إزاي تتابع وتقسم مصروفاتك | Pocketjr Finance", "اتعلم طريقة بسيطة لتسجيل الصرف اليومي وتقسيم المصروفات واكتشاف التكاليف المتكررة من غير جداول معقدة.")) }],
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('ar', '/expense-tracking', "تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance", "اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.")) }],
     meta: [
-      { title: 'إزاي تتابع وتقسم مصروفاتك | Pocketjr Finance' },
-      { name: 'description', content: 'اتعلم طريقة بسيطة لتسجيل الصرف اليومي وتقسيم المصروفات واكتشاف التكاليف المتكررة من غير جداول معقدة.' },
-      { property: 'og:title', content: 'إزاي تتابع وتقسم مصروفاتك | Pocketjr Finance' },
-      { property: 'og:description', content: 'اتعلم طريقة بسيطة لتسجيل الصرف اليومي وتقسيم المصروفات واكتشاف التكاليف المتكررة من غير جداول معقدة.' },
+      { title: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance' },
+      { name: 'description', content: 'اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.' },
+      { property: 'og:title', content: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance' },
+      { property: 'og:description', content: 'اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'إزاي تتابع وتقسم مصروفاتك | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'اتعلم طريقة بسيطة لتسجيل الصرف اليومي وتقسيم المصروفات واكتشاف التكاليف المتكررة من غير جداول معقدة.' },
+      { name: 'twitter:title', content: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/expense-tracking' },

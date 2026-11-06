@@ -113,8 +113,8 @@ describe("guide article structured data", () => {
   it.each([
     ["en", "/monthly-budget", "Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance"],
     ["ar", "/monthly-budget", "ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي | Pocketjr Finance"],
-    ["en", "/expense-tracking", "How to Track and Categorize Expenses"],
-    ["ar", "/expense-tracking", "إزاي تتابع وتقسم مصروفاتك"],
+    ["en", "/expense-tracking", "Expense Tracking in Egypt: App or Spreadsheet? | Pocketjr Finance"],
+    ["ar", "/expense-tracking", "تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance"],
     ["en", "/savings-goals", "How to Set a Realistic Savings Goal"],
     ["ar", "/savings-goals", "إزاي تحدد هدف ادخار واقعي"],
   ] as const)("creates factual Article and breadcrumb data for %s %s", (lang, path, headline) => {

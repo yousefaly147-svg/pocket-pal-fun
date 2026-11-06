@@ -85,12 +85,12 @@ const guides: Record<GuideSlug, {
   },
   'expense-tracking': {
     title: {
-      en: 'How to Track and Categorize Your Expenses',
-      ar: 'إزاي تتابع وتقسم مصروفاتك',
+      en: 'Expense Tracking in Egypt: App or Spreadsheet?',
+      ar: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟',
     },
     description: {
-      en: 'Learn a simple daily expense tracking method, choose useful spending categories and find recurring costs without complicated spreadsheets.',
-      ar: 'اتعلم طريقة بسيطة لتسجيل الصرف اليومي وتقسيم المصروفات واكتشاف التكاليف المتكررة من غير جداول معقدة.',
+      en: 'Choose an expense tracker in Egypt that fits your routine. Compare a spreadsheet with an app, and check EGP display, Arabic, privacy and device sync.',
+      ar: 'اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.',
     },
     intro: {
       en: 'Expense tracking means keeping a reliable record of where your money goes. The goal is not to judge every purchase. It is to replace guesswork with a clear picture, so you can decide what to keep, change or plan for next month.',
@@ -115,6 +115,11 @@ const guides: Record<GuideSlug, {
         ]},
         { heading: '6. Keep the habit easy to maintain', paragraphs: [
           'Use one method consistently: a notebook, spreadsheet or finance tracker. Correct mistakes when you find them and avoid recording sensitive information such as card numbers, passwords, PINs or security codes in transaction notes.'
+        ]},
+        { heading: 'Choose an expense tracker that fits life in Egypt', paragraphs: [
+          'Check the basics before choosing: does it support Arabic and right-to-left layout, show amounts in EGP, work on your phone or computer, and let you export or keep a copy of your records? A currency symbol or display preference does not automatically convert amounts between currencies.',
+          'Think about how your data is stored. A spreadsheet gives you control but needs manual updates. A signed-in app may sync between devices, while guest mode may keep records on one device only. Read what permissions an import feature needs, and never give a tracking app your bank password, card PIN or one-time passcode.',
+          'Pocketjr is a recordkeeping tool for income, expenses, budgets, investments and savings goals. Guest records stay on the current device; signed-in records sync with the account. The currency choice changes the displayed label, not the amounts. Pocketjr does not provide universal bank connections. Optional Telda notification import is available only in the compatible Android app with notification access; the website itself cannot read Android notifications.'
         ]}
       ],
       ar: [
@@ -135,6 +140,11 @@ const guides: Record<GuideSlug, {
         ]},
         { heading: '٦. خلي العادة سهلة الاستمرار', paragraphs: [
           'استخدم طريقة واحدة باستمرار: كشكول أو جدول أو تطبيق لمتابعة المال. صحح الأخطاء لما تلاحظها، ومتكتبش معلومات حساسة زي أرقام البطاقات أو كلمات المرور أو الرقم السري أو أكواد الأمان في وصف المعاملة.'
+        ]},
+        { heading: 'اختار طريقة متابعة تناسب حياتك في مصر', paragraphs: [
+          'قبل ما تختار، راجع الأساسيات: هل الأداة بتدعم العربي واتجاه الكتابة من اليمين للشمال؟ هل بتعرض المبالغ بالجنيه المصري؟ هل تشتغل على موبايلك أو الكمبيوتر؟ وهل تقدر تصدّر بياناتك أو تحتفظ بنسخة منها؟ ظهور رمز عملة مختلف مش معناه إن المبالغ اتحولت فعلًا.',
+          'فكر في مكان حفظ البيانات. جدول الإكسل بيديك تحكم أكبر لكنه محتاج تسجيل يدوي. التطبيق اللي بتسجل فيه بحساب ممكن يزامن البيانات بين أجهزتك، بينما وضع الضيف ممكن يخلي البيانات على جهاز واحد بس. راجع الصلاحيات اللي أي استيراد محتاجها، ومتديش لأي تطبيق كلمة مرور البنك أو الرقم السري للبطاقة أو كود الاستخدام مرة واحدة.',
+          'Pocketjr أداة لتسجيل الدخل والصرف والميزانيات والاستثمارات وأهداف الادخار. بيانات وضع الضيف بتفضل على الجهاز الحالي، والبيانات المرتبطة بحساب بتتزامن بين الأجهزة. اختيار العملة بيغيّر الرمز المعروض بس، ومش بيحوّل المبالغ. Pocketjr مش بيقدم ربط تلقائي بكل البنوك. استيراد إشعارات تلدا الاختياري متاح في نسخة أندرويد المتوافقة بعد السماح بالوصول للإشعارات؛ الموقع نفسه مش بيقرأ إشعارات أندرويد.'
         ]}
       ]
     },
