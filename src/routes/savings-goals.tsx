@@ -1,8 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { GuideArticlePage } from '@/components/pocket/guide-article-page';
+import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/savings-goals')({
   head: () => ({
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/savings-goals', "How to Set a Realistic Savings Goal | Pocketjr Finance", "Turn a savings wish into a practical plan: estimate the cost, choose a timeline, calculate monthly contributions and review progress.")) }],
     meta: [
       { title: 'How to Set a Realistic Savings Goal | Pocketjr Finance' },
       { name: 'description', content: 'Turn a savings wish into a practical plan: estimate the cost, choose a timeline, calculate monthly contributions and review progress.' },
