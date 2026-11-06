@@ -6,11 +6,11 @@ export const Route = createFileRoute('/ar/help')({
     meta: [
       { title: 'مساعدة Pocketjr Finance والأسئلة الشائعة' },
       { name: 'description', content: 'إجابات عن حساب Pocketjr Finance وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
-      { property: 'og:title', content: 'مساعدة Pocketjr والأسئلة الشائعة' },
-      { property: 'og:description', content: 'إجابات عن حساب Pocketjr وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
+      { property: 'og:title', content: 'مساعدة Pocketjr Finance والأسئلة الشائعة' },
+      { property: 'og:description', content: 'إجابات عن حساب Pocketjr Finance وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
-      { name: 'twitter:title', content: 'مساعدة Pocketjr والأسئلة الشائعة' },
-      { name: 'twitter:description', content: 'إجابات عن حساب Pocketjr وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
+      { name: 'twitter:title', content: 'مساعدة Pocketjr Finance والأسئلة الشائعة' },
+      { name: 'twitter:description', content: 'إجابات عن حساب Pocketjr Finance وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/help' },
