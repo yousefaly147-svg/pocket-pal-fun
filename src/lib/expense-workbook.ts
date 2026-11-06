@@ -8,6 +8,10 @@ export async function buildExpenseWorkbook(lang: TemplateLang): Promise<ArrayBuf
   const c = templateCopy[lang];
   const wb = new ExcelJS.Workbook();
   wb.creator = 'Pocketjr Finance';
+  // Formula cells should be recalculated by Excel or a compatible spreadsheet app when opened.
+  wb.calcProperties.fullCalcOnLoad = true;
+  wb.calcProperties.forceFullCalc = true;
+  wb.calcProperties.calcMode = 'auto';
   const rtl = lang === 'ar';
   const view = [{ rightToLeft: rtl, state: 'frozen' as const, ySplit: 4 }];
   const bold = { bold: true, name: 'Arial' };
@@ -44,6 +48,8 @@ export async function buildExpenseWorkbook(lang: TemplateLang): Promise<ArrayBuf
     for (const col of ['C', 'D']) budget.getCell(`${col}${r}`).numFmt = money;
   });
   const last = first + c.categories.length - 1;
+  // Cross-sheet data-validation lists must use a workbook-scoped named range in Excel.
+  wb.definedNames.add(`'${c.budgetSheet}'!$A${first}:$A${last}`, 'BudgetCategories');
   const total = last + 1;
   budget.getCell(`A${total}`).value = c.totalLabel;
   for (const col of ['B', 'C', 'D']) {
@@ -63,7 +69,7 @@ export async function buildExpenseWorkbook(lang: TemplateLang): Promise<ArrayBuf
   for (let r = 2; r <= LOG_ROWS + 1; r++) {
     log.getCell(`A${r}`).numFmt = 'yyyy-mm-dd';
     log.getCell(`D${r}`).numFmt = money;
-    log.getCell(`B${r}`).dataValidation = { type: 'list', allowBlank: true, formulae: [`'${c.budgetSheet}'!$A$${first}:$A$${last}`] };
+    log.getCell(`B${r}`).dataValidation = { type: 'list', allowBlank: true, formulae: ['=BudgetCategories'] };
     log.getCell(`E${r}`).dataValidation = { type: 'list', allowBlank: true, formulae: [`"${c.paymentMethods.join(',')}"`] };
   }
 
