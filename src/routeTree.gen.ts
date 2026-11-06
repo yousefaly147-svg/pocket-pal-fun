@@ -156,8 +156,6 @@ export interface FileRoutesByFullPath {
   '/delete-account': typeof DeleteAccountRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
   '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
-  '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
-  '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
@@ -167,8 +165,6 @@ export interface FileRoutesByFullPath {
   '/ar/about': typeof ArAboutRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
-  '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
-  '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
@@ -183,6 +179,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
+  '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
@@ -192,6 +189,7 @@ export interface FileRoutesByTo {
   '/ar/about': typeof ArAboutRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
@@ -207,6 +205,7 @@ export interface FileRoutesById {
   '/ar': typeof ArRouteWithChildren
   '/delete-account': typeof DeleteAccountRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
+  '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
@@ -216,6 +215,7 @@ export interface FileRoutesById {
   '/ar/about': typeof ArAboutRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
@@ -233,8 +233,6 @@ export interface FileRouteTypes {
     | '/delete-account'
     | '/expense-tracking'
     | '/egp-budget-calculator'
-    | '/egp-budget-calculator'
-    | '/egp-budget-calculator'
     | '/guides'
     | '/help'
     | '/monthly-budget'
@@ -244,8 +242,6 @@ export interface FileRouteTypes {
     | '/ar/about'
     | '/ar/delete-account'
     | '/ar/expense-tracking'
-    | '/ar/egp-budget-calculator'
-    | '/ar/egp-budget-calculator'
     | '/ar/egp-budget-calculator'
     | '/ar/guides'
     | '/ar/help'
@@ -260,6 +256,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/delete-account'
     | '/expense-tracking'
+    | '/egp-budget-calculator'
     | '/guides'
     | '/help'
     | '/monthly-budget'
@@ -269,6 +266,7 @@ export interface FileRouteTypes {
     | '/ar/about'
     | '/ar/delete-account'
     | '/ar/expense-tracking'
+    | '/ar/egp-budget-calculator'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
@@ -283,6 +281,7 @@ export interface FileRouteTypes {
     | '/ar'
     | '/delete-account'
     | '/expense-tracking'
+    | '/egp-budget-calculator'
     | '/guides'
     | '/help'
     | '/monthly-budget'
@@ -292,6 +291,7 @@ export interface FileRouteTypes {
     | '/ar/about'
     | '/ar/delete-account'
     | '/ar/expense-tracking'
+    | '/ar/egp-budget-calculator'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
