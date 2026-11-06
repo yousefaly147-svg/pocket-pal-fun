@@ -60,10 +60,16 @@ describe("public search discovery files", () => {
     }
   });
 
-  it("uses the real modification date for all changed public pages", () => {
+  it("updates lastmod only for the 14 pages changed in this release", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const lastmodCount = (sitemap.match(/<lastmod>2026-11-06<\/lastmod>/g) ?? []).length;
-    expect(lastmodCount).toBe(20);
+    const blocks = [...sitemap.matchAll(/<url>([\\s\\S]*?)<\\/url>/g)].map((match) => match[1] ?? "");
+    const recentlyUpdated = blocks.filter((block) => block.includes("<lastmod>2026-11-06</lastmod>"));
+    const olderGuides = blocks.filter((block) =>
+      /<loc>https:\\/\\/pocketjr\\.lovable\\.app\\/(?:ar\\/)?(?:monthly-budget|expense-tracking|savings-goals)<\\/loc>/.test(block)
+      && block.includes("<lastmod>2026-10-31</lastmod>")
+    );
+    expect(recentlyUpdated).toHaveLength(14);
+    expect(olderGuides).toHaveLength(6);
   });
 });
 
