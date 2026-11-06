@@ -1,8 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { GuideArticlePage } from '@/components/pocket/guide-article-page';
+import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/ar/savings-goals')({
   head: () => ({
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('ar', '/savings-goals', "إزاي تحدد هدف ادخار واقعي | Pocketjr Finance", "حوّل رغبتك في الادخار لخطة عملية: قدر التكلفة، اختار المدة، احسب المبلغ الشهري وراجع تقدمك.")) }],
     meta: [
       { title: 'إزاي تحدد هدف ادخار واقعي | Pocketjr Finance' },
       { name: 'description', content: 'حوّل رغبتك في الادخار لخطة عملية: قدر التكلفة، اختار المدة، احسب المبلغ الشهري وراجع تقدمك.' },
