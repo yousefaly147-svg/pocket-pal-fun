@@ -33,6 +33,12 @@ describe('monthly expenses workbook', () => {
     expect((budget!.getCell('D5').value as { formula: string }).formula).toBe('B5-C5');
     expect((budget!.getCell('C5').value as { formula: string }).formula).toContain('SUMIF');
     expect(log!.getRow(1).cellCount).toBe(6);
+    expect(log!.getCell('B2').dataValidation.type).toBe('list');
+    expect(log!.getCell('B2').dataValidation.formulae).toEqual(['=BudgetCategories']);
+    expect(log!.getCell('E2').dataValidation.type).toBe('list');
+    expect(JSON.stringify(wb.definedNames.model)).toContain('BudgetCategories');
+    expect(JSON.stringify(wb.definedNames.model)).toContain("'Monthly budget'!$A$5:$A$19");
+    expect(wb.calcProperties.fullCalcOnLoad).toBe(true);
     expect(budget!.views[0]?.rightToLeft).toBe(lang === 'ar');
   });
 });
