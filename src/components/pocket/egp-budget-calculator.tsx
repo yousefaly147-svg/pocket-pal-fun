@@ -4,6 +4,7 @@ import { PublicPageLayout } from '@/components/pocket/public-page-layout';
 import { calculateMonthlyBudget } from '@/lib/budget-calculator';
 import { useI18n } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
+import { egpBudgetFaqs } from '@/lib/tool-content';
 
 type AmountField = 'monthlyIncome' | 'fixedExpenses' | 'flexibleExpenses' | 'plannedSavings';
 
@@ -133,6 +134,18 @@ export function EGPBudgetCalculator() {
             {ar ? 'اقرأ دليل الميزانية الشهرية' : 'Read the monthly budgeting guide'}
           </Link>
         </p>
+
+        <section className="mt-8 space-y-4" aria-labelledby="egp-calculator-faq-heading">
+          <h2 id="egp-calculator-faq-heading" className="text-xl font-bold">
+            {ar ? 'أسئلة شائعة عن حاسبة الميزانية' : 'Monthly budget calculator FAQs'}
+          </h2>
+          {egpBudgetFaqs[lang].map((faq) => (
+            <details key={faq.q} className="rounded-xl border border-border p-4">
+              <summary className="cursor-pointer font-semibold">{faq.q}</summary>
+              <p className="mt-3 leading-7 text-muted-foreground">{faq.a}</p>
+            </details>
+          ))}
+        </section>
       </section>
     </PublicPageLayout>
   );
