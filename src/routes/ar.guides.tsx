@@ -4,12 +4,13 @@ import { GuidesPage } from './guides';
 export const Route = createFileRoute('/ar/guides')({
   head: () => ({
     meta: [
-      { title: 'دليل الميزانية وتتبع المصروفات والادخار | Pocketjr' },
+      { title: 'دليل الميزانية وتتبع المصروفات والادخار | Pocketjr Finance' },
       { name: 'description', content: 'أدلة عملية عن تنظيم الميزانية بالجنيه المصري، ومتابعة المصروفات اليومية، وتقسيم الصرف، وتحديد أهداف ادخار واقعية.' },
-      { property: 'og:title', content: 'دليل الميزانية وتتبع المصروفات والادخار | Pocketjr' },
+      { property: 'og:title', content: 'دليل الميزانية وتتبع المصروفات والادخار | Pocketjr Finance' },
       { property: 'og:description', content: 'أدلة عملية عن تنظيم الميزانية بالجنيه المصري، ومتابعة المصروفات اليومية، وتقسيم الصرف، وتحديد أهداف ادخار واقعية.' },
-      { property: 'og:site_name', content: 'Pocketjr Money Tracker' },
-      { name: 'twitter:title', content: 'دليل الميزانية وتتبع المصروفات والادخار | Pocketjr' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:title', content: 'دليل الميزانية وتتبع المصروفات والادخار | Pocketjr Finance' },
       { name: 'twitter:description', content: 'أدلة عملية عن تنظيم الميزانية بالجنيه المصري، ومتابعة المصروفات اليومية، وتقسيم الصرف، وتحديد أهداف ادخار واقعية.' },
     ],
     links: [

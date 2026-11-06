@@ -5,11 +5,12 @@ import { useI18n } from '@/lib/i18n';
 export const Route = createFileRoute('/about')({
   head: () => ({
     meta: [
-      { title: 'About Pocketjr | A simpler way to understand your money' },
-      { name: 'description', content: 'Learn about Pocketjr, a simple personal finance tool for recording spending, income, budgets and savings goals.' },
-      { property: 'og:title', content: 'About Pocketjr | A simpler way to understand your money' },
-      { property: 'og:description', content: 'Learn how Pocketjr helps you record income, spending, budgets and savings goals.' },
-      { name: 'twitter:title', content: 'About Pocketjr' },
+      { title: 'About Pocketjr Finance | A simpler way to understand your money' },
+      { name: 'description', content: 'Learn about Pocketjr Finance, a simple personal finance tool for recording spending, income, budgets and savings goals.' },
+      { property: 'og:title', content: 'About Pocketjr Finance | A simpler way to understand your money' },
+      { property: 'og:description', content: 'Learn how Pocketjr Finance helps you record income, spending, budgets and savings goals.' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { name: 'twitter:title', content: 'About Pocketjr Finance' },
       { name: 'twitter:description', content: 'A simple personal finance tool for everyday money tracking.' },
     ],
     links: [

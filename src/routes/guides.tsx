@@ -10,6 +10,7 @@ export const Route = createFileRoute('/guides')({
       { property: 'og:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
       { property: 'og:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
       { name: 'twitter:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
       { name: 'twitter:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
@@ -56,6 +57,15 @@ export function GuidesPage() {
           </Link>
         ))}
       </nav>
+      <section className="public-calculator-link">
+        <h2>{ar ? 'حاسبة ميزانية مجانية بالجنيه المصري' : 'Free Egyptian pound budget calculator'}</h2>
+        <p>{ar
+          ? 'جرّب أرقام الدخل والمصاريف والادخار وشوف المتبقي من ميزانيتك فورًا.'
+          : 'Try your income, expenses and savings numbers to see what remains in your monthly plan.'}</p>
+        <a href={ar ? '/ar/egp-budget-calculator' : '/egp-budget-calculator'}>
+          {ar ? 'افتح حاسبة الميزانية ←' : 'Open the budget calculator →'}
+        </a>
+      </section>
       <p className="public-content-note">
         {ar
           ? 'المحتوى للتثقيف العام فقط، وليس نصيحة مالية أو ضريبية أو استثمارية.'

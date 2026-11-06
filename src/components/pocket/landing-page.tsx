@@ -39,9 +39,9 @@ export function LandingPage() {
   return (
     <div className="public-landing" dir={ar ? 'rtl' : 'ltr'}>
       <header className="landing-nav">
-        <a className="landing-brand" href={pagePath('/')} aria-label="Pocket Pal home">
+        <a className="landing-brand" href={pagePath('/')} aria-label="Pocketjr Finance home">
           <LogoMark />
-          <span className="landing-brand-word">pocket<span>.</span></span>
+          <span className="landing-brand-word">pocketjr<span>.</span></span>
         </a>
         <nav className="landing-links" aria-label={t('landing.navAria')}>
           <a href="#features">{t('landing.navFeatures')}</a>
@@ -143,12 +143,13 @@ export function LandingPage() {
             <a href={pagePath('/monthly-budget')}>{t('landing.detailBudgetLink')}</a>
             <a href={pagePath('/expense-tracking')}>{t('landing.detailExpensesLink')}</a>
             <a href={pagePath('/savings-goals')}>{t('landing.detailGoalsLink')}</a>
+            <a href={pagePath('/egp-budget-calculator')}>{ar ? 'حاسبة الميزانية بالجنيه المصري' : 'Free EGP budget calculator'}</a>
           </nav>
         </section>
       </main>
 
       <footer className="landing-footer">
-        <a className="landing-brand" href={pagePath('/')} aria-label="Pocketjr home"><LogoMark /><span className="landing-brand-word">pocket<span>.</span></span></a>
+        <a className="landing-brand" href={pagePath('/')} aria-label="Pocketjr Finance home"><LogoMark /><span className="landing-brand-word">pocketjr<span>.</span></span></a>
         <p>{t('landing.footer')}</p>
         <nav className="landing-footer-links" aria-label={ar ? 'روابط الموقع' : 'Website links'}>
           <a href={pagePath('/about')}>{ar ? 'عن Pocketjr' : 'About'}</a>

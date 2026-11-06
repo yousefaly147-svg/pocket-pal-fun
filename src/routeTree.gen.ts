@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ArRouteImport } from './routes/ar'
 import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as ExpenseTrackingRouteImport } from './routes/expense-tracking'
+import { Route as EGPBudgetCalculatorRouteImport } from './routes/egp-budget-calculator'
 import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as MonthlyBudgetRouteImport } from './routes/monthly-budget'
@@ -24,6 +25,7 @@ import { Route as ArIndexRouteImport } from './routes/ar.index'
 import { Route as ArAboutRouteImport } from './routes/ar.about'
 import { Route as ArDeleteAccountRouteImport } from './routes/ar.delete-account'
 import { Route as ArExpenseTrackingRouteImport } from './routes/ar.expense-tracking'
+import { Route as ArEgpBudgetCalculatorRouteImport } from './routes/ar.egp-budget-calculator'
 import { Route as ArGuidesRouteImport } from './routes/ar.guides'
 import { Route as ArHelpRouteImport } from './routes/ar.help'
 import { Route as ArMonthlyBudgetRouteImport } from './routes/ar.monthly-budget'
@@ -54,6 +56,11 @@ const DeleteAccountRoute = DeleteAccountRouteImport.update({
 const ExpenseTrackingRoute = ExpenseTrackingRouteImport.update({
   id: '/expense-tracking',
   path: '/expense-tracking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EGPBudgetCalculatorRoute = EGPBudgetCalculatorRouteImport.update({
+  id: '/egp-budget-calculator',
+  path: '/egp-budget-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuidesRoute = GuidesRouteImport.update({
@@ -106,6 +113,11 @@ const ArExpenseTrackingRoute = ArExpenseTrackingRouteImport.update({
   path: '/expense-tracking',
   getParentRoute: () => ArRoute,
 } as any)
+const ArEgpBudgetCalculatorRoute = ArEgpBudgetCalculatorRouteImport.update({
+  id: '/egp-budget-calculator',
+  path: '/egp-budget-calculator',
+  getParentRoute: () => ArRoute,
+} as any)
 const ArGuidesRoute = ArGuidesRouteImport.update({
   id: '/guides',
   path: '/guides',
@@ -143,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/ar': typeof ArRouteWithChildren
   '/delete-account': typeof DeleteAccountRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
+  '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
@@ -152,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/ar/about': typeof ArAboutRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
@@ -165,6 +179,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/delete-account': typeof DeleteAccountRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
+  '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
@@ -174,6 +189,7 @@ export interface FileRoutesByTo {
   '/ar/about': typeof ArAboutRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
@@ -189,6 +205,7 @@ export interface FileRoutesById {
   '/ar': typeof ArRouteWithChildren
   '/delete-account': typeof DeleteAccountRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
+  '/egp-budget-calculator': typeof EGPBudgetCalculatorRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
@@ -198,6 +215,7 @@ export interface FileRoutesById {
   '/ar/about': typeof ArAboutRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
+  '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
@@ -214,6 +232,7 @@ export interface FileRouteTypes {
     | '/ar'
     | '/delete-account'
     | '/expense-tracking'
+    | '/egp-budget-calculator'
     | '/guides'
     | '/help'
     | '/monthly-budget'
@@ -223,6 +242,7 @@ export interface FileRouteTypes {
     | '/ar/about'
     | '/ar/delete-account'
     | '/ar/expense-tracking'
+    | '/ar/egp-budget-calculator'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
@@ -236,6 +256,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/delete-account'
     | '/expense-tracking'
+    | '/egp-budget-calculator'
     | '/guides'
     | '/help'
     | '/monthly-budget'
@@ -245,6 +266,7 @@ export interface FileRouteTypes {
     | '/ar/about'
     | '/ar/delete-account'
     | '/ar/expense-tracking'
+    | '/ar/egp-budget-calculator'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
@@ -259,6 +281,7 @@ export interface FileRouteTypes {
     | '/ar'
     | '/delete-account'
     | '/expense-tracking'
+    | '/egp-budget-calculator'
     | '/guides'
     | '/help'
     | '/monthly-budget'
@@ -268,6 +291,7 @@ export interface FileRouteTypes {
     | '/ar/about'
     | '/ar/delete-account'
     | '/ar/expense-tracking'
+    | '/ar/egp-budget-calculator'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
@@ -283,6 +307,7 @@ export interface RootRouteChildren {
   ArRoute: typeof ArRouteWithChildren
   DeleteAccountRoute: typeof DeleteAccountRoute
   ExpenseTrackingRoute: typeof ExpenseTrackingRoute
+  EGPBudgetCalculatorRoute: typeof EGPBudgetCalculatorRoute
   GuidesRoute: typeof GuidesRoute
   HelpRoute: typeof HelpRoute
   MonthlyBudgetRoute: typeof MonthlyBudgetRoute
@@ -326,6 +351,13 @@ declare module '@tanstack/react-router' {
       path: '/expense-tracking'
       fullPath: '/expense-tracking'
       preLoaderRoute: typeof ExpenseTrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egp-budget-calculator': {
+      id: '/egp-budget-calculator'
+      path: '/egp-budget-calculator'
+      fullPath: '/egp-budget-calculator'
+      preLoaderRoute: typeof EGPBudgetCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guides': {
@@ -398,6 +430,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArExpenseTrackingRouteImport
       parentRoute: typeof ArRoute
     }
+    '/ar/egp-budget-calculator': {
+      id: '/ar/egp-budget-calculator'
+      path: '/egp-budget-calculator'
+      fullPath: '/ar/egp-budget-calculator'
+      preLoaderRoute: typeof ArEgpBudgetCalculatorRouteImport
+      parentRoute: typeof ArRoute
+    }
     '/ar/guides': {
       id: '/ar/guides'
       path: '/guides'
@@ -447,6 +486,7 @@ interface ArRouteChildren {
   ArAboutRoute: typeof ArAboutRoute
   ArDeleteAccountRoute: typeof ArDeleteAccountRoute
   ArExpenseTrackingRoute: typeof ArExpenseTrackingRoute
+  ArEgpBudgetCalculatorRoute: typeof ArEgpBudgetCalculatorRoute
   ArGuidesRoute: typeof ArGuidesRoute
   ArHelpRoute: typeof ArHelpRoute
   ArMonthlyBudgetRoute: typeof ArMonthlyBudgetRoute
@@ -460,6 +500,7 @@ const ArRouteChildren: ArRouteChildren = {
   ArAboutRoute: ArAboutRoute,
   ArDeleteAccountRoute: ArDeleteAccountRoute,
   ArExpenseTrackingRoute: ArExpenseTrackingRoute,
+  ArEgpBudgetCalculatorRoute: ArEgpBudgetCalculatorRoute,
   ArGuidesRoute: ArGuidesRoute,
   ArHelpRoute: ArHelpRoute,
   ArMonthlyBudgetRoute: ArMonthlyBudgetRoute,
@@ -477,6 +518,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArRoute: ArRouteWithChildren,
   DeleteAccountRoute: DeleteAccountRoute,
   ExpenseTrackingRoute: ExpenseTrackingRoute,
+  EGPBudgetCalculatorRoute: EGPBudgetCalculatorRoute,
   GuidesRoute: GuidesRoute,
   HelpRoute: HelpRoute,
   MonthlyBudgetRoute: MonthlyBudgetRoute,

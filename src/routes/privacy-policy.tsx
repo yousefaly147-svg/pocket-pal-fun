@@ -6,14 +6,15 @@ import { useI18n } from '@/lib/i18n';
 export const Route = createFileRoute('/privacy-policy')({
   head: () => ({
     meta: [
-      { title: 'Privacy Policy | Pocketjr' },
+      { title: 'Privacy Policy | Pocketjr Finance' },
       {
         name: 'description',
-        content: 'Learn what information Pocketjr collects, how it is used, and how to request account and data deletion.',
+        content: 'Learn what information Pocketjr Finance collects, how it is used, and how to request account and data deletion.',
       },
-      { property: 'og:title', content: 'Privacy Policy | Pocketjr' },
-      { property: 'og:description', content: 'Learn how Pocketjr handles account details, financial entries, privacy choices and data deletion.' },
-      { name: 'twitter:title', content: 'Privacy Policy | Pocketjr' },
+      { property: 'og:title', content: 'Privacy Policy | Pocketjr Finance' },
+      { property: 'og:description', content: 'Learn how Pocketjr Finance handles account details, financial entries, privacy choices and data deletion.' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { name: 'twitter:title', content: 'Privacy Policy | Pocketjr Finance' },
       { name: 'twitter:description', content: 'Information about Pocketjr privacy and data handling.' },
     ],
     links: [

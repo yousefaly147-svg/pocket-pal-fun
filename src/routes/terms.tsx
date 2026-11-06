@@ -5,11 +5,12 @@ import { useI18n } from '@/lib/i18n';
 export const Route = createFileRoute('/terms')({
   head: () => ({
     meta: [
-      { title: 'Terms of Use | Pocketjr' },
-      { name: 'description', content: 'Read the terms that apply when using the Pocketjr website and personal finance tools.' },
-      { property: 'og:title', content: 'Terms of Use | Pocketjr' },
-      { property: 'og:description', content: 'Read the terms for using the Pocketjr website and personal finance tools.' },
-      { name: 'twitter:title', content: 'Terms of Use | Pocketjr' },
+      { title: 'Terms of Use | Pocketjr Finance' },
+      { name: 'description', content: 'Read the terms that apply when using the Pocketjr Finance website and personal finance tools.' },
+      { property: 'og:title', content: 'Terms of Use | Pocketjr Finance' },
+      { property: 'og:description', content: 'Read the terms for using the Pocketjr Finance website and personal finance tools.' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { name: 'twitter:title', content: 'Terms of Use | Pocketjr Finance' },
       { name: 'twitter:description', content: 'Terms for using Pocketjr.' },
     ],
     links: [

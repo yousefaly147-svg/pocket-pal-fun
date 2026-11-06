@@ -48,16 +48,28 @@ jobs:
               urlList: [
                 "https://pocketjr.lovable.app/",
                 "https://pocketjr.lovable.app/ar/",
+                "https://pocketjr.lovable.app/about",
+                "https://pocketjr.lovable.app/ar/about",
+                "https://pocketjr.lovable.app/help",
+                "https://pocketjr.lovable.app/ar/help",
+                "https://pocketjr.lovable.app/guides",
+                "https://pocketjr.lovable.app/ar/guides",
+                "https://pocketjr.lovable.app/privacy-policy",
+                "https://pocketjr.lovable.app/ar/privacy-policy",
+                "https://pocketjr.lovable.app/terms",
+                "https://pocketjr.lovable.app/ar/terms",
                 "https://pocketjr.lovable.app/monthly-budget",
                 "https://pocketjr.lovable.app/ar/monthly-budget",
                 "https://pocketjr.lovable.app/expense-tracking",
                 "https://pocketjr.lovable.app/ar/expense-tracking",
                 "https://pocketjr.lovable.app/savings-goals",
-                "https://pocketjr.lovable.app/ar/savings-goals"
+                "https://pocketjr.lovable.app/ar/savings-goals",
+                "https://pocketjr.lovable.app/egp-budget-calculator",
+                "https://pocketjr.lovable.app/ar/egp-budget-calculator"
               ]
             }' > indexnow-payload.json
 
-          echo "Submitting the eight updated public canonical URLs to IndexNow."
+          echo "Submitting the 20 updated public canonical URLs to IndexNow."
           HTTP_STATUS="$(curl --silent --show-error \
             --output indexnow-response.txt \
             --write-out "%{http_code}" \
