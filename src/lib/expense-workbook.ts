@@ -10,8 +10,6 @@ export async function buildExpenseWorkbook(lang: TemplateLang): Promise<ArrayBuf
   wb.creator = 'Pocketjr Finance';
   // Formula cells should be recalculated by Excel or a compatible spreadsheet app when opened.
   wb.calcProperties.fullCalcOnLoad = true;
-  wb.calcProperties.forceFullCalc = true;
-  wb.calcProperties.calcMode = 'auto';
   const rtl = lang === 'ar';
   const view = [{ rightToLeft: rtl, state: 'frozen' as const, ySplit: 4 }];
   const bold = { bold: true, name: 'Arial' };
