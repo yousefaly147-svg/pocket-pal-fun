@@ -81,6 +81,7 @@ describe("homepage structured data", () => {
     expect(schema["@context"]).toBe("https://schema.org");
     expect(website?.["name"]).toBe("Pocketjr Finance");
     expect(application?.["name"]).toBe("Pocketjr Finance");
+    expect(String(application?.["description"])).toContain(language === "ar" ? "في مصر" : "Egypt");
     expect(application?.["applicationCategory"]).toBe("FinanceApplication");
     expect(application?.["operatingSystem"]).toBe("Web browser");
     expect(application?.["isAccessibleForFree"]).toBe(true);

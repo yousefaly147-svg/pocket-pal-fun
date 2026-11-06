@@ -6,16 +6,16 @@ export const Route = createFileRoute('/ar/')({
   head: () => ({
     scripts: [{ type: 'application/ld+json', children: JSON.stringify(websiteSchema('ar')) }],
     meta: [
-      { title: 'Pocketjr Finance – تطبيق مجاني لإدارة المال وتتبع المصروفات' },
-      { name: 'description', content: 'Pocketjr Finance أداة مجانية لإدارة المال الشخصي وتتبع الدخل والصرف والميزانية والاستثمارات وأهداف الادخار بالعربية والإنجليزية.' },
-      { property: 'og:title', content: 'Pocketjr Finance – تطبيق مجاني لإدارة المال وتتبع المصروفات' },
-      { property: 'og:description', content: 'Pocketjr Finance أداة مجانية لإدارة المال الشخصي وتتبع الدخل والصرف والميزانية والاستثمارات وأهداف الادخار بالعربية والإنجليزية.' },
+      { title: 'Pocketjr Finance مصر – تطبيق مجاني لإدارة المال وتتبع الصرف' },
+      { name: 'description', content: 'Pocketjr Finance أداة مجانية لإدارة المال الشخصي في مصر وتسجيل الدخل والصرف والميزانية والاستثمارات وأهداف الادخار بالعربية والإنجليزية.' },
+      { property: 'og:title', content: 'Pocketjr Finance مصر – تطبيق مجاني لإدارة المال وتتبع الصرف' },
+      { property: 'og:description', content: 'Pocketjr Finance أداة مجانية لإدارة المال الشخصي في مصر وتسجيل الدخل والصرف والميزانية والاستثمارات وأهداف الادخار بالعربية والإنجليزية.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { property: 'og:url', content: 'https://pocketjr.lovable.app/ar/' },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: 'Pocketjr Finance – تطبيق مجاني لإدارة المال وتتبع المصروفات' },
-      { name: 'twitter:description', content: 'Pocketjr Finance أداة مجانية لإدارة المال الشخصي وتتبع الدخل والصرف والميزانية والاستثمارات وأهداف الادخار بالعربية والإنجليزية.' },
+      { name: 'twitter:title', content: 'Pocketjr Finance مصر – تطبيق مجاني لإدارة المال وتتبع الصرف' },
+      { name: 'twitter:description', content: 'Pocketjr Finance أداة مجانية لإدارة المال الشخصي في مصر وتسجيل الدخل والصرف والميزانية والاستثمارات وأهداف الادخار بالعربية والإنجليزية.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/' },

@@ -10,15 +10,15 @@ export const Route = createFileRoute('/')({
   head: () => ({
     scripts: [{ type: 'application/ld+json', children: JSON.stringify(websiteSchema('en')) }],
     meta: [
-      { title: 'Pocketjr Finance – Free Money Manager & Expense Tracker' },
-      { name: 'description', content: 'Pocketjr Finance is a free personal money manager and expense tracker for income, spending, budgets, investments and savings goals. Use it in English or Arabic.' },
-      { property: 'og:title', content: 'Pocketjr Finance – Free Money Manager & Expense Tracker' },
-      { property: 'og:description', content: 'Pocketjr Finance helps you manage income, expenses, budgets, investments and savings goals with a free personal money manager and expense tracker.' },
+      { title: 'Pocketjr Finance Egypt – Free Money Manager & Expense Tracker' },
+      { name: 'description', content: 'A free personal money manager for people in Egypt. Track income, expenses, budgets, investments and savings goals in English or Arabic.' },
+      { property: 'og:title', content: 'Pocketjr Finance Egypt – Free Money Manager & Expense Tracker' },
+      { property: 'og:description', content: 'A free personal money manager for people in Egypt. Track income, expenses, budgets, investments and savings goals in English or Arabic.' },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { property: 'og:url', content: 'https://pocketjr.lovable.app/' },
-      { name: 'twitter:title', content: 'Pocketjr Finance – Free Money Manager & Expense Tracker' },
-      { name: 'twitter:description', content: 'A free English and Arabic personal money manager for tracking income, expenses, budgets and savings goals.' },
+      { name: 'twitter:title', content: 'Pocketjr Finance Egypt – Free Money Manager & Expense Tracker' },
+      { name: 'twitter:description', content: 'A free personal money manager for people in Egypt. Track income, expenses, budgets, investments and savings goals in English or Arabic.' },
 
       { name: 'twitter:card', content: 'summary_large_image' },
     ],

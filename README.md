@@ -26,7 +26,7 @@ Pocketjr is a personal recordkeeping tool, **not a bank, payment wallet or inves
 
 ## Search engine discovery
 
-The public sitemap is available at [https://pocketjr.lovable.app/sitemap.xml](https://pocketjr.lovable.app/sitemap.xml). To notify IndexNow-compatible search engines about the public pages changed in this SEO update, open **GitHub → Actions → Notify search engines with IndexNow → Run workflow**. This workflow is manual, validates that the public key file is deployed, and submits only the updated canonical public URLs. An accepted notification helps search engines discover changes; it does **not** guarantee crawling, indexing or ranking.
+The public sitemap is available at [https://pocketjr.lovable.app/sitemap.xml](https://pocketjr.lovable.app/sitemap.xml). The **Notify search engines with IndexNow** workflow runs automatically when the sitemap or workflow changes on `main`, and can also be run manually from GitHub Actions. It validates that the public key file is deployed and submits the public canonical URLs. An accepted notification helps Bing and other IndexNow-compatible search engines discover changes; it does **not** guarantee crawling, indexing or ranking, and it is not a Google indexing submission.
 
 ## Development
 
