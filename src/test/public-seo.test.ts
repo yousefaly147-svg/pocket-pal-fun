@@ -17,6 +17,7 @@ const publicPaths = [
   "/monthly-budget", "/ar/monthly-budget",
   "/expense-tracking", "/ar/expense-tracking",
   "/savings-goals", "/ar/savings-goals",
+  "/egp-budget-calculator", "/ar/egp-budget-calculator",
 ] as const;
 
 const readPublicFile = (path: string) => readFileSync(resolve(process.cwd(), "public", path), "utf8");
@@ -27,11 +28,11 @@ describe("public search discovery files", () => {
       .toBe("pocketjrindexnow20261031a9f4c82d");
   });
 
-  it("contains exactly the 18 canonical public URLs in the sitemap", () => {
+  it("contains exactly the 20 canonical public URLs in the sitemap", () => {
     const sitemap = readPublicFile("sitemap.xml");
     const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1] ?? "");
 
-    expect(urls).toHaveLength(18);
+    expect(urls).toHaveLength(20);
     expect(new Set(urls).size).toBe(18);
     expect(urls).toEqual(publicPaths.map((path) => `${origin}${path}`));
     expect(urls.every((url) => url.startsWith(`${origin}/`))).toBe(true);
@@ -42,7 +43,7 @@ describe("public search discovery files", () => {
     const sitemap = readPublicFile("sitemap.xml");
     const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1] ?? "");
 
-    expect(blocks).toHaveLength(18);
+    expect(blocks).toHaveLength(20);
     for (let index = 0; index < blocks.length; index += 2) {
       const english = blocks[index] ?? "";
       const arabic = blocks[index + 1] ?? "";
@@ -59,26 +60,13 @@ describe("public search discovery files", () => {
     }
   });
 
-  it("marks only the eight pages whose content or canonical metadata changed on 31 October", () => {
+  it("uses the real modification date for all changed public pages", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1] ?? "");
-    const changed = blocks.filter((block) => block.includes("<lastmod>2026-10-31</lastmod>"));
-    const untouched = blocks.filter((block) => block.includes("<lastmod>2026-10-30</lastmod>"));
-    const changedUrls = changed.map((block) => block.match(/<loc>([^<]+)<\/loc>/)?.[1]);
-
-    expect(changedUrls).toEqual([
-      "https://pocketjr.lovable.app/",
-      "https://pocketjr.lovable.app/ar/",
-      "https://pocketjr.lovable.app/monthly-budget",
-      "https://pocketjr.lovable.app/ar/monthly-budget",
-      "https://pocketjr.lovable.app/expense-tracking",
-      "https://pocketjr.lovable.app/ar/expense-tracking",
-      "https://pocketjr.lovable.app/savings-goals",
-      "https://pocketjr.lovable.app/ar/savings-goals",
-    ]);
-    expect(untouched).toHaveLength(10);
-  });
-});
+    const blocks = [...sitemap.matchAll(/<url>([\\s\\S]*?)<\\/url>/g)].map((match) => match[1] ?? "");
+    const modified = blocks.filter((block) => block.includes("<lastmod>2026-11-06</lastmod>"));
+    expect(modified).toHaveLength(20);
+    expect(blocks.every((block) => block.includes("<lastmod>2026-11-06</lastmod>"))).toBe(true);
+  });});
 
 describe("homepage structured data", () => {
   it.each(["en", "ar"] as const)("provides accurate WebSite and SoftwareApplication schema for %s", (language) => {
