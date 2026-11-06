@@ -4,13 +4,13 @@ import { PrivacyPolicyPage } from './privacy-policy';
 export const Route = createFileRoute('/ar/privacy-policy')({
   head: () => ({
     meta: [
-      { title: 'سياسة الخصوصية | Pocketjr' },
-      { name: 'description', content: 'تعرف على كيفية تعامل Pocketjr مع معلومات الحساب والبيانات المالية وطلبات حذف البيانات.' },
-      { property: 'og:title', content: 'سياسة الخصوصية | Pocketjr' },
-      { property: 'og:description', content: 'تعرف على كيفية تعامل Pocketjr مع معلومات الحساب والبيانات المالية وطلبات حذف البيانات.' },
-      { property: 'og:site_name', content: 'Pocketjr Money Tracker' },
-      { name: 'twitter:title', content: 'سياسة الخصوصية | Pocketjr' },
-      { name: 'twitter:description', content: 'تعرف على كيفية تعامل Pocketjr مع معلومات الحساب والبيانات المالية وطلبات حذف البيانات.' },
+      { title: 'سياسة الخصوصية | Pocketjr Finance' },
+      { name: 'description', content: 'تعرف على كيفية تعامل Pocketjr Finance مع معلومات الحساب والبيانات المالية وطلبات حذف البيانات.' },
+      { property: 'og:title', content: 'سياسة الخصوصية | Pocketjr Finance' },
+      { property: 'og:description', content: 'تعرف على كيفية تعامل Pocketjr Finance مع معلومات الحساب والبيانات المالية وطلبات حذف البيانات.' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
+      { name: 'twitter:title', content: 'سياسة الخصوصية | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'تعرف على كيفية تعامل Pocketjr Finance مع معلومات الحساب والبيانات المالية وطلبات حذف البيانات.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/privacy-policy' },
