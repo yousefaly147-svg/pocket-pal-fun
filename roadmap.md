@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Audit public SEO, improve bilingual product clarity, and prepare manual IndexNow submission with regression checks.
+- [x] Audit public SEO, improve bilingual product clarity, and prepare manual IndexNow submission with regression checks.
 - [x] Correct the three English guide canonicals, audit public language pairs, and verify regression checks.
 - [x] Build the cohesive dashboard, navigation views, and cartoon artwork.
 - [x] Add local transaction, transfer, filter, budget, and goal interactions.
@@ -15,3 +15,4 @@
 - [x] Currency symbol-only preference per account, prompted after first sign-in (no conversion, with warning).
 - [x] Investments live data: USD/EGP, SAR/EGP, 24K gold EGP/gram with source, timestamp, stale state.
 - [ ] Google sign-in: frontend ready but hidden. Blocked on server route POST /api/auth/google + Google Client ID.
+- [x] Organic tools: monthly expenses Excel template + daily spending limit calculator (EN/AR), sitemap, Arabic html lang.

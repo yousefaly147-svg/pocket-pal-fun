@@ -36,7 +36,6 @@ export function ExpenseTemplatePage() {
     return () => { cancelled = true; };
   }, [lang]);
 
-  const p = (path: string) => (ar ? `/ar${path}` : path);
 
   return (
     <PublicPageLayout
@@ -115,9 +114,9 @@ export function ExpenseTemplatePage() {
 
         <p>
           {ar ? 'اقرأ كمان: ' : 'Related: '}
-          <Link to={p('/monthly-budget') as '/monthly-budget'}>{ar ? 'إزاي تعمل ميزانية شهرية' : 'How to make a monthly budget'}</Link>
+          <Link to={ar ? '/ar/monthly-budget' : '/monthly-budget'}>{ar ? 'إزاي تعمل ميزانية شهرية' : 'How to make a monthly budget'}</Link>
           {' · '}
-          <Link to={p('/expense-tracking') as '/expense-tracking'}>{ar ? 'إزاي تسجل مصاريفك اليومية' : 'How to track daily expenses'}</Link>
+          <Link to={ar ? '/ar/expense-tracking' : '/expense-tracking'}>{ar ? 'إزاي تسجل مصاريفك اليومية' : 'How to track daily expenses'}</Link>
         </p>
         <p className="public-content-note">{ar
           ? 'الجدول أداة تنظيم وتثقيف عام، مش نصيحة مالية.'

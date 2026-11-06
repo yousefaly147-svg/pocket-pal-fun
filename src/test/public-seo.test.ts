@@ -18,6 +18,8 @@ const publicPaths = [
   "/expense-tracking", "/ar/expense-tracking",
   "/savings-goals", "/ar/savings-goals",
   "/egp-budget-calculator", "/ar/egp-budget-calculator",
+  "/monthly-expenses-template", "/ar/monthly-expenses-template",
+  "/daily-budget-calculator", "/ar/daily-budget-calculator",
 ] as const;
 
 const readPublicFile = (path: string) => readFileSync(resolve(process.cwd(), "public", path), "utf8");
@@ -28,12 +30,12 @@ describe("public search discovery files", () => {
       .toBe("pocketjrindexnow20261031a9f4c82d");
   });
 
-  it("contains exactly the 20 canonical public URLs in the sitemap", () => {
+  it("contains exactly the 24 canonical public URLs in the sitemap", () => {
     const sitemap = readPublicFile("sitemap.xml");
     const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1] ?? "");
 
-    expect(urls).toHaveLength(20);
-    expect(new Set(urls).size).toBe(20);
+    expect(urls).toHaveLength(24);
+    expect(new Set(urls).size).toBe(24);
     expect(urls).toEqual(publicPaths.map((path) => `${origin}${path}`));
     expect(urls.every((url) => url.startsWith(`${origin}/`))).toBe(true);
     expect(urls.some((url) => /\/settings|\/transactions|delete-account|dashboard/i.test(url))).toBe(false);
@@ -43,7 +45,7 @@ describe("public search discovery files", () => {
     const sitemap = readPublicFile("sitemap.xml");
     const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1] ?? "");
 
-    expect(blocks).toHaveLength(20);
+    expect(blocks).toHaveLength(24);
     for (let index = 0; index < blocks.length; index += 2) {
       const english = blocks[index] ?? "";
       const arabic = blocks[index + 1] ?? "";
@@ -60,7 +62,7 @@ describe("public search discovery files", () => {
     }
   });
 
-  it("updates lastmod only for the 14 pages changed in this release", () => {
+  it("updates lastmod only for the 18 pages changed in this release", () => {
     const sitemap = readPublicFile("sitemap.xml");
     const blocks = sitemap.split("<url>").slice(1).map((part) => part.split("</url>")[0] ?? "");
     const recentlyUpdated = blocks.filter((item) => item.includes("<lastmod>2026-11-06</lastmod>"));
@@ -73,7 +75,7 @@ describe("public search discovery files", () => {
       olderUrls.some((path) => item.includes(`<loc>${origin}${path}</loc>`))
       && item.includes("<lastmod>2026-10-31</lastmod>")
     );
-    expect(recentlyUpdated).toHaveLength(14);
+    expect(recentlyUpdated).toHaveLength(18);
     expect(olderGuides).toHaveLength(6);
   });});
 

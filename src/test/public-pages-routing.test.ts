@@ -23,6 +23,10 @@ const publicPages = [
   "/ar/monthly-budget",
   "/ar/expense-tracking",
   "/ar/savings-goals",
+  "/monthly-expenses-template",
+  "/ar/monthly-expenses-template",
+  "/daily-budget-calculator",
+  "/ar/daily-budget-calculator",
 ] as const;
 
 describe("public information pages and SEO article routes", () => {
