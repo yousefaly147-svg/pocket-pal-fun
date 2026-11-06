@@ -86,3 +86,18 @@ export const dailyFaqs: Record<TemplateLang, Faq[]> = {
     { q: 'الحاسبة بتحفظ أرقامي؟', a: 'لأ. كل الحسابات بتتم جوه المتصفح ومفيش حاجة بتتحفظ أو بتتبعت لـ Pocketjr. لو عملت تحديث للصفحة الأرقام بتتمسح.' },
   ],
 };
+
+export const egpBudgetFaqs: Record<TemplateLang, Faq[]> = {
+  en: [
+    { q: 'How does the monthly EGP budget calculator work?', a: 'Enter your take-home income, fixed expenses, flexible spending and planned savings. The calculator totals your planned expenses and shows what remains before and after savings.' },
+    { q: 'Does the calculator save or send the amounts I enter?', a: 'No. The calculation runs in your browser. Your entries are not saved or sent to Pocketjr, and refreshing the page clears them.' },
+    { q: 'What does a negative remaining amount mean?', a: 'It means your planned expenses and savings are greater than the income you entered. Review the figures and adjust your plan before relying on it.' },
+    { q: 'Does this calculator convert other currencies into EGP?', a: 'No. It is an Egyptian-pound planning calculator. It does not fetch exchange rates or convert amounts from another currency.' },
+  ],
+  ar: [
+    { q: 'الحاسبة الشهرية بالجنيه المصري بتشتغل إزاي؟', a: 'اكتب صافي دخلك والمصاريف الثابتة والصرف المرن ومبلغ الادخار المخطط. الحاسبة بتجمع المصاريف وبتوضح المتبقي قبل الادخار وبعده.' },
+    { q: 'الحاسبة بتحفظ الأرقام اللي بدخلها أو بتبعتها؟', a: 'لأ. الحساب بيتم جوه المتصفح. الأرقام اللي بتدخلها مش بتتحفظ ولا بتتبعت لـ Pocketjr، ولو عملت تحديث للصفحة بتتمسح.' },
+    { q: 'يعني إيه لو المتبقي طلع بالسالب؟', a: 'ده معناه إن المصاريف والادخار المخطط ليهم أكبر من الدخل اللي دخلته. راجع الأرقام وعدّل الخطة قبل ما تعتمد عليها.' },
+    { q: 'الحاسبة بتحوّل العملات التانية للجنيه المصري؟', a: 'لأ. دي حاسبة للتخطيط بالجنيه المصري، ومش بتجيب أسعار صرف ولا بتحوّل مبالغ من عملة تانية.' },
+  ],
+};
