@@ -1,8 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { GuideArticlePage } from '@/components/pocket/guide-article-page';
+import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/monthly-budget')({
   head: () => ({
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/monthly-budget', "How to Make a Monthly Budget in Egypt | Pocketjr Finance", "A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.")) }],
     meta: [
       { title: 'How to Make a Monthly Budget in Egypt | Pocketjr Finance' },
       { name: 'description', content: 'A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.' },
