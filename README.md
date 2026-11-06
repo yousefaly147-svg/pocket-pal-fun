@@ -1,6 +1,8 @@
-# Pocketjr Finance
+# Pocketjr Finance — Free Expense Tracker & Budget Planner for Egypt
 
-Pocketjr Finance is a bilingual personal-finance recordkeeping web app for people who want a clearer view of their income, spending and savings. Open the live website at **https://pocketjr.lovable.app** and use it in English or Arabic.
+Pocketjr Finance is a free, bilingual (English and Arabic) personal finance tracker designed for people in Egypt. Use the browser app to record income and everyday spending in Egyptian pounds (EGP), plan a monthly budget, monitor savings goals, and keep a manual investment record on your phone or computer.
+
+**Official website:** https://pocketjr.lovable.app/
 
 ## What it helps you track
 
