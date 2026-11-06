@@ -62,16 +62,20 @@ describe("public search discovery files", () => {
 
   it("updates lastmod only for the 14 pages changed in this release", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = [...sitemap.matchAll(/<url>([\\s\\S]*?)<\\/url>/g)].map((match) => match[1] ?? "");
-    const recentlyUpdated = blocks.filter((block) => block.includes("<lastmod>2026-11-06</lastmod>"));
-    const olderGuides = blocks.filter((block) =>
-      /<loc>https:\\/\\/pocketjr\\.lovable\\.app\\/(?:ar\\/)?(?:monthly-budget|expense-tracking|savings-goals)<\\/loc>/.test(block)
-      && block.includes("<lastmod>2026-10-31</lastmod>")
+    const blocks = sitemap.split("<url>").slice(1).map((part) => part.split("</url>")[0] ?? "");
+    const recentlyUpdated = blocks.filter((item) => item.includes("<lastmod>2026-11-06</lastmod>"));
+    const olderUrls = [
+      "/monthly-budget", "/ar/monthly-budget",
+      "/expense-tracking", "/ar/expense-tracking",
+      "/savings-goals", "/ar/savings-goals",
+    ];
+    const olderGuides = blocks.filter((item) =>
+      olderUrls.some((path) => item.includes(`<loc>${origin}${path}</loc>`))
+      && item.includes("<lastmod>2026-10-31</lastmod>")
     );
     expect(recentlyUpdated).toHaveLength(14);
     expect(olderGuides).toHaveLength(6);
-  });
-});
+  });});
 
 describe("homepage structured data", () => {
   it.each(["en", "ar"] as const)("provides accurate WebSite and SoftwareApplication schema for %s", (language) => {
