@@ -10,7 +10,7 @@ import { egpBudgetFaqs } from "@/lib/tool-content";
 
 const origin = "https://pocketjr.lovable.app";
 const publicPaths = [
-  "/", "/ar/",
+  "/", "/ar",
   "/about", "/ar/about",
   "/help", "/ar/help",
   "/guides", "/ar/guides",
@@ -99,7 +99,7 @@ describe("homepage structured data", () => {
       expect(node).not.toHaveProperty("review");
       expect(node).not.toHaveProperty("offers");
     }
-    expect(application?.["url"]).toBe(language === "ar" ? `${origin}/ar/` : `${origin}/`);
+    expect(application?.["url"]).toBe(language === "ar" ? `${origin}/ar` : `${origin}/`);
   });
 });
 
