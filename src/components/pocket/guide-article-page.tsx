@@ -215,6 +215,35 @@ export function GuideArticlePage({ slug }: { slug: GuideSlug }) {
             {section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
           </section>
         ))}
+        <section className="public-calculator-link" aria-labelledby="guide-tools-heading">
+          <h2 id="guide-tools-heading">{ar ? 'أدوات مجانية تساعدك تطبق الكلام' : 'Free tools to put this guide into practice'}</h2>
+          {slug === 'monthly-budget' ? (
+            <>
+              <p>{ar ? 'حوّل الخطة لأرقام تقدر تراجعها وتتابعها.' : 'Turn your plan into numbers you can review and track.'}</p>
+              <ul>
+                <li><Link to={ar ? '/ar/egp-budget-calculator' : '/egp-budget-calculator'}>{ar ? 'حاسبة الميزانية الشهرية بالجنيه المصري' : 'Monthly EGP budget calculator'}</Link></li>
+                <li><Link to={ar ? '/ar/monthly-expenses-template' : '/monthly-expenses-template'}>{ar ? 'جدول مصاريف شهرية Excel جاهز' : 'Monthly expenses Excel template'}</Link></li>
+                <li><Link to={ar ? '/ar/daily-budget-calculator' : '/daily-budget-calculator'}>{ar ? 'حاسبة حد الصرف اليومي لحد القبض' : 'Daily spending limit until payday'}</Link></li>
+              </ul>
+            </>
+          ) : slug === 'expense-tracking' ? (
+            <>
+              <p>{ar ? 'اختار الطريقة اللي تناسبك لتسجيل الصرف ومراجعته.' : 'Choose a simple way to record and review your spending.'}</p>
+              <ul>
+                <li><Link to={ar ? '/ar/monthly-expenses-template' : '/monthly-expenses-template'}>{ar ? 'حمّل جدول المصاريف الشهرية' : 'Download the monthly expenses template'}</Link></li>
+                <li><Link to={ar ? '/ar/daily-budget-calculator' : '/daily-budget-calculator'}>{ar ? 'احسب حد الصرف اليومي' : 'Calculate your daily spending limit'}</Link></li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <p>{ar ? 'راجع ميزانيتك وحد الصرف اليومي قبل ما تحدد المبلغ اللي تقدر تخصصه لهدفك.' : 'Review your budget and daily spending room before choosing a contribution for your goal.'}</p>
+              <ul>
+                <li><Link to={ar ? '/ar/egp-budget-calculator' : '/egp-budget-calculator'}>{ar ? 'حاسبة الميزانية الشهرية' : 'Monthly budget calculator'}</Link></li>
+                <li><Link to={ar ? '/ar/daily-budget-calculator' : '/daily-budget-calculator'}>{ar ? 'حاسبة حد الصرف اليومي' : 'Daily spending limit calculator'}</Link></li>
+              </ul>
+            </>
+          )}
+        </section>
         <p className="public-content-note">{ar ? guide.takeaway.ar : guide.takeaway.en}</p>
         <p className="public-content-note">
           {ar
