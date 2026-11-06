@@ -9,8 +9,24 @@ on:
       - 'public/sitemap.xml'
       - 'src/routes/index.tsx'
       - 'src/routes/ar.index.tsx'
+      - 'src/routes/about.tsx'
+      - 'src/routes/ar.about.tsx'
+      - 'src/routes/help.tsx'
+      - 'src/routes/ar.help.tsx'
       - 'src/routes/guides.tsx'
       - 'src/routes/ar.guides.tsx'
+      - 'src/routes/savings-goals.tsx'
+      - 'src/routes/ar.savings-goals.tsx'
+      - 'src/routes/monthly-expenses-template.tsx'
+      - 'src/routes/ar.monthly-expenses-template.tsx'
+      - 'src/routes/daily-budget-calculator.tsx'
+      - 'src/routes/ar.daily-budget-calculator.tsx'
+      - 'src/routes/privacy-policy.tsx'
+      - 'src/routes/ar.privacy-policy.tsx'
+      - 'src/routes/terms.tsx'
+      - 'src/routes/ar.terms.tsx'
+      - 'src/routes/__root.tsx'
+      - 'src/components/pocket/public-page-layout.tsx'
       - 'src/routes/monthly-budget.tsx'
       - 'src/routes/ar.monthly-budget.tsx'
       - 'src/routes/expense-tracking.tsx'
@@ -53,6 +69,39 @@ jobs:
             exit 1
           fi
           echo "The public key file is deployed and valid."
+
+      - name: Smoke-test published English, Arabic and calculator pages
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          check_page() {
+            local path="$1"
+            local expected_title="$2"
+            local html
+            html="$(curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 10 "https://pocketjr.lovable.app${path}")"
+
+            if ! grep -Fq "${expected_title}" <<< "${html}"; then
+              echo "::error::Expected page title was not found for ${path}"
+              exit 1
+            fi
+            if ! grep -Fq "https://pocketjr.lovable.app${path}" <<< "${html}"; then
+              echo "::error::Expected canonical URL was not found for ${path}"
+              exit 1
+            fi
+            if [[ "${path}" == *calculator ]]; then
+              if ! grep -Fq "FAQPage" <<< "${html}"; then
+                echo "::error::FAQ structured data was not found for ${path}"
+                exit 1
+              fi
+            fi
+            echo "Verified published page: ${path}"
+          }
+
+          check_page "/" "Free Expense Tracker for Egypt | Pocketjr Finance"
+          check_page "/ar/" "تتبع المصاريف والميزانية في مصر مجانًا | Pocketjr Finance"
+          check_page "/egp-budget-calculator" "Free EGP Monthly Budget Calculator for Egypt | Pocketjr Finance"
+          check_page "/ar/egp-budget-calculator" "حاسبة الميزانية الشهرية بالجنيه المصري مجانًا | Pocketjr Finance"
 
       - name: Submit recently updated canonical public URLs
         shell: bash
