@@ -4,11 +4,11 @@ import { HelpPage } from './help';
 export const Route = createFileRoute('/ar/help')({
   head: () => ({
     meta: [
-      { title: 'مساعدة Pocketjr والأسئلة الشائعة' },
-      { name: 'description', content: 'إجابات عن حساب Pocketjr وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
+      { title: 'مساعدة Pocketjr Finance والأسئلة الشائعة' },
+      { name: 'description', content: 'إجابات عن حساب Pocketjr Finance وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
       { property: 'og:title', content: 'مساعدة Pocketjr والأسئلة الشائعة' },
       { property: 'og:description', content: 'إجابات عن حساب Pocketjr وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
-      { property: 'og:site_name', content: 'Pocketjr Money Tracker' },
+      { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:title', content: 'مساعدة Pocketjr والأسئلة الشائعة' },
       { name: 'twitter:description', content: 'إجابات عن حساب Pocketjr وتتبع المال ودعم اللغة العربية والخصوصية وحذف الحساب.' },
     ],
