@@ -1,24 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { EGPBudgetCalculator } from '@/components/pocket/egp-budget-calculator';
+import { publicHead, toolSchema } from '@/lib/public-seo';
+import { egpBudgetFaqs } from '@/lib/tool-content';
+
+const title = 'حاسبة الميزانية الشهرية بالجنيه المصري مجانًا | Pocketjr Finance';
+const description = 'خطط ميزانيتك الشهرية بالجنيه المصري. أدخل الدخل والمصاريف الثابتة والمرنة والادخار المخطط لمعرفة المتبقي من دخلك. الحاسبة مجانية ولا تحفظ أرقامك.';
 
 export const Route = createFileRoute('/ar/egp-budget-calculator')({
-  head: () => ({
-    meta: [
-      { title: 'حاسبة الميزانية الشهرية بالجنيه المصري مجانًا | Pocketjr Finance' },
-      { name: 'description', content: 'خطط ميزانيتك الشهرية بالجنيه المصري. احسب المصاريف والادخار والمبلغ المتبقي من دخلك باستخدام حاسبة مجانية وبسيطة.' },
-      { property: 'og:title', content: 'حاسبة الميزانية الشهرية بالجنيه المصري | Pocketjr Finance' },
-      { property: 'og:description', content: 'احسب المصاريف والادخار والمتبقي من الدخل بالجنيه المصري باستخدام حاسبة مجانية.' },
-      { property: 'og:site_name', content: 'Pocketjr Finance' },
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'حاسبة الميزانية الشهرية بالجنيه المصري | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'خطط ميزانيتك الشهرية بالجنيه المصري باستخدام حاسبة مجانية وبسيطة.' },
-    ],
-    links: [
-      { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/egp-budget-calculator' },
-      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/egp-budget-calculator' },
-      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/egp-budget-calculator' },
-      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/egp-budget-calculator' },
-    ],
+  head: () => publicHead({
+    lang: 'ar',
+    enPath: '/egp-budget-calculator',
+    title,
+    description,
+    schema: toolSchema('ar', '/egp-budget-calculator', title, description, egpBudgetFaqs.ar),
   }),
   component: EGPBudgetCalculatorRoute,
 });
