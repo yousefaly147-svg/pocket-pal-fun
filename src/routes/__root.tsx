@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider, langBootScript } from "../lib/i18n";
 import { AuthProvider } from "../lib/auth";
 import { ADSENSE_SITE_VERIFICATION_META } from "../lib/adsense-verification";
+import { trackPageView } from "../lib/analytics";
 
 function NotFoundComponent() {
   return (
@@ -113,7 +114,7 @@ function RootShell({ children }: { children: ReactNode }) {
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){window.dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-XF6WJJQYRD');`,
+gtag('config', 'G-XF6WJJQYRD', { send_page_view: false });`,
           }}
         />
         <script dangerouslySetInnerHTML={{ __html: langBootScript }} />
@@ -130,6 +131,9 @@ gtag('config', 'G-XF6WJJQYRD');`,
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  useEffect(() => {
+    trackPageView();
+  }, [pathname]);
   const initialLanguage = pathname === "/ar" || pathname.startsWith("/ar/")
     ? "ar"
     : pathname === "/"

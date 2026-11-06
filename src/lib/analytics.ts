@@ -17,3 +17,13 @@ export function trackEvent(eventName: string, params: EventParams = {}) {
     page_path: window.location.pathname,
   });
 }
+
+/** Explicit SPA page view; query strings are intentionally excluded from analytics. */
+export function trackPageView() {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+  window.gtag('event', 'page_view', {
+    page_path: window.location.pathname,
+    page_location: `${window.location.origin}${window.location.pathname}`,
+    page_title: document.title,
+  });
+}

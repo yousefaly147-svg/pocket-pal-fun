@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { trackEvent } from '@/lib/analytics';
+import { trackEvent, trackPageView } from '@/lib/analytics';
 
 describe('privacy-safe acquisition analytics', () => {
   afterEach(() => {
@@ -21,7 +21,23 @@ describe('privacy-safe acquisition analytics', () => {
     });
   });
 
+  it('records SPA page views without query-string values', () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    window.history.replaceState({}, '', '/daily-budget-calculator?email=private@example.com');
+    document.title = 'Daily budget calculator';
+
+    trackPageView();
+
+    expect(gtag).toHaveBeenCalledWith('event', 'page_view', {
+      page_path: '/daily-budget-calculator',
+      page_location: `${window.location.origin}/daily-budget-calculator`,
+      page_title: 'Daily budget calculator',
+    });
+  });
+
   it('does nothing safely when GA4 is not available', () => {
     expect(() => trackEvent('guest_mode_started')).not.toThrow();
+    expect(() => trackPageView()).not.toThrow();
   });
 });

@@ -42,7 +42,7 @@ export function PrivacyPolicyPage() {
           <div>
             <p className="text-sm text-muted-foreground">Pocketjr</p>
             <h1 className="text-3xl font-extrabold tracking-tight">Privacy Policy</h1>
-            <p className="mt-1 text-sm text-muted-foreground">Last updated: 30 October 2026</p>
+            <p className="mt-1 text-sm text-muted-foreground">Last updated: 6 November 2026</p>
           </div>
         </header>
 
@@ -111,10 +111,12 @@ export function PrivacyPolicyPage() {
           <h2 className="text-xl font-bold">3. Service providers and sharing</h2>
           <p className="leading-7 text-muted-foreground">
             We do not sell your personal or transaction data. Advertising is not currently active
-            on Pocketjr. The website is configured to use Google Analytics to measure general website
-            usage, such as visits and pages viewed. Google may process technical and usage information
-            under its own privacy terms. We do not intentionally send transaction amounts, balances,
-            or transaction descriptions as Google Analytics event data. Information is also shared
+            on Pocketjr. The website uses Google Analytics 4 (GA4) to measure visits, page views and limited
+            interactions such as starting guest mode, opening the sign-in screen, using a budgeting
+            calculator, or downloading the blank expense template. These events may include the page
+            path, language and file format. Google may process technical and usage information under
+            its own privacy terms. We do not send transaction amounts, account balances, descriptions,
+            calculator input values, passwords, or notification text as analytics event data. Information is also shared
             as needed to operate the service with providers such as Google for sign-in, Render for API
             hosting, Supabase for database hosting, and Lovable for website hosting and deployment.
             We may disclose information if required by law or when reasonably necessary to protect
@@ -199,7 +201,7 @@ export function PrivacyPolicyPage() {
           <h2 className="text-2xl font-extrabold">سياسة الخصوصية</h2>
           <p className="leading-8 text-muted-foreground">
             توضح هذه السياسة كيفية تعامل Pocketjr (الذي يظهر أحيانًا باسم Pocket Pal) مع المعلومات عند استخدام الموقع وتطبيق أندرويد.
-            آخر تحديث: ٣٠ أكتوبر ٢٠٢٦.
+            آخر تحديث: ٦ نوفمبر ٢٠٢٦.
           </p>
           <section className="space-y-2">
             <h3 className="text-lg font-bold">المعلومات التي نتعامل معها</h3>
@@ -222,9 +224,7 @@ export function PrivacyPolicyPage() {
             <h3 className="text-lg font-bold">كيف نستخدم المعلومات ونشاركها</h3>
             <p className="leading-8 text-muted-foreground">
               نستخدم البيانات لتسجيل الدخول ومزامنة المعاملات وعرض لوحة التحكم وحفظ تفضيلاتك واستيراد العمليات التي تختارها وتحسين أمان الخدمة.
-              لا نبيع بياناتك الشخصية أو المالية، والإعلانات غير مفعّلة حاليًا في Pocketjr. الموقع مُعد لاستخدام Google Analytics لقياس الاستخدام العام للموقع،
-              مثل الزيارات والصفحات التي تمت مشاهدتها. وقد تعالج Google معلومات تقنية ومعلومات استخدام وفقًا لسياسة الخصوصية الخاصة بها. لا نضيف عمدًا مبالغ المعاملات
-              أو الأرصدة أو أوصاف المعاملات كبيانات لأحداث Google Analytics. وقد تتم أيضًا معالجة البيانات اللازمة لتشغيل الخدمة عبر Google لتسجيل الدخول،
+              لا نبيع بياناتك الشخصية أو المالية، والإعلانات غير مفعّلة حاليًا في Pocketjr. يستخدم الموقع Google Analytics 4 (GA4) لقياس الزيارات ومشاهدات الصفحات وبعض التفاعلات المحدودة، مثل بدء وضع الضيف وفتح شاشة تسجيل الدخول واستخدام حاسبة ميزانية أو تحميل جدول المصاريف الفارغ. قد تتضمن هذه الأحداث مسار الصفحة واللغة وصيغة الملف. وقد تعالج Google معلومات تقنية ومعلومات استخدام وفقًا لسياسة الخصوصية الخاصة بها. لا نرسل إلى بيانات التحليلات مبالغ المعاملات أو أرصدة الحسابات أو أوصاف المعاملات أو القيم التي تدخلها في الحاسبات أو كلمات المرور أو نصوص الإشعارات. وقد تتم أيضًا معالجة البيانات اللازمة لتشغيل الخدمة عبر Google لتسجيل الدخول،
               وRender لاستضافة واجهة API، وSupabase لاستضافة قاعدة البيانات، وLovable لاستضافة الموقع ونشره، كما قد نفصح عن معلومات إذا ألزمنا القانون بذلك.
             </p>
             <p className="leading-8 text-muted-foreground">
