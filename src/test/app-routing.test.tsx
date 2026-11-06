@@ -9,7 +9,7 @@ import { routeTree } from "@/routeTree.gen";
 describe("App routing", () => {
   const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
   const publicPaths = [
-    "/", "/ar/",
+    "/", "/ar",
     "/about", "/ar/about",
     "/help", "/ar/help",
     "/guides", "/ar/guides",
