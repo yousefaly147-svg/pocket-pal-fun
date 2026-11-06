@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import { ar } from "@/lib/i18n/ar";
 import { en } from "@/lib/i18n/en";
 import { websiteSchema } from "@/lib/website-schema";
+import { articleSchema } from "@/lib/public-seo";
 
 const origin = "https://pocketjr.lovable.app";
 const publicPaths = [
@@ -62,21 +63,12 @@ describe("public search discovery files", () => {
     }
   });
 
-  it("updates lastmod only for the 18 pages changed in this release", () => {
+  it("updates lastmod for all 24 public pages materially changed in this release", () => {
     const sitemap = readPublicFile("sitemap.xml");
     const blocks = sitemap.split("<url>").slice(1).map((part) => part.split("</url>")[0] ?? "");
     const recentlyUpdated = blocks.filter((item) => item.includes("<lastmod>2026-11-06</lastmod>"));
-    const olderUrls = [
-      "/monthly-budget", "/ar/monthly-budget",
-      "/expense-tracking", "/ar/expense-tracking",
-      "/savings-goals", "/ar/savings-goals",
-    ];
-    const olderGuides = blocks.filter((item) =>
-      olderUrls.some((path) => item.includes(`<loc>${origin}${path}</loc>`))
-      && item.includes("<lastmod>2026-10-31</lastmod>")
-    );
-    expect(recentlyUpdated).toHaveLength(18);
-    expect(olderGuides).toHaveLength(6);
+    expect(recentlyUpdated).toHaveLength(24);
+    expect(blocks.every((item) => item.includes("<lastmod>2026-11-06</lastmod>"))).toBe(true);
   });});
 
 describe("homepage structured data", () => {
@@ -114,5 +106,28 @@ describe("bilingual public homepage explanation", () => {
     }
     expect(en["landing.detailLimitsBody"]).toContain("no universal bank connection");
     expect(ar["landing.detailLimitsBody"]).toContain("مفيش ربط تلقائي بكل البنوك");
+  });
+});
+
+describe("guide article structured data", () => {
+  it.each([
+    ["en", "/monthly-budget", "How to Make a Monthly Budget in Egypt"],
+    ["ar", "/monthly-budget", "إزاي تعمل ميزانية شهرية في مصر"],
+    ["en", "/expense-tracking", "How to Track and Categorize Expenses"],
+    ["ar", "/expense-tracking", "إزاي تتابع وتقسم مصروفاتك"],
+    ["en", "/savings-goals", "How to Set a Realistic Savings Goal"],
+    ["ar", "/savings-goals", "إزاي تحدد هدف ادخار واقعي"],
+  ] as const)("creates factual Article and breadcrumb data for %s %s", (lang, path, headline) => {
+    const schema = articleSchema(lang, path, headline, "Guide description");
+    const graph = schema["@graph"] as Array<Record<string, unknown>>;
+    const article = graph.find((node) => node["@type"] === "Article");
+    const breadcrumb = graph.find((node) => node["@type"] === "BreadcrumbList");
+    expect(article?.["headline"]).toBe(headline);
+    expect(article?.["mainEntityOfPage"]).toBe(`${origin}${lang === "ar" ? `/ar${path}` : path}`);
+    expect((article?.["author"] as Record<string, unknown>)?.["name"]).toBe("Pocketjr Finance");
+    expect(breadcrumb?.["@type"]).toBe("BreadcrumbList");
+    expect(article).not.toHaveProperty("datePublished");
+    expect(article).not.toHaveProperty("aggregateRating");
+    expect(article).not.toHaveProperty("review");
   });
 });
