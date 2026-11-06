@@ -724,3 +724,15 @@ lovable-badge,
   .egp-calculator-results { padding:16px; }
   .egp-calculator-result-row { align-items:flex-start; font-size:12px; }
 }
+
+/* Free tool pages */
+.tool-download { display:grid; gap:12px; max-width:860px; margin:0 auto 28px; padding:22px; border:1px solid var(--border); border-radius:16px; background:var(--card); }
+.tool-download-button { display:inline-flex; justify-content:center; align-items:center; min-height:46px; padding:0 20px; border-radius:999px; background:var(--primary); color:var(--primary-foreground); font-weight:700; text-decoration:none; border:0; cursor:pointer; }
+.tool-download-button:disabled { opacity:.6; cursor:progress; }
+.tool-table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:12px; margin:12px 0; }
+.tool-table { width:100%; border-collapse:collapse; font-size:14px; min-width:560px; }
+.tool-table th, .tool-table td { padding:9px 12px; border-bottom:1px solid var(--border); text-align:start; }
+.tool-table th { background:var(--accent); }
+.tool-cta-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin:18px 0; }
+.tool-formula { padding:14px; border-radius:12px; background:var(--accent); font-weight:700; }
+.tool-faq h3 { margin:14px 0 4px; }

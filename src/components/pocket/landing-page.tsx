@@ -144,6 +144,8 @@ export function LandingPage() {
             <a href={pagePath('/expense-tracking')}>{t('landing.detailExpensesLink')}</a>
             <a href={pagePath('/savings-goals')}>{t('landing.detailGoalsLink')}</a>
             <a href={pagePath('/egp-budget-calculator')}>{ar ? 'حاسبة الميزانية بالجنيه المصري' : 'Free EGP budget calculator'}</a>
+            <a href={pagePath('/monthly-expenses-template')}>{ar ? 'جدول مصاريف شهرية Excel' : 'Monthly expenses Excel template'}</a>
+            <a href={pagePath('/daily-budget-calculator')}>{ar ? 'حاسبة حد الصرف اليومي' : 'Daily spending limit calculator'}</a>
           </nav>
         </section>
       </main>

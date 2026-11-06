@@ -26,3 +26,4 @@
 - Transaction dates are owned by the server; the app sends `created_at` but must detect and tell the user when the server ignores it.
 - Google sign-in stays hidden unless VITE_GOOGLE_CLIENT_ID is set and VITE_GOOGLE_AUTH_READY is 'true', because the token must be verified by the server (POST /api/auth/google, not yet built).
 - The initial language is read from `<html lang>` set by the head boot script, so there's no flash and nothing overwrites it on refresh.
+- Free tool pages share copy/FAQ from src/lib/tool-content.ts and head/schema from src/lib/public-seo.ts; the exceljs workbook builder is only dynamically imported in the browser so it stays out of SSR.
