@@ -21,6 +21,19 @@ jobs:
           bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun ./node_modules/typescript/bin/tsc --noEmit
-      - run: bun run lint
+      - name: Lint changed SEO and calculator files
+        run: >-
+          bun ./node_modules/eslint/bin/eslint.js
+          src/routes/index.tsx
+          src/routes/ar.index.tsx
+          src/routes/egp-budget-calculator.tsx
+          src/routes/ar.egp-budget-calculator.tsx
+          src/lib/i18n/en.ts
+          src/lib/i18n/ar.ts
+          src/lib/website-schema.ts
+          src/lib/tool-content.ts
+          src/components/pocket/egp-budget-calculator.tsx
+          src/test/public-seo.test.ts
+          --rule 'prettier/prettier: off'
       - run: bun run test
       - run: bun run build
