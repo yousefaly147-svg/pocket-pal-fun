@@ -12,23 +12,27 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ArRouteImport } from './routes/ar'
+import { Route as DailyBudgetCalculatorRouteImport } from './routes/daily-budget-calculator'
 import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as EgpBudgetCalculatorRouteImport } from './routes/egp-budget-calculator'
 import { Route as ExpenseTrackingRouteImport } from './routes/expense-tracking'
 import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as MonthlyBudgetRouteImport } from './routes/monthly-budget'
+import { Route as MonthlyExpensesTemplateRouteImport } from './routes/monthly-expenses-template'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as SavingsGoalsRouteImport } from './routes/savings-goals'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ArIndexRouteImport } from './routes/ar.index'
 import { Route as ArAboutRouteImport } from './routes/ar.about'
+import { Route as ArDailyBudgetCalculatorRouteImport } from './routes/ar.daily-budget-calculator'
 import { Route as ArDeleteAccountRouteImport } from './routes/ar.delete-account'
 import { Route as ArEgpBudgetCalculatorRouteImport } from './routes/ar.egp-budget-calculator'
 import { Route as ArExpenseTrackingRouteImport } from './routes/ar.expense-tracking'
 import { Route as ArGuidesRouteImport } from './routes/ar.guides'
 import { Route as ArHelpRouteImport } from './routes/ar.help'
 import { Route as ArMonthlyBudgetRouteImport } from './routes/ar.monthly-budget'
+import { Route as ArMonthlyExpensesTemplateRouteImport } from './routes/ar.monthly-expenses-template'
 import { Route as ArPrivacyPolicyRouteImport } from './routes/ar.privacy-policy'
 import { Route as ArSavingsGoalsRouteImport } from './routes/ar.savings-goals'
 import { Route as ArTermsRouteImport } from './routes/ar.terms'
@@ -46,6 +50,11 @@ const AboutRoute = AboutRouteImport.update({
 const ArRoute = ArRouteImport.update({
   id: '/ar',
   path: '/ar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DailyBudgetCalculatorRoute = DailyBudgetCalculatorRouteImport.update({
+  id: '/daily-budget-calculator',
+  path: '/daily-budget-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeleteAccountRoute = DeleteAccountRouteImport.update({
@@ -78,6 +87,11 @@ const MonthlyBudgetRoute = MonthlyBudgetRouteImport.update({
   path: '/monthly-budget',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MonthlyExpensesTemplateRoute = MonthlyExpensesTemplateRouteImport.update({
+  id: '/monthly-expenses-template',
+  path: '/monthly-expenses-template',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
@@ -101,6 +115,11 @@ const ArIndexRoute = ArIndexRouteImport.update({
 const ArAboutRoute = ArAboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => ArRoute,
+} as any)
+const ArDailyBudgetCalculatorRoute = ArDailyBudgetCalculatorRouteImport.update({
+  id: '/daily-budget-calculator',
+  path: '/daily-budget-calculator',
   getParentRoute: () => ArRoute,
 } as any)
 const ArDeleteAccountRoute = ArDeleteAccountRouteImport.update({
@@ -133,6 +152,12 @@ const ArMonthlyBudgetRoute = ArMonthlyBudgetRouteImport.update({
   path: '/monthly-budget',
   getParentRoute: () => ArRoute,
 } as any)
+const ArMonthlyExpensesTemplateRoute =
+  ArMonthlyExpensesTemplateRouteImport.update({
+    id: '/monthly-expenses-template',
+    path: '/monthly-expenses-template',
+    getParentRoute: () => ArRoute,
+  } as any)
 const ArPrivacyPolicyRoute = ArPrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
@@ -153,22 +178,26 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ar': typeof ArRouteWithChildren
+  '/daily-budget-calculator': typeof DailyBudgetCalculatorRoute
   '/delete-account': typeof DeleteAccountRoute
   '/egp-budget-calculator': typeof EgpBudgetCalculatorRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
+  '/monthly-expenses-template': typeof MonthlyExpensesTemplateRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/savings-goals': typeof SavingsGoalsRoute
   '/terms': typeof TermsRoute
   '/ar/about': typeof ArAboutRoute
+  '/ar/daily-budget-calculator': typeof ArDailyBudgetCalculatorRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
+  '/ar/monthly-expenses-template': typeof ArMonthlyExpensesTemplateRoute
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/savings-goals': typeof ArSavingsGoalsRoute
   '/ar/terms': typeof ArTermsRoute
@@ -177,22 +206,26 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/daily-budget-calculator': typeof DailyBudgetCalculatorRoute
   '/delete-account': typeof DeleteAccountRoute
   '/egp-budget-calculator': typeof EgpBudgetCalculatorRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
+  '/monthly-expenses-template': typeof MonthlyExpensesTemplateRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/savings-goals': typeof SavingsGoalsRoute
   '/terms': typeof TermsRoute
   '/ar/about': typeof ArAboutRoute
+  '/ar/daily-budget-calculator': typeof ArDailyBudgetCalculatorRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
+  '/ar/monthly-expenses-template': typeof ArMonthlyExpensesTemplateRoute
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/savings-goals': typeof ArSavingsGoalsRoute
   '/ar/terms': typeof ArTermsRoute
@@ -203,22 +236,26 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ar': typeof ArRouteWithChildren
+  '/daily-budget-calculator': typeof DailyBudgetCalculatorRoute
   '/delete-account': typeof DeleteAccountRoute
   '/egp-budget-calculator': typeof EgpBudgetCalculatorRoute
   '/expense-tracking': typeof ExpenseTrackingRoute
   '/guides': typeof GuidesRoute
   '/help': typeof HelpRoute
   '/monthly-budget': typeof MonthlyBudgetRoute
+  '/monthly-expenses-template': typeof MonthlyExpensesTemplateRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/savings-goals': typeof SavingsGoalsRoute
   '/terms': typeof TermsRoute
   '/ar/about': typeof ArAboutRoute
+  '/ar/daily-budget-calculator': typeof ArDailyBudgetCalculatorRoute
   '/ar/delete-account': typeof ArDeleteAccountRoute
   '/ar/egp-budget-calculator': typeof ArEgpBudgetCalculatorRoute
   '/ar/expense-tracking': typeof ArExpenseTrackingRoute
   '/ar/guides': typeof ArGuidesRoute
   '/ar/help': typeof ArHelpRoute
   '/ar/monthly-budget': typeof ArMonthlyBudgetRoute
+  '/ar/monthly-expenses-template': typeof ArMonthlyExpensesTemplateRoute
   '/ar/privacy-policy': typeof ArPrivacyPolicyRoute
   '/ar/savings-goals': typeof ArSavingsGoalsRoute
   '/ar/terms': typeof ArTermsRoute
@@ -230,22 +267,26 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ar'
+    | '/daily-budget-calculator'
     | '/delete-account'
     | '/egp-budget-calculator'
     | '/expense-tracking'
     | '/guides'
     | '/help'
     | '/monthly-budget'
+    | '/monthly-expenses-template'
     | '/privacy-policy'
     | '/savings-goals'
     | '/terms'
     | '/ar/about'
+    | '/ar/daily-budget-calculator'
     | '/ar/delete-account'
     | '/ar/egp-budget-calculator'
     | '/ar/expense-tracking'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
+    | '/ar/monthly-expenses-template'
     | '/ar/privacy-policy'
     | '/ar/savings-goals'
     | '/ar/terms'
@@ -254,22 +295,26 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/daily-budget-calculator'
     | '/delete-account'
     | '/egp-budget-calculator'
     | '/expense-tracking'
     | '/guides'
     | '/help'
     | '/monthly-budget'
+    | '/monthly-expenses-template'
     | '/privacy-policy'
     | '/savings-goals'
     | '/terms'
     | '/ar/about'
+    | '/ar/daily-budget-calculator'
     | '/ar/delete-account'
     | '/ar/egp-budget-calculator'
     | '/ar/expense-tracking'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
+    | '/ar/monthly-expenses-template'
     | '/ar/privacy-policy'
     | '/ar/savings-goals'
     | '/ar/terms'
@@ -279,22 +324,26 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ar'
+    | '/daily-budget-calculator'
     | '/delete-account'
     | '/egp-budget-calculator'
     | '/expense-tracking'
     | '/guides'
     | '/help'
     | '/monthly-budget'
+    | '/monthly-expenses-template'
     | '/privacy-policy'
     | '/savings-goals'
     | '/terms'
     | '/ar/about'
+    | '/ar/daily-budget-calculator'
     | '/ar/delete-account'
     | '/ar/egp-budget-calculator'
     | '/ar/expense-tracking'
     | '/ar/guides'
     | '/ar/help'
     | '/ar/monthly-budget'
+    | '/ar/monthly-expenses-template'
     | '/ar/privacy-policy'
     | '/ar/savings-goals'
     | '/ar/terms'
@@ -305,12 +354,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ArRoute: typeof ArRouteWithChildren
+  DailyBudgetCalculatorRoute: typeof DailyBudgetCalculatorRoute
   DeleteAccountRoute: typeof DeleteAccountRoute
   EgpBudgetCalculatorRoute: typeof EgpBudgetCalculatorRoute
   ExpenseTrackingRoute: typeof ExpenseTrackingRoute
   GuidesRoute: typeof GuidesRoute
   HelpRoute: typeof HelpRoute
   MonthlyBudgetRoute: typeof MonthlyBudgetRoute
+  MonthlyExpensesTemplateRoute: typeof MonthlyExpensesTemplateRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SavingsGoalsRoute: typeof SavingsGoalsRoute
   TermsRoute: typeof TermsRoute
@@ -337,6 +388,13 @@ declare module '@tanstack/react-router' {
       path: '/ar'
       fullPath: '/ar'
       preLoaderRoute: typeof ArRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/daily-budget-calculator': {
+      id: '/daily-budget-calculator'
+      path: '/daily-budget-calculator'
+      fullPath: '/daily-budget-calculator'
+      preLoaderRoute: typeof DailyBudgetCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/delete-account': {
@@ -381,6 +439,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MonthlyBudgetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/monthly-expenses-template': {
+      id: '/monthly-expenses-template'
+      path: '/monthly-expenses-template'
+      fullPath: '/monthly-expenses-template'
+      preLoaderRoute: typeof MonthlyExpensesTemplateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
@@ -414,6 +479,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/ar/about'
       preLoaderRoute: typeof ArAboutRouteImport
+      parentRoute: typeof ArRoute
+    }
+    '/ar/daily-budget-calculator': {
+      id: '/ar/daily-budget-calculator'
+      path: '/daily-budget-calculator'
+      fullPath: '/ar/daily-budget-calculator'
+      preLoaderRoute: typeof ArDailyBudgetCalculatorRouteImport
       parentRoute: typeof ArRoute
     }
     '/ar/delete-account': {
@@ -458,6 +530,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArMonthlyBudgetRouteImport
       parentRoute: typeof ArRoute
     }
+    '/ar/monthly-expenses-template': {
+      id: '/ar/monthly-expenses-template'
+      path: '/monthly-expenses-template'
+      fullPath: '/ar/monthly-expenses-template'
+      preLoaderRoute: typeof ArMonthlyExpensesTemplateRouteImport
+      parentRoute: typeof ArRoute
+    }
     '/ar/privacy-policy': {
       id: '/ar/privacy-policy'
       path: '/privacy-policy'
@@ -484,12 +563,14 @@ declare module '@tanstack/react-router' {
 
 interface ArRouteChildren {
   ArAboutRoute: typeof ArAboutRoute
+  ArDailyBudgetCalculatorRoute: typeof ArDailyBudgetCalculatorRoute
   ArDeleteAccountRoute: typeof ArDeleteAccountRoute
   ArEgpBudgetCalculatorRoute: typeof ArEgpBudgetCalculatorRoute
   ArExpenseTrackingRoute: typeof ArExpenseTrackingRoute
   ArGuidesRoute: typeof ArGuidesRoute
   ArHelpRoute: typeof ArHelpRoute
   ArMonthlyBudgetRoute: typeof ArMonthlyBudgetRoute
+  ArMonthlyExpensesTemplateRoute: typeof ArMonthlyExpensesTemplateRoute
   ArPrivacyPolicyRoute: typeof ArPrivacyPolicyRoute
   ArSavingsGoalsRoute: typeof ArSavingsGoalsRoute
   ArTermsRoute: typeof ArTermsRoute
@@ -498,12 +579,14 @@ interface ArRouteChildren {
 
 const ArRouteChildren: ArRouteChildren = {
   ArAboutRoute: ArAboutRoute,
+  ArDailyBudgetCalculatorRoute: ArDailyBudgetCalculatorRoute,
   ArDeleteAccountRoute: ArDeleteAccountRoute,
   ArEgpBudgetCalculatorRoute: ArEgpBudgetCalculatorRoute,
   ArExpenseTrackingRoute: ArExpenseTrackingRoute,
   ArGuidesRoute: ArGuidesRoute,
   ArHelpRoute: ArHelpRoute,
   ArMonthlyBudgetRoute: ArMonthlyBudgetRoute,
+  ArMonthlyExpensesTemplateRoute: ArMonthlyExpensesTemplateRoute,
   ArPrivacyPolicyRoute: ArPrivacyPolicyRoute,
   ArSavingsGoalsRoute: ArSavingsGoalsRoute,
   ArTermsRoute: ArTermsRoute,
@@ -516,12 +599,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ArRoute: ArRouteWithChildren,
+  DailyBudgetCalculatorRoute: DailyBudgetCalculatorRoute,
   DeleteAccountRoute: DeleteAccountRoute,
   EgpBudgetCalculatorRoute: EgpBudgetCalculatorRoute,
   ExpenseTrackingRoute: ExpenseTrackingRoute,
   GuidesRoute: GuidesRoute,
   HelpRoute: HelpRoute,
   MonthlyBudgetRoute: MonthlyBudgetRoute,
+  MonthlyExpensesTemplateRoute: MonthlyExpensesTemplateRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   SavingsGoalsRoute: SavingsGoalsRoute,
   TermsRoute: TermsRoute,
