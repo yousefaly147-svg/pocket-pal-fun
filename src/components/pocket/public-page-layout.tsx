@@ -15,15 +15,15 @@ export function PublicPageLayout({ title, description, children }: PublicPageLay
   const ar = lang === 'ar';
   const pagePath = (path: string) => ar ? (path === '/' ? '/ar/' : `/ar${path}`) : path;
   const labels = ar
-    ? { home: 'الرئيسية', about: 'عن Pocketjr', help: 'المساعدة والأسئلة', guides: 'دليل المال', privacy: 'الخصوصية', terms: 'الشروط', contact: 'تواصل معنا', eyebrow: 'موارد Pocketjr' }
-    : { home: 'Home', about: 'About', help: 'Help & FAQ', guides: 'Money guides', privacy: 'Privacy', terms: 'Terms', contact: 'Contact', eyebrow: 'Pocketjr resources' };
+    ? { home: 'الرئيسية', about: 'عن Pocketjr Finance', help: 'المساعدة والأسئلة', guides: 'دليل المال', privacy: 'الخصوصية', terms: 'الشروط', contact: 'تواصل معنا', eyebrow: 'موارد Pocketjr Finance' }
+    : { home: 'Home', about: 'About', help: 'Help & FAQ', guides: 'Money guides', privacy: 'Privacy', terms: 'Terms', contact: 'Contact', eyebrow: 'Pocketjr Finance resources' };
 
   return (
     <main className="public-content" dir={ar ? 'rtl' : 'ltr'}>
       <header className="public-content-header">
-        <Link to={pagePath('/')} className="landing-brand" aria-label="Pocketjr home">
+        <Link to={pagePath('/')} className="landing-brand" aria-label="Pocketjr Finance home">
           <LogoMark />
-          <span className="landing-brand-word">pocket<span>.</span></span>
+          <span className="landing-brand-word">pocketjr<span>.</span></span>
         </Link>
         <nav className="public-content-nav" aria-label={ar ? 'التنقل' : 'Public navigation'}>
           <Link to={pagePath('/')}>{labels.home}</Link>
