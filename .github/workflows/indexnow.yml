@@ -120,7 +120,7 @@ jobs:
               keyLocation: $keyLocation,
               urlList: [
                 "https://pocketjr.lovable.app/",
-                "https://pocketjr.lovable.app/ar/",
+                "https://pocketjr.lovable.app/ar",
                 "https://pocketjr.lovable.app/about",
                 "https://pocketjr.lovable.app/ar/about",
                 "https://pocketjr.lovable.app/help",
