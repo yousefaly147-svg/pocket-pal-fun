@@ -1,8 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { GuideArticlePage } from '@/components/pocket/guide-article-page';
+import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/ar/monthly-budget')({
   head: () => ({
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('ar', '/monthly-budget', "إزاي تعمل ميزانية شهرية في مصر | Pocketjr Finance", "دليل عملي للمبتدئين لتنظيم الدخل والمصروفات بالجنيه المصري وتحديد حدود للصرف ومراجعة الميزانية كل شهر.")) }],
     meta: [
       { title: 'إزاي تعمل ميزانية شهرية في مصر | Pocketjr Finance' },
       { name: 'description', content: 'دليل عملي للمبتدئين لتنظيم الدخل والمصروفات بالجنيه المصري وتحديد حدود للصرف ومراجعة الميزانية كل شهر.' },
