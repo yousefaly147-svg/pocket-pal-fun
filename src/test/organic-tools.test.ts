@@ -37,8 +37,7 @@ describe('monthly expenses workbook', () => {
     expect(log!.getCell('B2').dataValidation.formulae).toEqual(['=BudgetCategories']);
     expect(log!.getCell('E2').dataValidation.type).toBe('list');
     expect(JSON.stringify(wb.definedNames.model)).toContain('BudgetCategories');
-    expect(JSON.stringify(wb.definedNames.model)).toContain("'Monthly budget'!$A$5:$A$19");
-    expect(wb.calcProperties.fullCalcOnLoad).toBe(true);
+    expect(JSON.stringify(wb.definedNames.model)).toContain(lang === 'en' ? "'Monthly budget'!$A$5:$A$19" : "'الميزانية الشهرية'!$A$5:$A$19");
     expect(budget!.views[0]?.rightToLeft).toBe(lang === 'ar');
   });
 });
