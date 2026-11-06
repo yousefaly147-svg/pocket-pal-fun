@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { PublicPageLayout } from '@/components/pocket/public-page-layout';
 import { useI18n } from '@/lib/i18n';
 import { TEMPLATE_FILE_NAME, templateCopy, templateFaqs } from '@/lib/tool-content';
+import { trackEvent } from '@/lib/analytics';
 
 export const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -55,7 +56,7 @@ export function ExpenseTemplatePage() {
           className="tool-download-button"
           disabled={!file}
           aria-busy={!file && !failed}
-          onClick={() => file && downloadBlob(file, TEMPLATE_FILE_NAME[lang])}
+          onClick={() => { if (!file) return; trackEvent('expense_template_downloaded', { language: lang, format: 'xlsx' }); downloadBlob(file, TEMPLATE_FILE_NAME[lang]); }}
         >
           {file ? (ar ? 'تحميل جدول المصاريف (Excel)' : 'Download Excel template (.xlsx)') : failed ? (ar ? 'تعذّر تجهيز الملف' : 'Could not prepare the file') : (ar ? 'جاري تجهيز الملف…' : 'Preparing the file…')}
         </button>

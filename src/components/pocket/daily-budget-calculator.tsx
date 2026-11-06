@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { PublicPageLayout } from '@/components/pocket/public-page-layout';
 import { calculateDailyBudget } from '@/lib/daily-budget';
 import { useI18n } from '@/lib/i18n';
 import { dailyFaqs } from '@/lib/tool-content';
+import { trackEvent } from '@/lib/analytics';
 
 type Field = 'availableMoney' | 'billsDue' | 'savings' | 'daysRemaining';
 
@@ -13,6 +14,7 @@ export function DailyBudgetCalculator() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
   const [v, setV] = useState<Record<Field, string>>({ availableMoney: '', billsDue: '', savings: '', daysRemaining: '' });
+  const hasTrackedUse = useRef(false);
   const started = v.availableMoney !== '' && v.daysRemaining !== '';
   const result = calculateDailyBudget({
     availableMoney: Number(v.availableMoney),
@@ -63,7 +65,7 @@ export function DailyBudgetCalculator() {
                   inputMode={f.key === 'daysRemaining' ? 'numeric' : 'decimal'}
                   placeholder={f.key === 'daysRemaining' ? '1' : '0'}
                   value={v[f.key]}
-                  onChange={(e) => setV((cur) => ({ ...cur, [f.key]: e.target.value }))}
+                  onChange={(e) => { if (!hasTrackedUse.current && e.target.value !== '') { hasTrackedUse.current = true; trackEvent('daily_budget_calculator_started', { language: lang }); } setV((cur) => ({ ...cur, [f.key]: e.target.value })); }}
                 />
                 <span>{f.unit}</span>
               </span>

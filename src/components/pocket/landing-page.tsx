@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { LogoMark, WalletFriend } from '@/components/cartoon';
 import { useAuth } from '@/lib/auth';
 import { useI18n } from '@/lib/i18n';
+import { trackEvent } from '@/lib/analytics';
 import { LangToggle } from './lang-toggle';
 
 function makeGuestId() {
@@ -49,7 +50,7 @@ export function LandingPage() {
         </nav>
         <div className="landing-nav-actions">
           <LangToggle />
-          <Button variant="outline" className="landing-login" onClick={openAuthScreen}>
+          <Button variant="outline" className="landing-login" onClick={() => { trackEvent('auth_screen_opened'); openAuthScreen(); }}>
             <LogIn /> {t('auth.accountCta')}
           </Button>
         </div>
@@ -62,10 +63,10 @@ export function LandingPage() {
             <h1>{t('landing.heroTitle')} <span>{t('landing.heroHighlight')}</span></h1>
             <p className="landing-lede">{t('landing.heroBody')}</p>
             <div className="landing-actions">
-              <Button className="landing-primary" onClick={() => startWithEgp(startGuest)}>
+              <Button className="landing-primary" onClick={() => { trackEvent('guest_mode_started'); startWithEgp(startGuest); }}>
                 {t('landing.tryFree')} <ArrowRight className="landing-arrow" />
               </Button>
-              <button type="button" className="landing-text-link" onClick={openAuthScreen}>
+              <button type="button" className="landing-text-link" onClick={() => { trackEvent('auth_screen_opened'); openAuthScreen(); }}>
                 {t('landing.haveAccount')} <span>{t('auth.login')}</span>
               </button>
             </div>
@@ -161,7 +162,7 @@ export function LandingPage() {
           <a href={pagePath('/terms')}>{ar ? 'الشروط' : 'Terms'}</a>
           <a href="mailto:yousefaly147@gmail.com">{ar ? 'تواصل معنا' : 'Contact'}</a>
         </nav>
-        <button type="button" onClick={openAuthScreen}>{t('auth.accountCta')}</button>
+        <button type="button" onClick={() => { trackEvent('auth_screen_opened'); openAuthScreen(); }}>{t('auth.accountCta')}</button>
       </footer>
     </div>
   );

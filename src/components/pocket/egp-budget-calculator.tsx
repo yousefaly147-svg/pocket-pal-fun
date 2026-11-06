@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { PublicPageLayout } from '@/components/pocket/public-page-layout';
 import { calculateMonthlyBudget } from '@/lib/budget-calculator';
 import { useI18n } from '@/lib/i18n';
+import { trackEvent } from '@/lib/analytics';
 
 type AmountField = 'monthlyIncome' | 'fixedExpenses' | 'flexibleExpenses' | 'plannedSavings';
 
 export function EGPBudgetCalculator() {
   const { lang } = useI18n();
   const ar = lang === 'ar';
+  const hasTrackedUse = useRef(false);
   const [values, setValues] = useState<Record<AmountField, string>>({
     monthlyIncome: '',
     fixedExpenses: '',
@@ -83,7 +85,7 @@ export function EGPBudgetCalculator() {
                   inputMode="decimal"
                   placeholder="0"
                   value={values[field.key]}
-                  onChange={(event) => update(field.key, event.target.value)}
+                  onChange={(event) => { if (!hasTrackedUse.current && event.target.value !== '') { hasTrackedUse.current = true; trackEvent('monthly_budget_calculator_started', { language: lang }); } update(field.key, event.target.value); }}
                 />
                 <span>EGP</span>
               </span>
