@@ -1,24 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { EGPBudgetCalculator } from '@/components/pocket/egp-budget-calculator';
+import { publicHead, toolSchema } from '@/lib/public-seo';
+import { egpBudgetFaqs } from '@/lib/tool-content';
+
+const title = 'Free EGP Monthly Budget Calculator for Egypt | Pocketjr Finance';
+const description = 'Plan a monthly budget in Egyptian pounds. Enter income, fixed and flexible expenses, and planned savings to see what remains. Free calculator; your entries stay in your browser.';
 
 export const Route = createFileRoute('/egp-budget-calculator')({
-  head: () => ({
-    meta: [
-      { title: 'Free EGP Monthly Budget Calculator for Egypt | Pocketjr Finance' },
-      { name: 'description', content: 'Plan a monthly budget in Egyptian pounds. Calculate planned expenses, savings and the money left from your monthly income with this free calculator.' },
-      { property: 'og:title', content: 'Free EGP Monthly Budget Calculator | Pocketjr Finance' },
-      { property: 'og:description', content: 'Calculate planned expenses, savings and what remains from your income in Egyptian pounds.' },
-      { property: 'og:site_name', content: 'Pocketjr Finance' },
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'Free EGP Monthly Budget Calculator | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'Plan a monthly budget in Egyptian pounds with a free, simple calculator.' },
-    ],
-    links: [
-      { rel: 'canonical', href: 'https://pocketjr.lovable.app/egp-budget-calculator' },
-      { rel: 'alternate', hrefLang: 'en', href: 'https://pocketjr.lovable.app/egp-budget-calculator' },
-      { rel: 'alternate', hrefLang: 'ar', href: 'https://pocketjr.lovable.app/ar/egp-budget-calculator' },
-      { rel: 'alternate', hrefLang: 'x-default', href: 'https://pocketjr.lovable.app/egp-budget-calculator' },
-    ],
+  head: () => publicHead({
+    lang: 'en',
+    enPath: '/egp-budget-calculator',
+    title,
+    description,
+    schema: toolSchema('en', '/egp-budget-calculator', title, description, egpBudgetFaqs.en),
   }),
   component: EGPBudgetCalculatorRoute,
 });
