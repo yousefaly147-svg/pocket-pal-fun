@@ -33,7 +33,7 @@ describe("public search discovery files", () => {
     const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1] ?? "");
 
     expect(urls).toHaveLength(20);
-    expect(new Set(urls).size).toBe(18);
+    expect(new Set(urls).size).toBe(20);
     expect(urls).toEqual(publicPaths.map((path) => `${origin}${path}`));
     expect(urls.every((url) => url.startsWith(`${origin}/`))).toBe(true);
     expect(urls.some((url) => /\/settings|\/transactions|delete-account|dashboard/i.test(url))).toBe(false);
@@ -62,11 +62,10 @@ describe("public search discovery files", () => {
 
   it("uses the real modification date for all changed public pages", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = [...sitemap.matchAll(/<url>([\\s\\S]*?)<\\/url>/g)].map((match) => match[1] ?? "");
-    const modified = blocks.filter((block) => block.includes("<lastmod>2026-11-06</lastmod>"));
-    expect(modified).toHaveLength(20);
-    expect(blocks.every((block) => block.includes("<lastmod>2026-11-06</lastmod>"))).toBe(true);
-  });});
+    const lastmodCount = (sitemap.match(/<lastmod>2026-11-06<\/lastmod>/g) ?? []).length;
+    expect(lastmodCount).toBe(20);
+  });
+});
 
 describe("homepage structured data", () => {
   it.each(["en", "ar"] as const)("provides accurate WebSite and SoftwareApplication schema for %s", (language) => {
