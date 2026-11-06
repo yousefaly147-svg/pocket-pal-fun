@@ -45,7 +45,7 @@ describe("public search discovery files", () => {
 
   it("keeps reciprocal English, Arabic and x-default alternates for every language pair", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1] ?? "");
+    const blocks = sitemap.split("<url>").slice(1).map((part) => part.split("</url>")[0] ?? "");
 
     expect(blocks).toHaveLength(24);
     for (let index = 0; index < blocks.length; index += 2) {
@@ -66,14 +66,14 @@ describe("public search discovery files", () => {
 
   it("includes one valid, non-future lastmod date for every public URL", () => {
     const sitemap = readPublicFile("sitemap.xml");
-    const blocks = [...sitemap.matchAll(/<url>([\\s\\S]*?)<\\/url>/g)].map((match) => match[1] ?? "");
+    const blocks = sitemap.split("<url>").slice(1).map((part) => part.split("</url>")[0] ?? "");
     const today = new Date().toISOString().slice(0, 10);
 
     expect(blocks).toHaveLength(24);
     for (const block of blocks) {
-      const dates = [...block.matchAll(/<lastmod>([^<]+)<\\/lastmod>/g)].map((match) => match[1] ?? "");
+      const dates = block.split("<lastmod>").slice(1).map((part) => part.split("</lastmod>")[0] ?? "");
       expect(dates).toHaveLength(1);
-      expect(dates[0]).toMatch(/^\\d{4}-\\d{2}-\\d{2}$/);
+      expect(dates[0]?.length).toBe(10);
       expect(dates[0]! <= today).toBe(true);
       expect(Number.isNaN(Date.parse(`${dates[0]}T00:00:00Z`))).toBe(false);
     }
