@@ -21,5 +21,6 @@ jobs:
           bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun ./node_modules/typescript/bin/tsc --noEmit
+      - run: bun run lint
       - run: bun run test
       - run: bun run build
