@@ -2,6 +2,11 @@ name: Notify search engines with IndexNow
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'public/sitemap.xml'
+      - '.github/workflows/indexnow.yml'
 
 permissions:
   contents: read
@@ -65,11 +70,15 @@ jobs:
                 "https://pocketjr.lovable.app/savings-goals",
                 "https://pocketjr.lovable.app/ar/savings-goals",
                 "https://pocketjr.lovable.app/egp-budget-calculator",
-                "https://pocketjr.lovable.app/ar/egp-budget-calculator"
+                "https://pocketjr.lovable.app/ar/egp-budget-calculator",
+                "https://pocketjr.lovable.app/monthly-expenses-template",
+                "https://pocketjr.lovable.app/ar/monthly-expenses-template",
+                "https://pocketjr.lovable.app/daily-budget-calculator",
+                "https://pocketjr.lovable.app/ar/daily-budget-calculator"
               ]
             }' > indexnow-payload.json
 
-          echo "Submitting the 20 updated public canonical URLs to IndexNow."
+          echo "Submitting the 24 updated public canonical URLs to IndexNow."
           HTTP_STATUS="$(curl --silent --show-error \
             --output indexnow-response.txt \
             --write-out "%{http_code}" \
