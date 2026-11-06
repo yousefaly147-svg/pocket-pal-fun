@@ -10,15 +10,15 @@ export const Route = createFileRoute('/')({
   head: () => ({
     scripts: [{ type: 'application/ld+json', children: JSON.stringify(websiteSchema('en')) }],
     meta: [
-      { title: 'Pocketjr Finance Egypt – Free Money Manager & Expense Tracker' },
-      { name: 'description', content: 'A free personal money manager for people in Egypt. Track income, expenses, budgets, investments and savings goals in English or Arabic.' },
-      { property: 'og:title', content: 'Pocketjr Finance Egypt – Free Money Manager & Expense Tracker' },
-      { property: 'og:description', content: 'A free personal money manager for people in Egypt. Track income, expenses, budgets, investments and savings goals in English or Arabic.' },
+      { title: 'Free Expense Tracker for Egypt | Pocketjr Finance' },
+      { name: 'description', content: 'Track daily expenses and income, plan a monthly budget in EGP and follow savings goals with a free money manager in English or Arabic. Start in your browser, no download.' },
+      { property: 'og:title', content: 'Free Expense Tracker for Egypt | Pocketjr Finance' },
+      { property: 'og:description', content: 'Track daily expenses and income, plan a monthly budget in EGP and follow savings goals with a free money manager in English or Arabic. Start in your browser, no download.' },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { property: 'og:url', content: 'https://pocketjr.lovable.app/' },
-      { name: 'twitter:title', content: 'Pocketjr Finance Egypt – Free Money Manager & Expense Tracker' },
-      { name: 'twitter:description', content: 'A free personal money manager for people in Egypt. Track income, expenses, budgets, investments and savings goals in English or Arabic.' },
+      { name: 'twitter:title', content: 'Free Expense Tracker for Egypt | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'Track daily expenses and income, plan a monthly budget in EGP and follow savings goals with a free money manager in English or Arabic. Start in your browser, no download.' },
 
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
