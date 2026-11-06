@@ -70,6 +70,21 @@ jobs:
           fi
           echo "The public key file is deployed and valid."
 
+      - name: Diagnose Arabic homepage redirect chain
+        shell: bash
+        run: |
+          set +e
+          curl --silent --show-error --location --max-redirs 8 \
+            --dump-header /tmp/pocketjr-ar-headers.txt \
+            --output /dev/null \
+            --write-out "Final HTTP %{http_code}; effective URL %{url_effective}\n" \
+            "https://pocketjr.lovable.app/ar"
+          CURL_STATUS=$?
+          echo "curl exit status: ${CURL_STATUS}"
+          echo "Redirect response headers:"
+          cat /tmp/pocketjr-ar-headers.txt
+          exit 0
+
       - name: Smoke-test published English, Arabic and calculator pages
         shell: bash
         run: |
