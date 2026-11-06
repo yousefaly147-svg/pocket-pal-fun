@@ -4,16 +4,16 @@ import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/monthly-budget')({
   head: () => ({
-    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/monthly-budget', "How to Make a Monthly Budget in Egypt | Pocketjr Finance", "A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.")) }],
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/monthly-budget', "Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance", "Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.")) }],
     meta: [
-      { title: 'How to Make a Monthly Budget in Egypt | Pocketjr Finance' },
-      { name: 'description', content: 'A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.' },
-      { property: 'og:title', content: 'How to Make a Monthly Budget in Egypt | Pocketjr Finance' },
-      { property: 'og:description', content: 'A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.' },
+      { title: 'Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance' },
+      { name: 'description', content: 'Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
+      { property: 'og:title', content: 'Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance' },
+      { property: 'og:description', content: 'Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'How to Make a Monthly Budget in Egypt | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.' },
+      { name: 'twitter:title', content: 'Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/monthly-budget' },

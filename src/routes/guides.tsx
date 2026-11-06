@@ -29,12 +29,12 @@ export function GuidesPage() {
   const ar = lang === 'ar';
   const items = ar
     ? [
-        { to: '/ar/monthly-budget' as const, title: 'إزاي تعمل ميزانية شهرية في مصر', description: 'خطوات عملية لتنظيم الدخل والمصروفات بالجنيه المصري ومراجعة الخطة كل أسبوع.' },
+        { to: '/ar/monthly-budget' as const, title: 'ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي لآخر الشهر', description: 'خطوات عملية لتنظيم الدخل والصرف، وحساب حد يومي لحد القبض الجاي.' },
         { to: '/ar/expense-tracking' as const, title: 'إزاي تتابع وتقسم مصروفاتك', description: 'طريقة بسيطة لتسجيل الصرف اليومي واكتشاف المصاريف المتكررة.' },
         { to: '/ar/savings-goals' as const, title: 'إزاي تحدد هدف ادخار واقعي', description: 'حوّل هدف الادخار لمبلغ شهري وموعد مناسب لظروفك.' },
       ]
     : [
-        { to: '/monthly-budget' as const, title: 'How to make a monthly budget in Egypt', description: 'Plan income and expenses in EGP, set flexible spending limits and review your plan.' },
+        { to: '/monthly-budget' as const, title: 'Monthly budget in Egypt: make your salary last', description: 'Plan income and expenses in EGP, list bills due before payday and calculate a daily spending guide.' },
         { to: '/expense-tracking' as const, title: 'How to track and categorize expenses', description: 'Build a simple daily expense tracking habit and spot recurring costs.' },
         { to: '/savings-goals' as const, title: 'How to set a realistic savings goal', description: 'Turn a savings target into a manageable monthly plan.' },
       ];

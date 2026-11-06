@@ -15,8 +15,8 @@ const guides: Record<GuideSlug, {
 }> = {
   'monthly-budget': {
     title: {
-      en: 'How to Make a Monthly Budget in Egypt',
-      ar: 'إزاي تعمل ميزانية شهرية في مصر',
+      en: 'Monthly Budget in Egypt: Make Your Salary Last',
+      ar: 'ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي لآخر الشهر',
     },
     description: {
       en: 'A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.',
@@ -43,6 +43,11 @@ const guides: Record<GuideSlug, {
         { heading: '5. Review your budget every week', paragraphs: [
           'Choose one day each week to compare the plan with what you actually spent. Look for categories that are moving faster than expected, check for forgotten subscriptions and adjust the rest of the month. A budget is a living plan: changing it when circumstances change is sensible, not failure.'
         ]},
+        { heading: 'Make your salary last until the next payday', paragraphs: [
+          'On payday, start with the money that has actually arrived, not expected overtime or a bonus that has not been paid. List the bills and commitments that still have to be paid before your next payday.',
+          'Subtract those unpaid costs and the amount you decide to save from the money available. Divide what remains by the full number of days until payday. This gives you a starting daily spending limit; it is a guide, not a requirement to spend the full amount every day.',
+          'Daily limit = (money available − bills still due − savings) ÷ days remaining. Recalculate after a large purchase, a new bill or extra income. If the result is zero or negative, review flexible costs and the savings amount before assuming you can spend more.'
+        ]},
         { heading: 'A simple EGP example', paragraphs: [
           'Imagine a person expects to receive EGP 10,000 in a month. They might first list rent and bills, then estimate food and transport, then decide whether anything is available for savings. The right amounts depend on household size, housing, debt, location and personal commitments; there is no single percentage split that works for everyone.'
         ]}
@@ -62,6 +67,11 @@ const guides: Record<GuideSlug, {
         ]},
         { heading: '٥. راجع الميزانية كل أسبوع', paragraphs: [
           'اختار يومًا كل أسبوع تقارن فيه الخطة بالصرف الفعلي. لاحظ الفئات اللي بتخلص أسرع من المتوقع، وراجع الاشتراكات أو المصاريف اللي نسيتها، وعدل باقي الشهر. الميزانية خطة قابلة للتغيير؛ تعديلها مع ظروفك مش معناه إنك فشلت.'
+        ]},
+        { heading: 'إزاي تخلي المرتب يكفي لحد القبض الجاي', paragraphs: [
+          'ابدأ بالمبلغ اللي نزل فعلًا في حسابك أو اللي معاك، مش بفلوس متوقعة لسه. اكتب الفواتير والالتزامات اللي لسه هتتدفع قبل القبض اللي جاي.',
+          'اطرح الالتزامات اللي لسه ما اتدفعتش ومبلغ الادخار اللي اخترته من الفلوس المتاحة. اقسم الباقي على عدد الأيام الفاضلة لحد القبض. الناتج حد مبدئي للصرف اليومي، مش لازم تصرفه كله كل يوم.',
+          'حد الصرف اليومي = (الفلوس المتاحة − الفواتير اللي لسه عليك − الادخار) ÷ الأيام الفاضلة. أعد الحساب لو ظهر التزام جديد أو دخل مبلغ إضافي أو حصل صرف كبير. لو الناتج صفر أو بالسالب، راجع الصرف المرن ومبلغ الادخار قبل ما تعتبر إن فيه فلوس زيادة.'
         ]},
         { heading: 'مثال بسيط بالجنيه المصري', paragraphs: [
           'تخيل إن شخص متوقع يستلم ١٠,٠٠٠ جنيه خلال الشهر. يبدأ بكتابة الإيجار والفواتير، وبعدها يقدر الأكل والمواصلات، ثم يشوف هل فيه مبلغ متاح للادخار. المبالغ المناسبة بتختلف حسب عدد أفراد الأسرة والسكن والديون والمكان والالتزامات؛ مفيش تقسيمة واحدة تناسب كل الناس.'

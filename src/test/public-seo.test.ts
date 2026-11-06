@@ -111,8 +111,8 @@ describe("bilingual public homepage explanation", () => {
 
 describe("guide article structured data", () => {
   it.each([
-    ["en", "/monthly-budget", "How to Make a Monthly Budget in Egypt"],
-    ["ar", "/monthly-budget", "إزاي تعمل ميزانية شهرية في مصر"],
+    ["en", "/monthly-budget", "Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance"],
+    ["ar", "/monthly-budget", "ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي | Pocketjr Finance"],
     ["en", "/expense-tracking", "How to Track and Categorize Expenses"],
     ["ar", "/expense-tracking", "إزاي تتابع وتقسم مصروفاتك"],
     ["en", "/savings-goals", "How to Set a Realistic Savings Goal"],
