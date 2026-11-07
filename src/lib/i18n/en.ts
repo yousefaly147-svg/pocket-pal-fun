@@ -230,7 +230,7 @@ export const en = {
   'settings.cleared': 'Budget and savings goal cleared.',
 
   'footer.left': 'A little clarity. A lot more confidence.',
-  'footer.right': 'With love from Egypt',
+  'footer.right': 'Made for everyday money, wherever you are',
 
   'modal.income.title': 'A little more in your pocket',
   'modal.income.desc': 'Good things deserve to be counted.',
@@ -402,8 +402,8 @@ export const en = {
   'landing.navHow': 'How it works',
   'landing.eyebrow': 'A friendlier way to manage money',
   'landing.heroTitle': 'Pocketjr Finance',
-  'landing.heroHighlight': 'your free expense tracker for Egypt.',
-  'landing.heroBody': 'A free expense tracker and personal money manager for Egypt. Record daily income and spending, plan a monthly budget in EGP, and follow savings goals in English or Arabic. Start in your browser without downloading an app.',
+  'landing.heroHighlight': 'your free expense tracker and budget planner.',
+  'landing.heroBody': 'A free personal finance tracker for everyday money. Record income and expenses, plan monthly budgets, follow savings goals, and keep a manual investment record in English or Arabic. Choose a currency display and start in your browser without downloading an app.',
   'landing.tryFree': 'Try Pocketjr free',
   'landing.haveAccount': 'Already have an account?',
   'landing.noPressure': 'Try it as a guest. Guest data stays on this device.',
@@ -432,7 +432,7 @@ export const en = {
   'landing.howPointThree': 'Change the display currency and language in Settings',
   'landing.footer': 'A little clarity. A lot more confidence. ♡',
   'landing.detailTitle': 'A clearer picture of your everyday money',
-  'landing.detailIntro': 'Pocketjr Finance is a free expense tracker and personal budget planner for everyday life in Egypt. Record salary, freelance income and daily spending in EGP, then review your month in English or Arabic. Start as a guest in your browser without downloading an app; sign in when you want to use supported account sync.',
+  'landing.detailIntro': 'Pocketjr Finance is a free personal finance tracker and budget planner for everyday life. Record income and expenses, review your month, set savings goals and keep a manual investment record. Use Pocketjr in English or Arabic, choose a currency display preference, and start in your browser without downloading an app.',
   'landing.detailTrackTitle': 'From daily expenses to a monthly plan',
   'landing.detailTrackBody': 'Record income and expenses with categories and optional notes, then review transactions by day or month. A monthly budget compares your recorded spending with the limit you choose. Savings goals track progress toward things that matter to you, such as an emergency fund or a trip; they do not move or hold money.',
   'landing.detailAccountTitle': 'Your account, or just this device',

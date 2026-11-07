@@ -2,8 +2,8 @@
 export function websiteSchema(language: 'en' | 'ar') {
   const url = `https://pocketjr.lovable.app/${language === 'ar' ? 'ar' : ''}`;
   const description = language === 'ar'
-    ? 'Pocketjr Finance أداة مجانية في متصفح الويب لتتبع المصاريف وإدارة الميزانية في مصر. سجّل الدخل والصرف بالجنيه المصري وتابع الاستثمارات وأهداف الادخار بالعربية والإنجليزية، وابدأ من غير تحميل تطبيق.'
-    : 'A free browser-based expense tracker and personal money manager for people in Egypt. Record income, daily expenses and investments, plan budgets and savings goals in English or Arabic; start without downloading an app.';
+    ? 'Pocketjr Finance أداة مجانية في متصفح الويب لتسجيل الدخل والصرف وتنظيم الميزانية ومتابعة أهداف الادخار وتسجيل الاستثمارات يدويًا. متاحة بالعربية والإنجليزية مع إمكانية اختيار العملة المعروضة.'
+    : 'A free browser-based personal finance tracker for recording income and expenses, planning budgets, tracking savings goals and keeping manual investment records. Available in English and Arabic with a choice of currency display.';
   return {
     '@context': 'https://schema.org',
     '@graph': [

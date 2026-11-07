@@ -10,15 +10,15 @@ export const Route = createFileRoute('/')({
   head: () => ({
     scripts: [{ type: 'application/ld+json', children: JSON.stringify(websiteSchema('en')) }],
     meta: [
-      { title: 'Free Expense Tracker for Egypt | Pocketjr Finance' },
-      { name: 'description', content: 'Track daily expenses and income, plan a monthly budget in EGP and follow savings goals with a free money manager in English or Arabic. Start in your browser, no download.' },
-      { property: 'og:title', content: 'Free Expense Tracker for Egypt | Pocketjr Finance' },
-      { property: 'og:description', content: 'Track daily expenses and income, plan a monthly budget in EGP and follow savings goals with a free money manager in English or Arabic. Start in your browser, no download.' },
+      { title: 'Free Expense Tracker & Budget Planner | Pocketjr Finance' },
+      { name: 'description', content: 'Track income and expenses, plan budgets, set savings goals, and keep a manual investment record with Pocketjr, a free personal finance tracker in English and Arabic. Use it in your browser.' },
+      { property: 'og:title', content: 'Free Expense Tracker & Budget Planner | Pocketjr Finance' },
+      { property: 'og:description', content: 'Track income and expenses, plan budgets, set savings goals, and keep a manual investment record with Pocketjr, a free personal finance tracker in English and Arabic. Use it in your browser.' },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { property: 'og:url', content: 'https://pocketjr.lovable.app/' },
-      { name: 'twitter:title', content: 'Free Expense Tracker for Egypt | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'Track daily expenses and income, plan a monthly budget in EGP and follow savings goals with a free money manager in English or Arabic. Start in your browser, no download.' },
+      { name: 'twitter:title', content: 'Free Expense Tracker & Budget Planner | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'Track income and expenses, plan budgets, set savings goals, and keep a manual investment record with Pocketjr, a free personal finance tracker in English and Arabic. Use it in your browser.' },
 
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
