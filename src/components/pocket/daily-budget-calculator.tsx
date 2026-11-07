@@ -8,7 +8,7 @@ import { trackEvent } from '@/lib/analytics';
 
 type Field = 'availableMoney' | 'billsDue' | 'savings' | 'daysRemaining';
 
-const formatAmount = (n: number, language: 'en' | 'ar') => new Intl.NumberFormat(language === 'ar' ? 'ar' : 'en', { maximumFractionDigits: 2 }).format(n);
+const formatAmount = (n: number) => new Intl.NumberFormat('en', { maximumFractionDigits: 2 }).format(n);
 
 export function DailyBudgetCalculator() {
   const { lang } = useI18n();
