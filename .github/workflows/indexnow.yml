@@ -82,8 +82,10 @@ jobs:
             local html
             html="$(curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 10 "https://pocketjr.lovable.app${path}")"
 
-            if ! grep -Fq "${expected_title}" <<< "${html}"; then
-              echo "::error::Expected page title was not found for ${path}"
+            expected_title_html="${expected_title//&/&amp;}"
+            if ! grep -Fq "${expected_title}" <<< "${html}" && ! grep -Fq "${expected_title_html}" <<< "${html}"; then
+              actual_title="$(grep -o '<title[^>]*>[^<]*</title>' <<< "${html}" | head -n 1 || true)"
+              echo "::error::Expected page title was not found for ${path}; received ${actual_title:-no title tag}"
               exit 1
             fi
             if ! grep -Fq "https://pocketjr.lovable.app${path}" <<< "${html}"; then
