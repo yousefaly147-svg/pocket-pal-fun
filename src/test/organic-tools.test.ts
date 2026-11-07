@@ -5,7 +5,7 @@ import { buildExpenseWorkbook } from '@/lib/expense-workbook';
 import { toolSchema, publicHead } from '@/lib/public-seo';
 import { dailyFaqs } from '@/lib/tool-content';
 
-describe('daily spending limit', () => {
+describe('currency-neutral daily budget calculator', () => {
   it('divides money left after bills and savings by days', () => {
     expect(calculateDailyBudget({ availableMoney: 3000, billsDue: 1200, savings: 300, daysRemaining: 10 })).toEqual({ valid: true, days: 10, spendable: 1500, dailyLimit: 150, shortfall: 0 });
   });
@@ -17,7 +17,7 @@ describe('daily spending limit', () => {
     const r = calculateDailyBudget({ availableMoney: 500, billsDue: 700, savings: 0, daysRemaining: 5 });
     expect(r).toMatchObject({ dailyLimit: 0, shortfall: 200 });
   });
-  it('rounds down to the piastre', () => {
+  it('rounds down to two decimal places', () => {
     expect(calculateDailyBudget({ availableMoney: 100, billsDue: 0, savings: 0, daysRemaining: 3 })).toMatchObject({ dailyLimit: 33.33 });
   });
 });
@@ -39,6 +39,15 @@ describe('monthly expenses workbook', () => {
     expect(JSON.stringify(wb.definedNames.model)).toContain('BudgetCategories');
     expect(JSON.stringify(wb.definedNames.model)).toContain(lang === 'en' ? "'Monthly budget'!$A$5:$A$19" : "'الميزانية الشهرية'!$A$5:$A$19");
     expect(budget!.views[0]?.rightToLeft).toBe(lang === 'ar');
+  });
+});
+
+describe('daily calculator currency guidance', () => {
+  it('explains that all amounts must use the same currency in English and Arabic', () => {
+    expect(dailyFaqs.en[0]?.q).toContain('any currency');
+    expect(dailyFaqs.en[0]?.a).toContain('same currency');
+    expect(dailyFaqs.ar[0]?.q).toContain('أي عملة');
+    expect(dailyFaqs.ar[0]?.a).toContain('بنفس العملة');
   });
 });
 
