@@ -1,7 +1,7 @@
 import type { Faq, TemplateLang } from './tool-content';
 
 export const SITE_ORIGIN = 'https://pocketjr.lovable.app';
-const publisher = { '@type': 'Organization', name: 'Pocketjr Finance', url: `${SITE_ORIGIN}/` };
+const publisher = { '@type': 'Organization', '@id': `${SITE_ORIGIN}/#organization`, name: 'Pocketjr Finance', url: `${SITE_ORIGIN}/` };
 
 export const localizedUrl = (lang: TemplateLang, enPath: string) => `${SITE_ORIGIN}${lang === 'ar' ? `/ar${enPath}` : enPath}`;
 
