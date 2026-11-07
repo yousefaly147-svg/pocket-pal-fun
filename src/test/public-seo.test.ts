@@ -84,12 +84,17 @@ describe("homepage structured data", () => {
   it.each(["en", "ar"] as const)("provides accurate WebSite and SoftwareApplication schema for %s", (language) => {
     const schema = websiteSchema(language);
     const graph = schema["@graph"] as Array<Record<string, unknown>>;
+    const organization = graph.find((node) => node["@type"] === "Organization");
     const website = graph.find((node) => node["@type"] === "WebSite");
     const application = graph.find((node) => node["@type"] === "SoftwareApplication");
 
     expect(schema["@context"]).toBe("https://schema.org");
+    expect(organization?.["name"]).toBe("Pocketjr Finance");
+    expect(organization?.["@id"]).toBe(`${origin}/#organization`);
     expect(website?.["name"]).toBe("Pocketjr Finance");
+    expect(website?.["publisher"]).toEqual({ "@id": `${origin}/#organization` });
     expect(application?.["name"]).toBe("Pocketjr Finance");
+    expect(application?.["publisher"]).toEqual({ "@id": `${origin}/#organization` });
     expect(String(application?.["description"])).toContain(language === "ar" ? "بالعربية والإنجليزية" : "English and Arabic");
     expect(String(application?.["description"])).not.toContain(language === "ar" ? "في مصر" : "for people in Egypt");
     expect(application?.["applicationCategory"]).toBe("FinanceApplication");
