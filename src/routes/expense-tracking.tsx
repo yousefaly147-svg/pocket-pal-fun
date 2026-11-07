@@ -4,16 +4,16 @@ import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/expense-tracking')({
   head: () => ({
-    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/expense-tracking', "Expense Tracking in Egypt: App or Spreadsheet? | Pocketjr Finance", "Choose an expense tracker in Egypt that fits your routine. Compare a spreadsheet with an app, and check EGP display, Arabic, privacy and device sync.")) }],
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/expense-tracking', "Expense Tracking: App or Spreadsheet? | Pocketjr Finance", "Learn how to track everyday expenses, choose useful categories, review recurring costs and compare a spreadsheet with a personal finance app.")) }],
     meta: [
-      { title: 'Expense Tracking in Egypt: App or Spreadsheet? | Pocketjr Finance' },
-      { name: 'description', content: 'Choose an expense tracker in Egypt that fits your routine. Compare a spreadsheet with an app, and check EGP display, Arabic, privacy and device sync.' },
-      { property: 'og:title', content: 'Expense Tracking in Egypt: App or Spreadsheet? | Pocketjr Finance' },
-      { property: 'og:description', content: 'Choose an expense tracker in Egypt that fits your routine. Compare a spreadsheet with an app, and check EGP display, Arabic, privacy and device sync.' },
+      { title: 'Expense Tracking: App or Spreadsheet? | Pocketjr Finance' },
+      { name: 'description', content: 'Learn how to track everyday expenses, choose useful categories, review recurring costs and compare a spreadsheet with a personal finance app.' },
+      { property: 'og:title', content: 'Expense Tracking: App or Spreadsheet? | Pocketjr Finance' },
+      { property: 'og:description', content: 'Learn how to track everyday expenses, choose useful categories, review recurring costs and compare a spreadsheet with a personal finance app.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'Expense Tracking in Egypt: App or Spreadsheet? | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'Choose an expense tracker in Egypt that fits your routine. Compare a spreadsheet with an app, and check EGP display, Arabic, privacy and device sync.' },
+      { name: 'twitter:title', content: 'Expense Tracking: App or Spreadsheet? | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'Learn how to track everyday expenses, choose useful categories, review recurring costs and compare a spreadsheet with a personal finance app.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/expense-tracking' },

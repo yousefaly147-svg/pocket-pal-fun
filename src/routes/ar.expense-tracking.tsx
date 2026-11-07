@@ -4,16 +4,16 @@ import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/ar/expense-tracking')({
   head: () => ({
-    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('ar', '/expense-tracking', "تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance", "اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.")) }],
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('ar', '/expense-tracking', "تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance", "اتعلم تسجل مصاريفك اليومية، وتختار تصنيفات واضحة، وتراجع المصاريف المتكررة، وتقارن بين جدول Excel وتطبيق لمتابعة الفلوس.")) }],
     meta: [
-      { title: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance' },
-      { name: 'description', content: 'اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.' },
-      { property: 'og:title', content: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance' },
-      { property: 'og:description', content: 'اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.' },
+      { title: 'تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance' },
+      { name: 'description', content: 'اتعلم تسجل مصاريفك اليومية، وتختار تصنيفات واضحة، وتراجع المصاريف المتكررة، وتقارن بين جدول Excel وتطبيق لمتابعة الفلوس.' },
+      { property: 'og:title', content: 'تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance' },
+      { property: 'og:description', content: 'اتعلم تسجل مصاريفك اليومية، وتختار تصنيفات واضحة، وتراجع المصاريف المتكررة، وتقارن بين جدول Excel وتطبيق لمتابعة الفلوس.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'اختار طريقة مناسبة لمتابعة المصاريف في مصر. قارن بين الإكسل والتطبيق، وراجع عرض الجنيه واللغة العربية والخصوصية ومزامنة البيانات.' },
+      { name: 'twitter:title', content: 'تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'اتعلم تسجل مصاريفك اليومية، وتختار تصنيفات واضحة، وتراجع المصاريف المتكررة، وتقارن بين جدول Excel وتطبيق لمتابعة الفلوس.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/ar/expense-tracking' },

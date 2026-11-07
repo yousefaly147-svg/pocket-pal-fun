@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Public English and Arabic pages only. Private dashboard/account tools are excluded. -->
-<!-- Guide content refreshed 2026-11-06: monthly-budget and expense-tracking (English and Arabic). -->
-<!-- Homepage search snippet clarified for Pocketjr Finance Egypt on 2026-11-06. -->
+<!-- International homepage positioning and expense-tracking guide updated 2026-11-07. -->
+<!-- EGP-specific budget tools and monthly-budget guide retain their Egypt-focused targeting. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url>
@@ -9,14 +9,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/" />
-    <lastmod>2026-11-06</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/ar</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/" />
-    <lastmod>2026-11-06</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/about</loc>
@@ -51,14 +51,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/guides" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/guides" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/guides" />
-    <lastmod>2026-11-06</lastmod><changefreq>weekly</changefreq><priority>0.8</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>0.8</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/ar/guides</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/guides" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/guides" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/guides" />
-    <lastmod>2026-11-06</lastmod><changefreq>weekly</changefreq><priority>0.8</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>0.8</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/privacy-policy</loc>
@@ -107,14 +107,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/expense-tracking" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/expense-tracking" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/expense-tracking" />
-    <lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/ar/expense-tracking</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/expense-tracking" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/expense-tracking" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/expense-tracking" />
-    <lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/savings-goals</loc>

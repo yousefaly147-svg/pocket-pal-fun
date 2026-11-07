@@ -6,13 +6,13 @@ export const Route = createFileRoute('/guides')({
   head: () => ({
     meta: [
       { title: 'Free Budgeting, Expense Tracking and Savings Guides | Pocketjr Finance' },
-      { name: 'description', content: 'Practical personal finance guides for making a monthly budget in Egypt, tracking daily expenses and setting realistic savings goals.' },
+      { name: 'description', content: 'Practical guides to monthly budgeting, everyday expense tracking and realistic savings goals, with extra tools for planning in Egyptian pounds.' },
       { property: 'og:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
-      { property: 'og:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
+      { property: 'og:description', content: 'Practical guides to planning a budget, tracking everyday expenses and setting savings goals.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
       { name: 'twitter:title', content: 'Budgeting & Expense Tracking Guides | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'Practical guides to budgeting in Egypt, tracking expenses and setting realistic savings goals.' },
+      { name: 'twitter:description', content: 'Practical guides to planning a budget, tracking everyday expenses and setting savings goals.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/guides' },
@@ -30,12 +30,12 @@ export function GuidesPage() {
   const items = ar
     ? [
         { to: '/ar/monthly-budget' as const, title: 'ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي لآخر الشهر', description: 'خطوات عملية لتنظيم الدخل والصرف، وحساب حد يومي لحد القبض الجاي.' },
-        { to: '/ar/expense-tracking' as const, title: 'تتبع المصاريف في مصر: تطبيق ولا جدول؟', description: 'قارن بين الإكسل والتطبيق، وراجع الخصوصية وعرض الجنيه ومزامنة البيانات.' },
+        { to: '/ar/expense-tracking' as const, title: 'تتبع المصاريف: تطبيق ولا جدول؟', description: 'قارن بين الإكسل وتطبيق متابعة المصاريف، وراجع الخصوصية وعرض العملة ومزامنة البيانات.' },
         { to: '/ar/savings-goals' as const, title: 'إزاي تحدد هدف ادخار واقعي', description: 'حوّل هدف الادخار لمبلغ شهري وموعد مناسب لظروفك.' },
       ]
     : [
         { to: '/monthly-budget' as const, title: 'Monthly budget in Egypt: make your salary last', description: 'Plan income and expenses in EGP, list bills due before payday and calculate a daily spending guide.' },
-        { to: '/expense-tracking' as const, title: 'Expense tracking in Egypt: app or spreadsheet?', description: 'Compare a spreadsheet with an app, and check privacy, EGP display and device sync.' },
+        { to: '/expense-tracking' as const, title: 'Expense tracking: app or spreadsheet?', description: 'Compare a spreadsheet with a finance tracker, and check privacy, currency display and device sync.' },
         { to: '/savings-goals' as const, title: 'How to set a realistic savings goal', description: 'Turn a savings target into a manageable monthly plan.' },
       ];
 
@@ -43,8 +43,8 @@ export function GuidesPage() {
     <PublicPageLayout
       title={ar ? 'دليل الميزانية وتتبع المصروفات والادخار' : 'Budgeting, expense tracking and savings guides'}
       description={ar
-        ? 'مقالات عملية تساعدك تنظم الميزانية بالجنيه المصري وتفهم الصرف وتخطط للادخار.'
-        : 'Practical, beginner-friendly articles to help you plan a budget in Egypt, understand spending and work toward savings goals.'}
+        ? 'مقالات عملية تساعدك تنظم الميزانية وتفهم الصرف وتخطط للادخار، مع أدوات إضافية للتخطيط بالجنيه المصري.'
+        : 'Practical, beginner-friendly articles on monthly budgeting, everyday expense tracking and realistic savings goals, with optional EGP-specific tools.'}
     >
       <nav className="public-guide-grid" aria-label={ar ? 'موضوعات الدليل' : 'Guide topics'}>
         {items.map((item) => (

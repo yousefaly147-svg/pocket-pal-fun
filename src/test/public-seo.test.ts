@@ -90,7 +90,8 @@ describe("homepage structured data", () => {
     expect(schema["@context"]).toBe("https://schema.org");
     expect(website?.["name"]).toBe("Pocketjr Finance");
     expect(application?.["name"]).toBe("Pocketjr Finance");
-    expect(String(application?.["description"])).toContain(language === "ar" ? "في مصر" : "Egypt");
+    expect(String(application?.["description"])).toContain(language === "ar" ? "بالعربية والإنجليزية" : "English and Arabic");
+    expect(String(application?.["description"])).not.toContain(language === "ar" ? "في مصر" : "for people in Egypt");
     expect(application?.["applicationCategory"]).toBe("FinanceApplication");
     expect(application?.["operatingSystem"]).toBe("Web browser");
     expect(application?.["isAccessibleForFree"]).toBe(true);
@@ -120,10 +121,10 @@ describe("bilingual public homepage explanation", () => {
   
   it("uses clear and accurate bilingual expense-tracking search language", () => {
     expect(en["landing.heroHighlight"].toLowerCase()).toContain("expense tracker");
-    expect(en["landing.heroBody"].toLowerCase()).toContain("monthly budget in egp");
+    expect(en["landing.heroBody"].toLowerCase()).toContain("monthly budgets");
     expect(en["landing.heroBody"].toLowerCase()).toContain("without downloading an app");
     expect(ar["landing.heroHighlight"]).toContain("مصاريف");
-    expect(ar["landing.heroBody"]).toContain("بالجنيه المصري");
+    expect(ar["landing.heroBody"]).toContain("أهداف الادخار");
     expect(ar["landing.heroBody"]).toContain("من غير تحميل تطبيق");
   });
 });
@@ -160,8 +161,8 @@ describe("guide article structured data", () => {
   it.each([
     ["en", "/monthly-budget", "Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance"],
     ["ar", "/monthly-budget", "ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي | Pocketjr Finance"],
-    ["en", "/expense-tracking", "Expense Tracking in Egypt: App or Spreadsheet? | Pocketjr Finance"],
-    ["ar", "/expense-tracking", "تتبع المصاريف في مصر: تطبيق ولا جدول؟ | Pocketjr Finance"],
+    ["en", "/expense-tracking", "Expense Tracking: App or Spreadsheet? | Pocketjr Finance"],
+    ["ar", "/expense-tracking", "تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance"],
     ["en", "/savings-goals", "How to Set a Realistic Savings Goal"],
     ["ar", "/savings-goals", "إزاي تحدد هدف ادخار واقعي"],
   ] as const)("creates factual Article and breadcrumb data for %s %s", (lang, path, headline) => {
