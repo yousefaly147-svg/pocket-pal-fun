@@ -11,7 +11,7 @@ export const Route = createFileRoute('/')({
     scripts: [{ type: 'application/ld+json', children: JSON.stringify(websiteSchema('en')) }],
     meta: [
       { title: 'Free Expense Tracker & Budget Planner | Pocketjr Finance' },
-      { name: 'description', content: 'Track income and expenses, plan budgets, set savings goals, and keep a manual investment record with Pocketjr, a free personal finance tracker in English and Arabic. Use it in your browser.' },
+      { name: 'description', content: 'Free expense tracker and budget planner to record income, review spending, and set savings goals. Use Pocketjr online in English or Arabic.' },
       { property: 'og:title', content: 'Free Expense Tracker & Budget Planner | Pocketjr Finance' },
       { property: 'og:description', content: 'Track income and expenses, plan budgets, set savings goals, and keep a manual investment record with Pocketjr, a free personal finance tracker in English and Arabic. Use it in your browser.' },
       { property: 'og:type', content: 'website' },
