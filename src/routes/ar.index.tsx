@@ -7,7 +7,7 @@ export const Route = createFileRoute('/ar/')({
     scripts: [{ type: 'application/ld+json', children: JSON.stringify(websiteSchema('ar')) }],
     meta: [
       { title: 'أداة مجانية لتتبع المصاريف وإدارة الميزانية | Pocketjr Finance' },
-      { name: 'description', content: 'سجّل الدخل والصرف، ونظّم ميزانيتك، وتابع أهداف الادخار وسجل استثماراتك اليدوي بالعربية أو الإنجليزية. اختر طريقة عرض العملة وابدأ مجانًا من المتصفح من غير تحميل تطبيق.' },
+      { name: 'description', content: 'سجّل الدخل والصرف، ونظّم ميزانيتك وتابع أهداف الادخار باستخدام Pocketjr مجانًا بالعربية أو الإنجليزية من المتصفح.' },
       { property: 'og:title', content: 'أداة مجانية لتتبع المصاريف وإدارة الميزانية | Pocketjr Finance' },
       { property: 'og:description', content: 'سجّل الدخل والصرف، ونظّم ميزانيتك، وتابع أهداف الادخار وسجل استثماراتك اليدوي بالعربية أو الإنجليزية. اختر طريقة عرض العملة وابدأ مجانًا من المتصفح من غير تحميل تطبيق.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
