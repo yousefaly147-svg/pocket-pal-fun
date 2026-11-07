@@ -116,8 +116,12 @@ jobs:
           fi
           echo "Verified robots.txt and all 24 public URLs in the live sitemap."
 
-          check_page "/" "Free Expense Tracker for Egypt | Pocketjr Finance"
-          check_page "/ar" "تتبع المصاريف والميزانية في مصر مجانًا | Pocketjr Finance"
+          check_page "/" "Free Expense Tracker & Budget Planner | Pocketjr Finance"
+          check_page "/ar" "أداة مجانية لتتبع المصاريف وإدارة الميزانية | Pocketjr Finance"
+          check_page "/monthly-budget" "Monthly Budget: Make Your Salary Last | Pocketjr Finance"
+          check_page "/ar/monthly-budget" "الميزانية الشهرية: إزاي تخلي المرتب يكفي | Pocketjr Finance"
+          check_page "/expense-tracking" "Expense Tracking: App or Spreadsheet? | Pocketjr Finance"
+          check_page "/ar/expense-tracking" "تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance"
           check_page "/egp-budget-calculator" "Free EGP Monthly Budget Calculator for Egypt | Pocketjr Finance"
           check_page "/ar/egp-budget-calculator" "حاسبة الميزانية الشهرية بالجنيه المصري مجانًا | Pocketjr Finance"
 
