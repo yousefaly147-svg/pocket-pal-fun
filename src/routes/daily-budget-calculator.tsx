@@ -3,8 +3,8 @@ import { DailyBudgetCalculator } from '@/components/pocket/daily-budget-calculat
 import { publicHead, toolSchema } from '@/lib/public-seo';
 import { dailyFaqs } from '@/lib/tool-content';
 
-const title = 'Daily Spending Limit Calculator (EGP) | Pocketjr Finance';
-const description = 'Work out how much you can spend per day until payday after bills and savings. Free daily budget calculator in Egyptian pounds.';
+const title = 'Daily Budget Calculator Until Payday | Pocketjr Finance';
+const description = 'Calculate a daily spending limit until payday after bills and planned savings. Use any currency; enter every amount in the same currency.';
 
 export const Route = createFileRoute('/daily-budget-calculator')({
   head: () => publicHead({ lang: 'en', enPath: '/daily-budget-calculator', title, description, schema: toolSchema('en', '/daily-budget-calculator', title, description, dailyFaqs['en']) }),
