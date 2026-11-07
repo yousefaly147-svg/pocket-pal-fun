@@ -74,12 +74,14 @@ export const templateFaqs: Record<TemplateLang, Faq[]> = {
 
 export const dailyFaqs: Record<TemplateLang, Faq[]> = {
   en: [
+    { q: 'Can I use the calculator with any currency?', a: 'Yes. Enter every amount in the same currency. The calculator does not convert currencies; it divides the amounts you enter and shows the result in that same currency.' },
     { q: 'How is the daily spending limit calculated?', a: 'Take the money you have until your next payday, subtract bills and essential costs that are still due and any amount you want to save, then divide what is left by the number of days remaining.' },
     { q: 'What if the result is zero?', a: 'A zero limit means your bills and savings already use all the money you have. The calculator shows the shortfall so you can lower the savings amount, delay a non-essential cost or look for extra income.' },
     { q: 'Should I count today as a day remaining?', a: 'Count today if you still plan to spend today. Using whole days keeps the limit easy to follow.' },
     { q: 'Does the calculator save my numbers?', a: 'No. Everything is calculated in your browser and nothing is stored or sent to Pocketjr. Refreshing the page clears it.' },
   ],
   ar: [
+    { q: 'ينفع أستخدم الحاسبة بأي عملة؟', a: 'أيوه. أدخل كل المبالغ بنفس العملة. الحاسبة مش بتحوّل العملات؛ هي بتقسم الأرقام اللي بتدخلها وبتعرض النتيجة بنفس العملة.' },
     { q: 'حد الصرف اليومي بيتحسب إزاي؟', a: 'بناخد الفلوس اللي معاك لحد القبض الجاي، ونطرح منها الفواتير والمصاريف الأساسية اللي لسه عليك وأي مبلغ عايز تحوّشه، وبعدين نقسم الباقي على عدد الأيام الفاضلة.' },
     { q: 'لو النتيجة طلعت صفر يعني إيه؟', a: 'يعني الفواتير والادخار واخدين كل الفلوس اللي معاك. الحاسبة بتوضح العجز عشان تقلل مبلغ الادخار أو تأجل مصروف مش أساسي أو تدور على دخل إضافي.' },
     { q: 'أحسب النهارده من الأيام الفاضلة؟', a: 'احسبه لو لسه هتصرف النهارده. استخدام أيام كاملة بيخلي الحد سهل تمشي عليه.' },
