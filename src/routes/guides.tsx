@@ -29,12 +29,12 @@ export function GuidesPage() {
   const ar = lang === 'ar';
   const items = ar
     ? [
-        { to: '/ar/monthly-budget' as const, title: 'ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي لآخر الشهر', description: 'خطوات عملية لتنظيم الدخل والصرف، وحساب حد يومي لحد القبض الجاي.' },
+        { to: '/ar/monthly-budget' as const, title: 'الميزانية الشهرية: إزاي تخلي المرتب يكفي لآخر الشهر', description: 'خطوات عملية لتنظيم الدخل والصرف، وحساب حد يومي لحد القبض الجاي.' },
         { to: '/ar/expense-tracking' as const, title: 'تتبع المصاريف: تطبيق ولا جدول؟', description: 'قارن بين الإكسل وتطبيق متابعة المصاريف، وراجع الخصوصية وعرض العملة ومزامنة البيانات.' },
         { to: '/ar/savings-goals' as const, title: 'إزاي تحدد هدف ادخار واقعي', description: 'حوّل هدف الادخار لمبلغ شهري وموعد مناسب لظروفك.' },
       ]
     : [
-        { to: '/monthly-budget' as const, title: 'Monthly budget in Egypt: make your salary last', description: 'Plan income and expenses in EGP, list bills due before payday and calculate a daily spending guide.' },
+        { to: '/monthly-budget' as const, title: 'Monthly budget: make your salary last', description: 'Plan income, bills, flexible spending and savings, then calculate a realistic daily limit before payday.' },
         { to: '/expense-tracking' as const, title: 'Expense tracking: app or spreadsheet?', description: 'Compare a spreadsheet with a finance tracker, and check privacy, currency display and device sync.' },
         { to: '/savings-goals' as const, title: 'How to set a realistic savings goal', description: 'Turn a savings target into a manageable monthly plan.' },
       ];

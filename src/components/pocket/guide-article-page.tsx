@@ -15,12 +15,12 @@ const guides: Record<GuideSlug, {
 }> = {
   'monthly-budget': {
     title: {
-      en: 'Monthly Budget in Egypt: Make Your Salary Last',
-      ar: 'ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي لآخر الشهر',
+      en: 'Monthly Budget: Make Your Salary Last',
+      ar: 'الميزانية الشهرية: إزاي تخلي المرتب يكفي لآخر الشهر',
     },
     description: {
-      en: 'A practical beginner guide to planning monthly income and expenses in Egyptian pounds, setting spending limits and reviewing your budget.',
-      ar: 'دليل عملي للمبتدئين لتنظيم الدخل والمصروفات بالجنيه المصري وتحديد حدود للصرف ومراجعة الميزانية كل شهر.',
+      en: 'A practical beginner guide to planning monthly income and expenses, setting spending limits and reviewing your budget before payday.',
+      ar: 'دليل عملي للمبتدئين لتنظيم الدخل والمصروفات وتحديد حدود للصرف ومراجعة الميزانية كل شهر.',
     },
     intro: {
       en: 'A monthly budget is a simple plan for the money you expect to receive and the costs you need to cover. It is not a strict rulebook. A useful budget reflects your real circumstances, helps you prepare for upcoming bills and gives you a clearer view of what is left.',

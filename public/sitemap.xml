@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Public English and Arabic pages only. Private dashboard/account tools are excluded. -->
-<!-- International homepage positioning and expense-tracking guide updated 2026-11-07. -->
-<!-- EGP-specific budget tools and monthly-budget guide retain their Egypt-focused targeting. -->
+<!-- International homepage, guide directory and general articles updated 2026-11-07. -->
+<!-- EGP budget calculator and monthly expense template retain their Egypt-specific targeting. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url>
@@ -93,14 +93,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/monthly-budget" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/monthly-budget" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/monthly-budget" />
-    <lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/ar/monthly-budget</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/monthly-budget" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/monthly-budget" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/monthly-budget" />
-    <lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
   </url>
 <url>
     <loc>https://pocketjr.lovable.app/expense-tracking</loc>

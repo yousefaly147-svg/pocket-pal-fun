@@ -4,16 +4,16 @@ import { articleSchema } from '@/lib/public-seo';
 
 export const Route = createFileRoute('/monthly-budget')({
   head: () => ({
-    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/monthly-budget', "Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance", "Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.")) }],
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(articleSchema('en', '/monthly-budget', "Monthly Budget: Make Your Salary Last | Pocketjr Finance", "Build a monthly budget, list bills due before payday and calculate a realistic daily spending limit using your own numbers.")) }],
     meta: [
-      { title: 'Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance' },
-      { name: 'description', content: 'Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
-      { property: 'og:title', content: 'Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance' },
-      { property: 'og:description', content: 'Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
+      { title: 'Monthly Budget: Make Your Salary Last | Pocketjr Finance' },
+      { name: 'description', content: 'Build a monthly budget, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
+      { property: 'og:title', content: 'Monthly Budget: Make Your Salary Last | Pocketjr Finance' },
+      { property: 'og:description', content: 'Build a monthly budget, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
       { property: 'og:site_name', content: 'Pocketjr Finance' },
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:title', content: 'Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance' },
-      { name: 'twitter:description', content: 'Build a monthly budget in EGP, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
+      { name: 'twitter:title', content: 'Monthly Budget: Make Your Salary Last | Pocketjr Finance' },
+      { name: 'twitter:description', content: 'Build a monthly budget, list bills due before payday and calculate a realistic daily spending limit using your own numbers.' },
     ],
     links: [
       { rel: 'canonical', href: 'https://pocketjr.lovable.app/monthly-budget' },

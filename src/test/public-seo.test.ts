@@ -159,8 +159,8 @@ describe("EGP calculator structured data", () => {
 
 describe("guide article structured data", () => {
   it.each([
-    ["en", "/monthly-budget", "Monthly Budget in Egypt: Make Your Salary Last | Pocketjr Finance"],
-    ["ar", "/monthly-budget", "ميزانية شهرية في مصر: إزاي تخلي المرتب يكفي | Pocketjr Finance"],
+    ["en", "/monthly-budget", "Monthly Budget: Make Your Salary Last | Pocketjr Finance"],
+    ["ar", "/monthly-budget", "الميزانية الشهرية: إزاي تخلي المرتب يكفي | Pocketjr Finance"],
     ["en", "/expense-tracking", "Expense Tracking: App or Spreadsheet? | Pocketjr Finance"],
     ["ar", "/expense-tracking", "تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance"],
     ["en", "/savings-goals", "How to Set a Realistic Savings Goal"],
