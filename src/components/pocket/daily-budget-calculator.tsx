@@ -8,7 +8,7 @@ import { trackEvent } from '@/lib/analytics';
 
 type Field = 'availableMoney' | 'billsDue' | 'savings' | 'daysRemaining';
 
-const formatAmount = (n: number) => new Intl.NumberFormat('en', { maximumFractionDigits: 2 }).format(n);
+const formatAmount = (n: number, _language: 'en' | 'ar') => new Intl.NumberFormat('en', { maximumFractionDigits: 2 }).format(n);
 
 export function DailyBudgetCalculator() {
   const { lang } = useI18n();
@@ -25,15 +25,15 @@ export function DailyBudgetCalculator() {
 
   const fields: Array<{ key: Field; label: string; hint: string; unit: string; step: string }> = ar
     ? [
-        { key: 'availableMoney', label: 'الفلوس اللي معاك لحد القبض الجاي', hint: 'كاش ورصيد متاح للصرف', unit: 'نفس العملة', step: '0.01' },
-        { key: 'billsDue', label: 'فواتير ومصاريف أساسية لسه عليك', hint: 'زي الإيجار أو الكهرباء أو قسط لسه ما اتدفعش', unit: 'نفس العملة', step: '0.01' },
-        { key: 'savings', label: 'مبلغ عايز تحوّشه (اختياري)', hint: 'سيبه فاضي لو مش هتدّخر الفترة دي', unit: 'نفس العملة', step: '0.01' },
+        { key: 'availableMoney', label: 'الفلوس اللي معاك لحد القبض الجاي', hint: 'كاش ورصيد متاح للصرف', unit: 'عملة', step: '0.01' },
+        { key: 'billsDue', label: 'فواتير ومصاريف أساسية لسه عليك', hint: 'زي الإيجار أو الكهرباء أو قسط لسه ما اتدفعش', unit: 'عملة', step: '0.01' },
+        { key: 'savings', label: 'مبلغ عايز تحوّشه (اختياري)', hint: 'سيبه فاضي لو مش هتدّخر الفترة دي', unit: 'عملة', step: '0.01' },
         { key: 'daysRemaining', label: 'عدد الأيام الفاضلة', hint: 'لحد يوم القبض الجاي، أيام كاملة', unit: ar ? 'يوم' : 'days', step: '1' },
       ]
     : [
-        { key: 'availableMoney', label: 'Money available until next payday', hint: 'Cash and balances you can spend', unit: 'same currency', step: '0.01' },
-        { key: 'billsDue', label: 'Bills and essential costs still due', hint: 'For example rent, electricity or an instalment not yet paid', unit: 'same currency', step: '0.01' },
-        { key: 'savings', label: 'Amount to save (optional)', hint: 'Leave empty if you are not saving this period', unit: 'same currency', step: '0.01' },
+        { key: 'availableMoney', label: 'Money available until next payday', hint: 'Cash and balances you can spend', unit: 'currency', step: '0.01' },
+        { key: 'billsDue', label: 'Bills and essential costs still due', hint: 'For example rent, electricity or an instalment not yet paid', unit: 'currency', step: '0.01' },
+        { key: 'savings', label: 'Amount to save (optional)', hint: 'Leave empty if you are not saving this period', unit: 'currency', step: '0.01' },
         { key: 'daysRemaining', label: 'Days remaining', hint: 'Whole days until your next payday', unit: 'days', step: '1' },
       ];
 
