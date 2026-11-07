@@ -37,6 +37,7 @@ on:
       - 'src/components/pocket/landing-page.tsx'
       - 'src/components/pocket/guide-article-page.tsx'
       - 'src/components/pocket/egp-budget-calculator.tsx'
+      - 'src/components/pocket/daily-budget-calculator.tsx'
       - 'src/lib/i18n/en.ts'
       - 'src/lib/i18n/ar.ts'
       - 'src/lib/public-seo.ts'
@@ -127,6 +128,8 @@ jobs:
           check_page "/ar/expense-tracking" "تتبع المصاريف: تطبيق ولا جدول؟ | Pocketjr Finance"
           check_page "/egp-budget-calculator" "Free EGP Monthly Budget Calculator for Egypt | Pocketjr Finance"
           check_page "/ar/egp-budget-calculator" "حاسبة الميزانية الشهرية بالجنيه المصري مجانًا | Pocketjr Finance"
+          check_page "/daily-budget-calculator" "Daily Budget Calculator Until Payday | Pocketjr Finance"
+          check_page "/ar/daily-budget-calculator" "حاسبة حد الصرف اليومي حتى موعد القبض | Pocketjr Finance"
 
       - name: Submit recently updated canonical public URLs
         shell: bash
