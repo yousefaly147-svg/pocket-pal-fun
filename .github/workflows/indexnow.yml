@@ -1,5 +1,6 @@
 name: Notify search engines with IndexNow
 # IndexNow can notify participating engines such as Bing; it is not a Google indexing submission.
+# Keep smoke-test titles in sync with the current English/Arabic route metadata before submitting URLs.
 
 on:
   workflow_dispatch:
