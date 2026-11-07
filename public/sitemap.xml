@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Public English and Arabic pages only. Private dashboard/account tools are excluded. -->
 <!-- International homepage, guide directory and general articles updated 2026-11-07. -->
-<!-- EGP budget calculator and monthly expense template retain their Egypt-specific targeting. -->
+<!-- EGP monthly budget calculator and monthly expense template remain Egypt-specific; daily budget calculator supports any single currency. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url>
@@ -163,13 +163,13 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/daily-budget-calculator" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/daily-budget-calculator" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/daily-budget-calculator" />
-    <lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
   </url>
   <url>
     <loc>https://pocketjr.lovable.app/ar/daily-budget-calculator</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://pocketjr.lovable.app/daily-budget-calculator" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://pocketjr.lovable.app/ar/daily-budget-calculator" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketjr.lovable.app/daily-budget-calculator" />
-    <lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <lastmod>2026-11-07</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
   </url>
 </urlset>
