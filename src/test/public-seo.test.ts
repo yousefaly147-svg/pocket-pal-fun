@@ -175,6 +175,8 @@ describe("guide article structured data", () => {
     const graph = schema["@graph"] as Array<Record<string, unknown>>;
     const article = graph.find((node) => node["@type"] === "Article");
     const breadcrumb = graph.find((node) => node["@type"] === "BreadcrumbList");
+    const breadcrumbItems = breadcrumb?.["itemListElement"] as Array<Record<string, unknown>>;
+    expect(breadcrumbItems?.[0]?.["item"]).toBe(lang === "ar" ? `${origin}/ar` : `${origin}/`);
     expect(article?.["headline"]).toBe(headline);
     expect(article?.["mainEntityOfPage"]).toBe(`${origin}${lang === "ar" ? `/ar${path}` : path}`);
     expect((article?.["author"] as Record<string, unknown>)?.["name"]).toBe("Pocketjr Finance");
