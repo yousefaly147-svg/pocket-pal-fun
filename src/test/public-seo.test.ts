@@ -162,6 +162,21 @@ describe("EGP calculator structured data", () => {
   });
 });
 
+describe("canonical Arabic homepage navigation", () => {
+  it("does not emit trailing-slash Arabic homepage links that redirect", () => {
+    const navigationFiles = [
+      "src/components/pocket/lang-toggle.tsx",
+      "src/components/pocket/landing-page.tsx",
+      "src/components/pocket/public-page-layout.tsx",
+      "src/components/pocket/guide-article-page.tsx",
+    ];
+    for (const path of navigationFiles) {
+      const source = readFileSync(resolve(process.cwd(), path), "utf8");
+      expect(source, path).not.toContain("'/ar/'");
+    }
+  });
+});
+
 describe("guide article structured data", () => {
   it.each([
     ["en", "/monthly-budget", "Monthly Budget: Make Your Salary Last | Pocketjr Finance"],
