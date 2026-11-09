@@ -46,7 +46,7 @@ function breadcrumb(lang: TemplateLang, enPath: string, name: string) {
   return {
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: ar ? 'الرئيسية' : 'Home', item: ar ? `${SITE_ORIGIN}/ar/` : `${SITE_ORIGIN}/` },
+      { '@type': 'ListItem', position: 1, name: ar ? 'الرئيسية' : 'Home', item: ar ? `${SITE_ORIGIN}/ar` : `${SITE_ORIGIN}/` },
       { '@type': 'ListItem', position: 2, name: ar ? 'دليل المال' : 'Money guides', item: localizedUrl(lang, '/guides') },
       { '@type': 'ListItem', position: 3, name, item: localizedUrl(lang, enPath) },
     ],
