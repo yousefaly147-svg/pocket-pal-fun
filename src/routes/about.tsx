@@ -41,8 +41,19 @@ export function AboutPage() {
           <p>بنركز على تجربة سهلة وواضحة، مع دعم العربية والإنجليزية. تقدر تبدأ كضيف أو تستخدم حسابًا لمزامنة بياناتك حسب المزايا المتاحة في الخدمة.</p>
         </section>
         <section>
+          <h2>كيف يعمل Pocketjr؟</h2>
+          <ul>
+            <li>تسجّل الدخل والصرف والاستثمارات يدويًا، والموقع لا يتصل بكل البنوك ولا يقرأ إشعارات أندرويد.</li>
+            <li>الميزانية والأهداف الادخارية أدوات للتخطيط والمتابعة فقط، ولا تحتفظ بأموال حقيقية ولا تنقلها.</li>
+            <li>بيانات وضع الضيف تبقى على هذا الجهاز/المتصفح فقط، أما بيانات الحساب فتتزامن عبر الأجهزة المدعومة عند تسجيل الدخول.</li>
+            <li>تغيير رمز العملة المعروض لا يحوّل المبالغ المسجلة.</li>
+            <li>استيراد إشعارات تيلدا اختياري ومتاح فقط في تطبيق أندرويد المتوافق بعد منح إذن الوصول إلى الإشعارات.</li>
+          </ul>
+          <p>ابدأ من <a href="/ar/monthly-budget">دليل الميزانية الشهرية</a> أو <a href="/ar/daily-budget-calculator">حاسبة الميزانية اليومية</a> أو <a href="/ar/monthly-expenses-template">جدول المصاريف الشهرية</a>، أو تصفح <a href="/ar/guides">كل الأدلة</a>.</p>
+        </section>
+        <section>
           <h2>ما الذي لا يقدمه Pocketjr؟</h2>
-          <p>Pocketjr مش بنك ولا محفظة دفع، ومش بيقدم نصائح مالية أو ضريبية أو استثمارية. هو أداة لتسجيل ومراجعة معلوماتك الشخصية، والقرارات المالية تفضل مسؤوليتك.</p>
+          <p>Pocketjr مش بنك ولا محفظة دفع ولا مستشار مالي، ومش بيقدم نصائح مالية أو ضريبية أو استثمارية. هو أداة لتسجيل ومراجعة معلوماتك الشخصية، والقرارات المالية تفضل مسؤوليتك.</p>
         </section>
         <p>للاستفسارات أو الدعم: <a href="mailto:yousefaly147@gmail.com">yousefaly147@gmail.com</a>.</p>
       </> : <>
@@ -55,8 +66,19 @@ export function AboutPage() {
           <p>We focus on a straightforward experience with English and Arabic support. You can start as a guest or use an account to sync your information across supported devices.</p>
         </section>
         <section>
+          <h2>How Pocketjr works</h2>
+          <ul>
+            <li>You enter income, expenses and investments manually. The website does not connect to all banks and does not read Android notifications.</li>
+            <li>Budgets and savings goals are planning and tracking tools only; they do not hold or move real money.</li>
+            <li>Guest records stay on the current device and browser. Signed-in data syncs to your account across supported signed-in devices.</li>
+            <li>Changing the displayed currency label does not convert amounts you have already recorded.</li>
+            <li>Optional Telda notification import is available only in the compatible Android app, after you grant Android notification access.</li>
+          </ul>
+          <p>Get started with the <a href="/monthly-budget">monthly budget guide</a>, the <a href="/daily-budget-calculator">daily budget calculator</a> or the <a href="/monthly-expenses-template">monthly expenses template</a>, or browse <a href="/guides">all guides</a>.</p>
+        </section>
+        <section>
           <h2>What Pocketjr is not</h2>
-          <p>Pocketjr is not a bank or payment wallet, and it does not provide financial, tax or investment advice. It is a personal recordkeeping tool; financial decisions remain your responsibility.</p>
+          <p>Pocketjr is not a bank, payment wallet or financial adviser, and it does not provide financial, tax or investment advice. It is a personal recordkeeping tool; financial decisions remain your responsibility.</p>
         </section>
         <p>For questions or support, email <a href="mailto:yousefaly147@gmail.com">yousefaly147@gmail.com</a>.</p>
       </>}
