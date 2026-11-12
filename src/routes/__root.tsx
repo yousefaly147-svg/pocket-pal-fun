@@ -15,7 +15,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider, langBootScript } from "../lib/i18n";
 import { AuthProvider } from "../lib/auth";
-import { ADSENSE_SITE_VERIFICATION_META } from "../lib/adsense-verification";
+import { ADSENSE_LOADER_SCRIPT, ADSENSE_SITE_VERIFICATION_META } from "../lib/adsense-verification";
 import { trackPageView } from "../lib/analytics";
 
 function NotFoundComponent() {
@@ -116,6 +116,11 @@ function gtag(){window.dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-XF6WJJQYRD', { send_page_view: false });`,
           }}
+        />
+        <script
+          async={ADSENSE_LOADER_SCRIPT.async}
+          src={ADSENSE_LOADER_SCRIPT.src}
+          crossOrigin={ADSENSE_LOADER_SCRIPT.crossOrigin}
         />
         <script dangerouslySetInnerHTML={{ __html: langBootScript }} />
         <HeadContent />

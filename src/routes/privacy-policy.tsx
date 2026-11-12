@@ -42,7 +42,7 @@ export function PrivacyPolicyPage() {
           <div>
             <p className="text-sm text-muted-foreground">Pocketjr</p>
             <h1 className="text-3xl font-extrabold tracking-tight">Privacy Policy</h1>
-            <p className="mt-1 text-sm text-muted-foreground">Last updated: 6 November 2026</p>
+            <p className="mt-1 text-sm text-muted-foreground">Last updated: 12 November 2026</p>
           </div>
         </header>
 
@@ -129,15 +129,22 @@ export function PrivacyPolicyPage() {
             {' '}<a className="underline underline-offset-4" href="https://lovable.dev/privacy" target="_blank" rel="noopener noreferrer">Lovable</a>.
           </p>
           <p className="leading-7 text-muted-foreground">
-            A Google AdSense site-ownership verification meta tag is included in the website's HTML
-            head. It identifies the publisher account for site ownership checks; it does not load
-            advertising code or display ads. Advertising is not currently active on Pocketjr. If ads
-            are introduced later, advertising partners such as Google may use cookies or similar
-            technologies to deliver and measure ads and, where permitted, personalize them according
-            to applicable settings and your choices. We will provide any required notice and consent
-            choices before enabling ads. No advertising placements are currently configured, and
-            we do not intend to include transaction amounts, balances or descriptions in advertising
-            requests. You can learn more about Google's practices in its <a className="underline underline-offset-4" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">advertising technologies policy</a>.
+            Advertising is not currently active on Pocketjr, and no ad placements are currently
+            configured. The website's HTML head includes Google AdSense site-ownership code (a
+            verification meta tag and Google's standard AdSense script) so Google can review the
+            site. We do not intend to include transaction amounts, balances or descriptions in any
+            advertising request.
+          </p>
+          <h3 className="font-semibold">If ads are shown in the future</h3>
+          <ul className="list-disc space-y-2 ps-6 leading-7 text-muted-foreground">
+            <li>Third-party vendors, including Google, may use cookies to serve ads based on your previous visits to this website and other websites.</li>
+            <li>Google's use of advertising cookies enables Google and its partners to serve ads to you based on your visits to this site and/or other sites on the internet.</li>
+            <li>You can opt out of personalized advertising by visiting <a className="underline underline-offset-4" href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>. Alternatively, you can opt out of some third-party vendors' use of cookies for personalized advertising at <a className="underline underline-offset-4" href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info/choices</a>.</li>
+            <li>If other ad networks or vendors are enabled later, we will list their names, links to their privacy policies and any opt-out choices they offer here.</li>
+            <li>Before serving ads that require consent to visitors in the European Economic Area (EEA), the United Kingdom or Switzerland, Pocketjr will set up a Google-certified consent management platform so those visitors can make a choice first.</li>
+          </ul>
+          <p className="leading-7 text-muted-foreground">
+            Learn more in Google's <a className="underline underline-offset-4" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">advertising technologies policy</a>.
           </p>
         </section>
 
@@ -201,7 +208,7 @@ export function PrivacyPolicyPage() {
           <h2 className="text-2xl font-extrabold">سياسة الخصوصية</h2>
           <p className="leading-8 text-muted-foreground">
             توضح هذه السياسة كيفية تعامل Pocketjr (الذي يظهر أحيانًا باسم Pocket Pal) مع المعلومات عند استخدام الموقع وتطبيق أندرويد.
-            آخر تحديث: ٦ نوفمبر ٢٠٢٦.
+            آخر تحديث: 12 نوفمبر 2026.
           </p>
           <section className="space-y-2">
             <h3 className="text-lg font-bold">المعلومات التي نتعامل معها</h3>
@@ -228,11 +235,20 @@ export function PrivacyPolicyPage() {
               وRender لاستضافة واجهة API، وSupabase لاستضافة قاعدة البيانات، وLovable لاستضافة الموقع ونشره، كما قد نفصح عن معلومات إذا ألزمنا القانون بذلك.
             </p>
             <p className="leading-8 text-muted-foreground">
-              يوجد وسم تحقق من ملكية الموقع في Google AdSense داخل قسم الرأس (head) في صفحات الموقع.
-              يعرّف هذا الوسم حساب الناشر للتحقق من الملكية، ولا يحمّل شيفرة إعلانية ولا يعرض إعلانات. الإعلانات غير مفعّلة حاليًا في Pocketjr.
-              إذا أضفنا إعلانات مستقبلًا، فقد يستخدم شركاء الإعلان مثل Google ملفات تعريف الارتباط أو تقنيات مشابهة لعرض الإعلانات وقياس أدائها وتخصيصها
-              حيثما تسمح القواعد والإعدادات واختياراتك. سنوفر أي إشعار وخيارات موافقة مطلوبة قبل تفعيل الإعلانات. لا توجد حاليًا مواضع إعلانية مفعّلة،
-              ولا ننوي تضمين مبالغ المعاملات أو الأرصدة أو أوصاف المعاملات في طلبات الإعلانات.
+              الإعلانات غير مفعّلة حاليًا في Pocketjr، ولا توجد مواضع إعلانية مُعدّة حاليًا. يتضمن قسم الرأس (head) في صفحات الموقع شيفرة
+              التحقق من ملكية الموقع في Google AdSense (وسم تحقق وسكربت AdSense القياسي من Google) حتى تتمكن Google من مراجعة الموقع.
+              ولا ننوي تضمين مبالغ المعاملات أو الأرصدة أو أوصاف المعاملات في أي طلب إعلاني.
+            </p>
+            <h4 className="font-semibold">إذا عرضنا إعلانات مستقبلًا</h4>
+            <ul className="list-disc space-y-2 ps-6 leading-8 text-muted-foreground">
+              <li>قد يستخدم موردو جهات خارجية، بما فيهم Google، ملفات تعريف الارتباط لعرض إعلانات بناءً على زياراتك السابقة لهذا الموقع ولمواقع أخرى.</li>
+              <li>تتيح ملفات تعريف الارتباط الإعلانية لدى Google لها ولشركائها عرض إعلانات لك بناءً على زياراتك لهذا الموقع و/أو مواقع أخرى على الإنترنت.</li>
+              <li>يمكنك إيقاف الإعلانات المخصّصة من <a className="underline underline-offset-4" href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">إعدادات الإعلانات في Google</a>، أو إيقاف استخدام بعض الموردين الخارجيين لملفات تعريف الارتباط للإعلانات المخصّصة عبر <a className="underline underline-offset-4" href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info/choices</a>.</li>
+              <li>إذا فعّلنا لاحقًا شبكات أو موردين إعلانيين آخرين، فسنذكر أسماءهم وروابط سياسات الخصوصية الخاصة بهم وخيارات الإيقاف المتاحة هنا.</li>
+              <li>قبل عرض إعلانات تتطلب موافقة للزوار في المنطقة الاقتصادية الأوروبية أو المملكة المتحدة أو سويسرا، سيُعدّ Pocketjr منصة لإدارة الموافقة معتمدة من Google ليتمكن هؤلاء الزوار من الاختيار أولًا.</li>
+            </ul>
+            <p className="leading-8 text-muted-foreground">
+              لمزيد من المعلومات راجع <a className="underline underline-offset-4" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">سياسة تقنيات الإعلانات من Google</a>.
             </p>
           </section>
           <section className="space-y-2">
