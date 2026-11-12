@@ -52,7 +52,7 @@ describe("AdSense readiness", () => {
     expect(policy.match(/https:\/\/adssettings\.google\.com\//g)).toHaveLength(2);
     expect(policy.match(/https:\/\/www\.aboutads\.info\/choices\//g)).toHaveLength(2);
     expect(policy).toContain("Third-party vendors, including Google, may use cookies");
-    expect(policy).toContain("no ad placements are currently configured");
+    expect(policy).toMatch(/no ad placements are currently\s+configured/);
     expect(policy).toContain("Google-certified consent management platform");
     expect(policy).toContain("موردو جهات خارجية، بما فيهم Google");
     expect(policy).toContain("Google Analytics 4");
