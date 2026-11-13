@@ -50,6 +50,14 @@ const guides: Record<GuideSlug, {
         ]},
         { heading: 'A simple EGP example', paragraphs: [
           'Imagine a person expects to receive EGP 10,000 in a month. They might first list rent and bills, then estimate food and transport, then decide whether anything is available for savings. The right amounts depend on household size, housing, debt, location and personal commitments; there is no single percentage split that works for everyone.'
+        ]},
+        { heading: 'A worked monthly plan', paragraphs: [
+          'Consider a fictional example with EGP 10,000 of take-home income: EGP 4,500 for fixed commitments, EGP 3,000 for flexible spending and EGP 500 set aside as a planned saving contribution. The plan leaves EGP 2,000 unassigned. That remainder is not automatically spare cash: check whether annual bills, school costs, repairs, medical expenses or other irregular commitments still need to be covered.',
+          'Write those irregular costs down and decide whether part of the remainder should be reserved for them. At the end of the month, compare each planned amount with what you actually recorded. If groceries repeatedly cost more than expected, update that category using your own records rather than forcing the same figure into next month. These numbers are an arithmetic example, not a recommended budget or a claim about typical household costs.'
+        ]},
+        { heading: 'When income changes from month to month', paragraphs: [
+          'Start with a conservative estimate based on income you can reasonably rely on, not the best month you have had. List essential commitments first and keep optional spending flexible. When extra income arrives, check upcoming bills and any shortfall before assigning it to a new purchase or savings target.',
+          'For weekly, seasonal or freelance income, plan around the dates money is likely to arrive. Keep a simple list of payments due before the next expected income date. Revisit the plan whenever an invoice is delayed, a shift is cancelled or a new expense appears. A budget should describe the cash flow you actually face; it should not assume every month is identical.'
         ]}
       ],
       ar: [
@@ -75,6 +83,14 @@ const guides: Record<GuideSlug, {
         ]},
         { heading: 'مثال بسيط بالجنيه المصري', paragraphs: [
           'تخيل إن شخص متوقع يستلم ١٠,٠٠٠ جنيه خلال الشهر. يبدأ بكتابة الإيجار والفواتير، وبعدها يقدر الأكل والمواصلات، ثم يشوف هل فيه مبلغ متاح للادخار. المبالغ المناسبة بتختلف حسب عدد أفراد الأسرة والسكن والديون والمكان والالتزامات؛ مفيش تقسيمة واحدة تناسب كل الناس.'
+        ]},
+        { heading: 'مثال عملي لميزانية شهرية', paragraphs: [
+          'في مثال افتراضي، شخص دخله بعد الخصومات ١٠,٠٠٠ جنيه: يخصص ٤,٥٠٠ جنيه للالتزامات الثابتة، و٣,٠٠٠ جنيه للصرف المرن، و٥٠٠ جنيه للادخار المخطط. كده فاضل ٢,٠٠٠ جنيه لسه مش متوزعين. المبلغ ده مش بالضرورة فلوس زيادة؛ لازم تراجع هل فيه مصاريف غير منتظمة زي مصاريف الدراسة أو الصيانة أو العلاج أو فواتير سنوية.',
+          'اكتب الالتزامات دي وحدد هل محتاج تحتفظ بجزء من المتبقي ليها. في نهاية الشهر قارن المخطط باللي صرفته فعلًا. لو الأكل مثلًا طلع أغلى من المتوقع أكتر من مرة، عدّل البند بناءً على سجلك بدل ما تفرض نفس الرقم كل شهر. الأرقام دي للتوضيح الحسابي بس، ومش تقسيمة موصى بيها ولا وصف لمتوسط مصاريف الأسر.'
+        ]},
+        { heading: 'لو دخلك بيتغير من شهر للتاني', paragraphs: [
+          'ابدأ بتقدير محافظ مبني على الدخل اللي تقدر تعتمد عليه، مش أعلى دخل حققته في شهر كويس. اكتب الالتزامات الأساسية الأول وخلي الصرف الاختياري مرن. لما يدخل مبلغ إضافي، راجع الفواتير القريبة وأي عجز موجود قبل ما تخصصه لشراء جديد أو لهدف ادخار.',
+          'لو دخلك أسبوعي أو موسمي أو من شغل حر، خطط حسب مواعيد دخول الفلوس المتوقعة. احتفظ بقائمة بسيطة بالفواتير المستحقة قبل موعد الدخل الجاي. راجع الخطة لو دفعة اتأخرت أو شيفت اتلغى أو ظهرت مصاريف جديدة. الميزانية المفيدة بتوصف حركة الفلوس اللي بتحصل فعلًا، مش بتفترض إن كل شهر نسخة من اللي قبله.'
         ]}
       ]
     },
@@ -120,6 +136,14 @@ const guides: Record<GuideSlug, {
           'Check the basics before choosing: does it support the language you use, display your preferred currency (for example, EGP), work on your phone or computer, and let you export or keep a copy of your records? A currency symbol or display preference does not automatically convert amounts between currencies.',
           'Think about how your data is stored. A spreadsheet gives you control but needs manual updates. A signed-in app may sync between devices, while guest mode may keep records on one device only. Read what permissions an import feature needs, and never give a tracking app your bank password, card PIN or one-time passcode.',
           'Pocketjr is a recordkeeping tool for income, expenses, budgets, investments and savings goals. Guest records stay on the current device; signed-in records sync with the account. The currency choice changes the displayed label, not the amounts. Pocketjr does not provide universal bank connections. Optional Telda notification import is available only in the compatible Android app with notification access; the website itself cannot read Android notifications.'
+        ]},
+        { heading: 'A one-week example: turn transactions into a useful review', paragraphs: [
+          'Imagine a fictional week with EGP 750 recorded for groceries, EGP 180 for transport, EGP 320 for takeaway meals and EGP 120 for a subscription renewal. The total is EGP 1,370. The useful question is not whether EGP 1,370 is good or bad for somebody else; it is whether the entries are complete and how they compare with your own plan.',
+          'At the end of the week, check for missing cash purchases, refunds and recurring charges. Look at the categories that changed most and decide whether anything needs a different limit next week. One unusually expensive week may have a one-off explanation, so compare several weeks before deciding that a habit has changed. The example amounts are fictional and are not spending benchmarks.'
+        ]},
+        { heading: 'Avoid counting the same money twice', paragraphs: [
+          'Choose a consistent way to record transfers between your own accounts and cash. For example, moving EGP 500 from a bank account to your wallet is not a purchase by itself if you later record each cash purchase. Counting both the withdrawal and the purchases would count the same money twice.',
+          'With a credit card, one common method is to record each purchase as the expense when you make it, then treat the later card-bill payment as settling that balance rather than as a second purchase. The exact categories available differ between tools, so keep your method consistent and check that totals do not double-count transfers or repayments.'
         ]}
       ],
       ar: [
@@ -145,6 +169,14 @@ const guides: Record<GuideSlug, {
           'قبل ما تختار، راجع الأساسيات: هل الأداة بتدعم اللغة اللي بتستخدمها؟ هل بتعرض العملة اللي تناسبك، زي الجنيه المصري مثلًا؟ هل تشتغل على موبايلك أو الكمبيوتر؟ وهل تقدر تصدّر بياناتك أو تحتفظ بنسخة منها؟ ظهور رمز عملة مختلف مش معناه إن المبالغ اتحولت فعلًا.',
           'فكر في مكان حفظ البيانات. جدول الإكسل بيديك تحكم أكبر لكنه محتاج تسجيل يدوي. التطبيق اللي بتسجل فيه بحساب ممكن يزامن البيانات بين أجهزتك، بينما وضع الضيف ممكن يخلي البيانات على جهاز واحد بس. راجع الصلاحيات اللي أي استيراد محتاجها، ومتديش لأي تطبيق كلمة مرور البنك أو الرقم السري للبطاقة أو كود الاستخدام مرة واحدة.',
           'Pocketjr أداة لتسجيل الدخل والصرف والميزانيات والاستثمارات وأهداف الادخار. بيانات وضع الضيف بتفضل على الجهاز الحالي، والبيانات المرتبطة بحساب بتتزامن بين الأجهزة. اختيار العملة بيغيّر الرمز المعروض بس، ومش بيحوّل المبالغ. Pocketjr مش بيقدم ربط تلقائي بكل البنوك. استيراد إشعارات تلدا الاختياري متاح في نسخة أندرويد المتوافقة بعد السماح بالوصول للإشعارات؛ الموقع نفسه مش بيقرأ إشعارات أندرويد.'
+        ]},
+        { heading: 'مثال أسبوع: حوّل المعاملات لمراجعة مفيدة', paragraphs: [
+          'تخيل أسبوع افتراضي سجلت فيه ٧٥٠ جنيه للبقالة، و١٨٠ جنيه للمواصلات، و٣٢٠ جنيه لطلبات الأكل، و١٢٠ جنيه لتجديد اشتراك. الإجمالي ١,٣٧٠ جنيه. السؤال المفيد مش هل الرقم ده مناسب لغيرك؛ السؤال هل كل العمليات اتسجلت، وإزاي الإجمالي ده مقارنة بخطتك أنت.',
+          'في نهاية الأسبوع، راجع المشتريات النقدية اللي ممكن تكون نسيتها، والمرتجعات والاشتراكات المتكررة. بص على الفئات اللي اتغيرت أكتر وحدد هل محتاج تعدّل حد الصرف الأسبوع الجاي. أسبوع غالي بشكل غير معتاد ممكن يكون سببه ظرف لمرة واحدة؛ قارن كذا أسبوع قبل ما تعتبر إن عادة الصرف اتغيرت. الأرقام دي افتراضية ومش معيار لمصاريف الناس.'
+        ]},
+        { heading: 'تجنب حساب نفس الفلوس مرتين', paragraphs: [
+          'اختار طريقة ثابتة لتسجيل التحويلات بين حساباتك والكاش. مثلًا، نقل ٥٠٠ جنيه من الحساب البنكي للمحفظة مش عملية شراء في حد ذاته لو هتسجل بعد كده كل عملية صرف بالكاش. لو حسبت السحب والمشتريات مع بعض، هتكون حسبت نفس الفلوس مرتين.',
+          'مع كارت الائتمان، من الطرق الشائعة إنك تسجل كل عملية شراء كمصروف وقت ما تحصل، وبعدها تعتبر دفع فاتورة الكارت تسوية للرصيد مش عملية شراء جديدة. الفئات المتاحة بتختلف من أداة للتانية، فالمهم تثبت على طريقة واحدة وتتأكد إن الإجماليات مش بتكرر التحويلات أو السداد.'
         ]}
       ]
     },
@@ -185,6 +217,17 @@ const guides: Record<GuideSlug, {
         ]},
         { heading: '6. Celebrate progress and update the plan', paragraphs: [
           'Check the balance once a month and note how much closer you are to the target. Update the expected cost if prices change, and adjust contributions when your income changes. A plan that adapts is more likely to last.'
+        ]},
+        { heading: 'A worked example with no assumed investment return', paragraphs: [
+          'Suppose your goal costs EGP 6,000 and you have already set aside EGP 1,500. If you have nine months left, the remaining amount is EGP 4,500; dividing it by nine gives a starting contribution of EGP 500 per month. This simple calculation does not include price changes, fees, interest or investment returns. It is a planning estimate, not a promise that the final cost will stay the same.',
+          'If EGP 500 does not fit after essential bills, reduce the monthly amount and extend the date, or look again at the target cost. Recalculate when you add money or when the expected price changes. Do not borrow or skip essentials just to keep the original date.'
+        ]},
+        { heading: 'If you are saving for more than one thing', paragraphs: [
+          'List each goal, its expected cost, how much you have already set aside and when you might need the money. Separate urgent essentials from optional purchases and compare the dates before dividing your available saving amount. You may choose to pause a lower-priority goal temporarily rather than spreading a small amount so thinly that none of the plans feels achievable.',
+          'Keep enough accessible money for near-term needs before committing everything to longer-term goals. The right order depends on your own bills, income stability and responsibilities; there is no universal percentage or priority list that suits everyone.'
+        ]},
+        { heading: 'What a tracking goal does and does not do', paragraphs: [
+          'A goal tracker records a target and the progress you enter. It does not automatically transfer money, reserve cash in a bank account or protect the balance from everyday spending. If you want the money to be physically separate, use an account or other arrangement you control and understand, then update the tracker to match what you have actually set aside.'
         ]}
       ],
       ar: [
@@ -205,6 +248,17 @@ const guides: Record<GuideSlug, {
         ]},
         { heading: '٦. تابع التقدم وعدل الخطة', paragraphs: [
           'راجع المبلغ مرة كل شهر وسجل قربك من الهدف. عدل التكلفة المتوقعة لو الأسعار اتغيرت، وعدل المساهمة لو دخلك اتغير. الخطة المرنة فرصتها أكبر إنها تستمر.'
+        ]},
+        { heading: 'مثال عملي من غير افتراض عائد استثماري', paragraphs: [
+          'افترض إن هدفك تكلفته ٦,٠٠٠ جنيه، ومعاك بالفعل ١,٥٠٠ جنيه مخصصين له. لو فاضل تسعة شهور، يبقى المتبقي ٤,٥٠٠ جنيه؛ لما تقسمه على تسعة، يطلع مبلغ مبدئي ٥٠٠ جنيه كل شهر. الحساب ده مش بيشمل تغيّر الأسعار أو الرسوم أو الفوايد أو عائد الاستثمار. هو تقدير للتخطيط، مش ضمان إن التكلفة هتفضل زي ما هي.',
+          'لو مبلغ ٥٠٠ جنيه مش مناسب بعد الفواتير والاحتياجات الأساسية، قلل المبلغ الشهري ومد الموعد، أو راجع تكلفة الهدف. أعد الحساب لما تضيف مبلغ أو السعر المتوقع يتغير. ما تستلفش أو تأخر احتياجات أساسية لمجرد الالتزام بالموعد القديم.'
+        ]},
+        { heading: 'لو بتدخر لأكتر من هدف', paragraphs: [
+          'اكتب كل هدف وتكلفته المتوقعة والمبلغ اللي جمعته بالفعل والموعد اللي ممكن تحتاج فيه الفلوس. فرق بين الاحتياجات الضرورية والمشتريات الاختيارية، وقارن المواعيد قبل ما توزع مبلغ الادخار المتاح. ممكن توقف هدف أقل أولوية مؤقتًا بدل ما توزع مبلغ صغير على أهداف كتير من غير ما تحس بتقدم واضح.',
+          'احتفظ بمبلغ تقدر توصل له للاحتياجات القريبة قبل ما تربط كل فلوسك بأهداف بعيدة. ترتيب الأولويات المناسب بيتوقف على فواتيرك واستقرار دخلك ومسؤولياتك؛ مفيش نسبة أو قائمة واحدة تناسب كل الناس.'
+        ]},
+        { heading: 'أداة متابعة الهدف بتعمل إيه ومش بتعمل إيه', paragraphs: [
+          'متابعة الهدف بتسجل المبلغ المطلوب والتقدم اللي بتدخله بنفسك. هي مش بتحوّل فلوس تلقائيًا، ولا بتحجز مبلغ في حساب بنكي، ولا بتحمي الرصيد من الصرف اليومي. لو عايز تفصل الفلوس فعليًا، استخدم حساب أو وسيلة تانية تحت سيطرتك وفاهم شروطها، وبعدها حدّث المتابعة عشان تطابق المبلغ اللي خصصته فعلًا.'
         ]}
       ]
     },
