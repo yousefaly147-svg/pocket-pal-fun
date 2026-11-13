@@ -201,3 +201,49 @@ describe("guide article structured data", () => {
     expect(article).not.toHaveProperty("review");
   });
 });
+
+
+describe("practical guide content", () => {
+  it("keeps worked examples and practical decision steps in both guide languages", () => {
+    const guide = readFileSync(resolve(process.cwd(), "src/components/pocket/guide-article-page.tsx"), "utf8");
+
+    for (const phrase of [
+      "A worked monthly plan",
+      "When income changes from month to month",
+      "Avoid counting the same money twice",
+      "A worked example with no assumed investment return",
+      "What a tracking goal does and does not do",
+      "مثال عملي لميزانية شهرية",
+      "لو دخلك بيتغير من شهر للتاني",
+      "تجنب حساب نفس الفلوس مرتين",
+      "مثال عملي من غير افتراض عائد استثماري",
+      "أداة متابعة الهدف بتعمل إيه ومش بتعمل إيه",
+      "These guides were prepared to help Pocketjr users",
+      "الأمثلة والأرقام المذكورة افتراضية للتوضيح",
+      "Last updated: 13 November 2026",
+      "آخر تحديث: 13 نوفمبر 2026",
+    ]) {
+      expect(guide).toContain(phrase);
+    }
+  });
+
+  it("explains the EGP calculator formula, worked example and limitations in both languages", () => {
+    const calculator = readFileSync(
+      resolve(process.cwd(), "src/components/pocket/egp-budget-calculator.tsx"),
+      "utf8",
+    );
+
+    for (const phrase of [
+      "How the calculation works",
+      "A fictional worked example",
+      "What this calculator does not estimate",
+      "Remaining = 10,000",
+      "طريقة الحساب خطوة بخطوة",
+      "مثال حسابي افتراضي",
+      "حدود الحاسبة",
+      "ومش بتسحب بيانات من حسابك البنكي",
+    ]) {
+      expect(calculator).toContain(phrase);
+    }
+  });
+});

@@ -118,6 +118,35 @@ export function EGPBudgetCalculator() {
           </p>
         </section>
 
+        <section className="public-guide-article" aria-labelledby="egp-method-heading">
+          <h2 id="egp-method-heading">{ar ? 'طريقة الحساب خطوة بخطوة' : 'How the calculation works'}</h2>
+          <p>{ar
+            ? 'المتبقي بعد المصاريف والادخار = الدخل الشهري بعد الخصومات − المصاريف الثابتة − الصرف المرن − الادخار المخطط. الحاسبة بتستخدم الأرقام اللي تدخلها أنت، ومش بتسحب بيانات من حسابك البنكي.'
+            : 'Remaining after expenses and savings = take-home monthly income − fixed expenses − flexible spending − planned savings. The calculator uses only the amounts you enter; it does not read your bank account.'}</p>
+          <ol>
+            <li>{ar
+              ? 'اكتب الدخل المتوقع استلامه فعلًا بعد الخصومات، مش الراتب قبل الخصم أو مكافأة لسه ما وصلتش.'
+              : 'Enter the income you expect to receive after deductions, not gross pay or a bonus that has not arrived.'}</li>
+            <li>{ar
+              ? 'اجمع الالتزامات الثابتة زي الإيجار والفواتير والأقساط، وبعدها قدّر الصرف المرن زي الأكل والمواصلات والمشتريات.'
+              : 'Add fixed commitments such as rent, bills and instalments, then estimate flexible spending such as food, transport and personal purchases.'}</li>
+            <li>{ar
+              ? 'اكتب مبلغ الادخار اللي تقدر تخصصه من غير ما تتأخر عن الاحتياجات الأساسية.'
+              : 'Enter a savings amount you can set aside without falling behind on essential costs.'}</li>
+            <li>{ar
+              ? 'راجع المتبقي. لو بالسالب، فخطتك أعلى من الدخل بالمبلغ الظاهر؛ عدّل البنود أو موعد الهدف بدل ما تتجاهل العجز.'
+              : 'Review the remainder. If it is negative, your plan exceeds income by the displayed amount; adjust the categories or goal timeline instead of ignoring the shortfall.'}</li>
+          </ol>
+          <h3>{ar ? 'مثال حسابي افتراضي' : 'A fictional worked example'}</h3>
+          <p>{ar
+            ? 'لو دخلك بعد الخصومات ١٠,٠٠٠ جنيه، ومصاريفك الثابتة ٤,٥٠٠ جنيه، والصرف المرن ٣,٠٠٠ جنيه، والادخار المخطط ٥٠٠ جنيه: المتبقي = ١٠,٠٠٠ − ٤,٥٠٠ − ٣,٠٠٠ − ٥٠٠ = ٢,٠٠٠ جنيه. راجع هل المبلغ ده محتاج يغطي فواتير سنوية أو صيانة أو مصاريف غير منتظمة قبل اعتباره متاحًا.'
+            : 'Suppose take-home income is EGP 10,000, fixed expenses are EGP 4,500, flexible spending is EGP 3,000 and planned savings are EGP 500. Remaining = 10,000 − 4,500 − 3,000 − 500 = EGP 2,000. Check whether this amount still needs to cover annual bills, repairs or other irregular costs before treating it as available.'}</p>
+          <h3>{ar ? 'حدود الحاسبة' : 'What this calculator does not estimate'}</h3>
+          <p>{ar
+            ? 'الأرقام تقديراتك أنت، والحاسبة مش بتتوقع الأسعار أو الدخل المستقبلي، ومش بتقارن إنفاقك بمتوسطات الناس. أدخل كل المبالغ بالجنيه المصري. الأداة للتخطيط العام فقط وليست نصيحة مالية.'
+            : 'The figures are your estimates. The calculator does not forecast prices or future income, and it does not compare your spending with other households. Enter every amount in Egyptian pounds. This is a general planning tool, not financial advice.'}</p>
+        </section>
+
         <p className="egp-calculator-privacy">
           {ar
             ? 'الحاسبة لا تحفظ الأرقام التي تدخلها؛ إعادة تحميل الصفحة تمسحها.'
