@@ -402,6 +402,7 @@ export const ar: Record<TKey, string> = {
   'landing.navAria': 'القائمة الرئيسية',
   'landing.navFeatures': 'المميزات',
   'landing.navHow': 'طريقة الاستخدام',
+  'landing.navGuides': 'الأدلة والأدوات',
   'landing.eyebrow': 'طريقة ألطف لإدارة فلوسك',
   'landing.heroTitle': 'Pocketjr Finance',
   'landing.heroHighlight': 'لتتبع مصاريفك وتنظيم ميزانيتك بسهولة.',
