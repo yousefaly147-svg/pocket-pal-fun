@@ -109,6 +109,16 @@ describe("homepage structured data", () => {
   });
 });
 
+describe("homepage resource navigation", () => {
+  it("links directly to public guides from the main navigation in both languages", () => {
+    const landing = readFileSync(resolve(process.cwd(), "src/components/pocket/landing-page.tsx"), "utf8");
+    expect(landing).toContain("pagePath('/guides')");
+    expect(landing).toContain("t('landing.navGuides')");
+    expect(en["landing.navGuides"]).toBe("Guides & tools");
+    expect(ar["landing.navGuides"]).toBe("الأدلة والأدوات");
+  });
+});
+
 describe("bilingual public homepage explanation", () => {
   it("includes substantive and balanced product details in English and Arabic", () => {
     for (const dictionary of [en, ar]) {
