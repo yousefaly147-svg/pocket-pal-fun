@@ -318,6 +318,15 @@ export function GuideArticlePage({ slug }: { slug: GuideSlug }) {
             </>
           )}
         </section>
+        <section className="public-guide-method" aria-labelledby="guide-method-heading">
+          <h2 id="guide-method-heading">{ar ? 'عن الدليل والأمثلة' : 'About this guide and its examples'}</h2>
+          <p>{ar
+            ? 'أُعدّت الأدلة دي لمساعدة مستخدمي Pocketjr على فهم خطوات التخطيط وطريقة الحساب في الأدوات المرتبطة بيها. الأمثلة والأرقام المذكورة افتراضية للتوضيح، ومش سجلات مستخدمين أو متوسطات إنفاق أو توصيات مالية. راجع ظروفك وأرقامك قبل اتخاذ أي قرار.'
+            : 'These guides were prepared to help Pocketjr users understand the planning steps and calculations behind the related tools. The examples and amounts are fictional illustrations, not user records, spending averages or financial recommendations. Check your own circumstances and figures before making a decision.'}</p>
+          <p>{ar
+            ? <>لو لاحظت خطأ في الشرح أو الحساب، ابعت ملاحظتك على <a href="mailto:yousefaly147@gmail.com">yousefaly147@gmail.com</a>. آخر تحديث: 13 نوفمبر 2026.</>
+            : <>For a correction or question about the explanation or calculations, email <a href="mailto:yousefaly147@gmail.com">yousefaly147@gmail.com</a>. Last updated: 13 November 2026.</>}</p>
+        </section>
         <p className="public-content-note">{ar ? guide.takeaway.ar : guide.takeaway.en}</p>
         <p className="public-content-note">
           {ar
