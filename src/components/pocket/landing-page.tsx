@@ -47,6 +47,7 @@ export function LandingPage() {
         <nav className="landing-links" aria-label={t('landing.navAria')}>
           <a href="#features">{t('landing.navFeatures')}</a>
           <a href="#how-it-works">{t('landing.navHow')}</a>
+          <a href={pagePath('/guides')}>{t('landing.navGuides')}</a>
         </nav>
         <div className="landing-nav-actions">
           <LangToggle />
