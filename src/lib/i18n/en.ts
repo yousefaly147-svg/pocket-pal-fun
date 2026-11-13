@@ -400,6 +400,7 @@ export const en = {
   'landing.navAria': 'Main navigation',
   'landing.navFeatures': 'Features',
   'landing.navHow': 'How it works',
+  'landing.navGuides': 'Guides & tools',
   'landing.eyebrow': 'A friendlier way to manage money',
   'landing.heroTitle': 'Pocketjr Finance',
   'landing.heroHighlight': 'your free expense tracker and budget planner.',
